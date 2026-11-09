@@ -22,6 +22,7 @@ from pydantic import BaseModel, Field
 
 from backend import family as fam
 from backend import gnani
+from backend.check import check_text
 from backend.pack import build_pack, pick_caller
 from backend.risk import CallRisk
 from backend.scripts import SAFE, SCAM
@@ -94,6 +95,16 @@ def score(body: ScoreRequest, x_ruko_key: str = Header("")):
     for line in body.lines:
         state = risk.feed(line[:2000])
     return {k: state[k] for k in ("level", "score", "flags", "playbook")}
+
+
+class CheckRequest(BaseModel):
+    text: str = Field(min_length=1, max_length=4000)
+
+
+@app.post("/api/check")
+def check(body: CheckRequest):
+    """Check a message, link, UPI request or number (no audio, nothing stored)."""
+    return check_text(body.text)
 
 
 @app.get("/api/warning")

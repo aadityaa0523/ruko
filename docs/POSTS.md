@@ -47,7 +47,7 @@ Only use a personal story if it's true. Misleading demos and claims are banned.
 >
 > Built with: Gnani Prisma v3.0 (Realtime, Batch diarization, REST) + Timbre v2.5/v3.0
 > Free for the person on the call; Family Shield ₹49/month; an API for banks and telcos. Pilot waitlist open.
-> Demo: [link] · Code: [link]
+> Try it: [Render link] · Code: https://github.com/aadityaa0523/ruko
 >
 > Share it with one person whose parents live alone.
 >
@@ -60,7 +60,7 @@ Only use a personal story if it's true. Misleading demos and claims are banned.
 > ₹1,935 Cr lost to digital-arrest calls in 2024.
 > Ruko listens to the call, spots the scam and warns you out loud in Kannada / Telugu / Hindi, then writes your 1930 complaint.
 > Works on speaker with any phone. Built on @GnaniAI Prisma + Timbre.
-> [video] [link]
+> [attach docs/ruko-demo.mp4] https://github.com/aadityaa0523/ruko
 > #GnaniAI #GreatIndianAIInternshipChallenge
 
 ---

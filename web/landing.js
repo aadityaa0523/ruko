@@ -2,7 +2,7 @@
 window.STRINGS = {
   en: {},
   hi: {
-    nav_how: "कैसे काम करता है", nav_family: "परिवार", nav_proof: "सबूत", nav_biz: "बैंकों के लिए", login: "लॉग इन",
+    nav_check: "संदेश जाँचें", nav_how: "कैसे काम करता है", nav_family: "परिवार", nav_proof: "सबूत", nav_biz: "बैंकों के लिए", login: "लॉग इन",
     cta: "मम्मी-पापा को सुरक्षित करें",
     h1a: "आगे धोखा है।", h1b: "Ruko पहले ही चेतावनी देता है।",
     lede: "Ruko आपके मम्मी-पापा की कॉल सुनता है, धोखे को होते हुए पहचानता है, और ठग की अगली चाल से पहले उनकी भाषा में ज़ोर से चेतावनी देता है। उसी पल आपका फ़ोन भी लाल हो जाता है।",
@@ -56,6 +56,7 @@ function fillStatic() {
   for (const el of document.querySelectorAll("[data-sign]")) el.innerHTML = signSVG(el.dataset.sign);
   for (const el of document.querySelectorAll("[data-oct]")) el.innerHTML = octagonSVG();
   $("dStop").innerHTML = octagonSVG();
+  for (const el of document.querySelectorAll(".sd-oct")) el.innerHTML = octagonSVG("STOP");
   $("dCaptions").dataset.empty = t("empty");
   if (!playing) renderStages($("dStages"), lastBook);
 }

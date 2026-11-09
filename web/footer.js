@@ -12,7 +12,7 @@
         <p>Scam-call guard for Indian families. Lost money to a call? Call <a href="tel:1930"><b>1930</b></a> now, or report at <a href="https://cybercrime.gov.in" target="_blank" rel="noopener">cybercrime.gov.in</a>.</p>
       </div>
       <nav class="sf-cols" aria-label="Footer">
-        <div><h2>Product</h2><a href="/app/">Open Ruko</a><a href="/account/">Family account</a><a href="/#how">How it works</a><a href="/#proof">Test results</a></div>
+        <div><h2>Product</h2><a href="/check/">Check a message</a><a href="/app/">Call guard</a><a href="/account/">Family account</a><a href="/#how">How it works</a><a href="/#proof">Test results</a></div>
         <div><h2>For partners</h2><a href="/#business">Banks and telcos</a><a href="/#business">Scoring API</a><a href="/contact/">Pilot enquiries</a></div>
         <div><h2>Legal</h2><a href="/privacy/">Privacy policy</a><a href="/terms/">Terms of use</a><a href="/licenses/">Licences</a><a href="/contact/">Contact and grievances</a></div>
       </nav>

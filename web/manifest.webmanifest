@@ -8,8 +8,65 @@
   "background_color": "#efeee8",
   "theme_color": "#26282b",
   "icons": [
-    {"src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"},
-    {"src": "/icon-192.png", "sizes": "192x192", "type": "image/png"},
-    {"src": "/icon-512.png", "sizes": "512x512", "type": "image/png"}
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "share_target": {
+    "action": "/check/",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "shortcuts": [
+    {
+      "name": "Check a message",
+      "short_name": "Check",
+      "url": "/check/",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Protect a call",
+      "short_name": "Call guard",
+      "url": "/app/",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Family account",
+      "short_name": "Family",
+      "url": "/account/",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
   ]
 }

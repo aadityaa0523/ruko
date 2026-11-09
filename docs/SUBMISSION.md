@@ -30,6 +30,8 @@ Elders living alone, farmers, kirana shop owners and first-time digital users, w
    - a family alert as text and voice;
    - a Caller/You timeline from Prisma Batch diarization.
    Call audio is deleted after the voices are separated.
+7. **Check anything, every day:** paste or share (Android Share menu) any SMS, WhatsApp forward, link, UPI collect request or number. Ruko gives a verdict with reasons in seconds (lookalike bank domains, APK files, link shorteners, "call our officer" numbers, refund tricks), predicts the scammer's next step, and makes a one-tap WhatsApp warning for the family.
+   **Community number reports and Scam Radar:** anyone can report a scam number anonymously; anyone can look a number up; a live radar shows this week's scams by type.
 7. **Voice-note check:** upload a suspicious WhatsApp voice note or recording (up to 30 s).
 8. **Partner API** (`POST /v1/score`): banks, UPI apps and telcos send transcript lines and get the level, flags and playbook back, e.g. to hold a large transfer while the customer is mid-scam.
 9. **Phone-line mode for keypad phones:** merge the call with Ruko's number. Ruko hears the 8 kHz phone audio and speaks the warning *into the call*, plus a one-time notice to the caller.
@@ -74,6 +76,6 @@ Solo build: product, backend, Gnani integration, risk engine, telephony, design,
 
 ## Links
 - Live demo: [Render URL]
-- Code: [GitHub URL]
-- Video: [link]
+- Code: https://github.com/aadityaa0523/ruko
+- Video: docs/ruko-demo.mp4 in the repo (also attached to the posts)
 - Nominated posts: [LinkedIn URL] · [X URL]

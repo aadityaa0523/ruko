@@ -26,6 +26,24 @@
         "value": "cascadia mono",
         "createdAt": "2026-11-09T14:12:52.206Z",
         "reason": "agent: system monospace fallback used only for the API code sample and complaint text, real code/data per craft floor"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "web/account/account.css"
+        ],
+        "createdAt": "2026-11-09T15:19:07.924Z",
+        "reason": "agent verified: line 26 is a rotated L-shaped checkmark glyph (.ticks-dark li::before), not a card side border"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "web/account/index.html"
+        ],
+        "createdAt": "2026-11-09T15:19:08.417Z",
+        "reason": "agent verified in render: auth plate and dashboard panels have 22-44px padding"
       }
     ]
   }

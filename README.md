@@ -18,6 +18,7 @@ Open http://localhost:8870. The browser only lets a page use the microphone on l
 - `/`: landing page (problem, how it works, Family Shield, business, pricing, pilot waitlist, live demo of the scoring).
 - `/app/`: the guard. One tap to protect a call, live captions, the scam-step tracker, red alert, golden-hour pack, sample calls, voice-note check.
 - `/family/?c=<code>&n=<name>`: Family Shield. Turns red live when the protected person's call becomes a scam. The link is made in the app (Family Shield button).
+- `/check/`: check any SMS, WhatsApp message, link, UPI request or number (`POST /api/check`, rules only, nothing stored); community number lookup and reports (Supabase `number_reports`, `number_lookup` RPC); Scam Radar (`scam_radar` RPC). Installed on Android, Ruko appears in the Share menu (Web Share Target) and opens here.
 - `/account/`: family account (Supabase Auth, email + password). Add the people you protect, send each one a setup link (`/app/?f=<code>&n=<name>`), watch them live, see the alert history, delete your data.
 - `/privacy/`, `/terms/`, `/licenses/`, `/contact/`: trust pages; contact and pilot forms write to Supabase `leads`.
 - `POST /v1/score` (header `X-Ruko-Key`): partner API returning `level`, `score`, `flags` and `playbook` for transcript lines. Keys come from `RUKO_PARTNER_KEYS`; the key `demo` works for up to 20 lines.

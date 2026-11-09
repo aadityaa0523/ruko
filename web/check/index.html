@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ruko · Check a message, link or number</title>
+<meta name="description" content="Paste any SMS, WhatsApp message, link, UPI request or phone number. Ruko tells you in seconds if it is a scam, and what the scammer will do next.">
+<meta name="theme-color" content="#26282b">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="stylesheet" href="/ruko.css?v=28">
+<link rel="stylesheet" href="check.css?v=28">
+</head>
+<body>
+<header class="bar">
+  <div class="bar-row">
+    <a class="logo" href="/" aria-label="Ruko home"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M30 2h40l28 28v40L70 98H30L2 70V30z" fill="#c8102e"/><path d="M31.7 9h36.6L91 31.7v36.6L68.3 91H31.7L9 68.3V31.7z" fill="none" stroke="#fff" stroke-width="5"/></svg>Ruko</a>
+    <nav class="bar-nav" aria-label="Ruko"><a href="/check/" aria-current="page" data-i18n="nav_check">Check</a><a href="/app/" data-i18n="nav_guard">Call guard</a><a href="/account/" data-i18n="nav_family">Family</a></nav>
+    <div class="lang-toggle" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true"><span>EN</span></button><button type="button" data-lang="hi" aria-pressed="false"><span>हिं</span></button></div>
+  </div>
+</header>
+
+<main class="chk">
+  <section class="ask">
+    <h1 data-i18n="h1">Is this a scam?</h1>
+    <p class="muted" data-i18n="sub">Paste any SMS, WhatsApp message, link, UPI request or phone number. Ruko answers in seconds and tells you what the scammer will try next.</p>
+    <form id="form">
+      <label class="sr" for="text" data-i18n="field">Message, link or number</label>
+      <textarea id="text" maxlength="4000" required data-i18n-ph="ph" placeholder="e.g. “Your electricity will be cut tonight. Call officer 98765 43210”"></textarea>
+      <div class="ask-row">
+        <button class="btn btn-plain" id="paste" type="button" data-i18n="paste">Paste</button>
+        <button class="btn btn-primary" id="go" type="submit" data-i18n="check">Check it</button>
+      </div>
+      <p class="small muted" data-i18n="private">Nothing you paste is stored. Phone numbers are only saved if you choose to report them.</p>
+    </form>
+    <div class="samples"><span class="small muted" data-i18n="try">Try:</span> <button type="button" class="chip" data-sample="0">Electricity cut SMS</button><button type="button" class="chip" data-sample="1">KYC link</button><button type="button" class="chip" data-sample="2">“Sent by mistake”</button><button type="button" class="chip" data-sample="3">Real bank OTP</button></div>
+  </section>
+
+  <section class="result" id="result" hidden aria-live="polite">
+    <div class="verdict" id="verdict"><div class="v-sign" id="vSign"></div><div><p class="v-word" id="vWord"></p><p class="v-score" id="vScore"></p></div></div>
+    <p class="advice" id="advice"></p>
+    <p class="ahead" id="nextBox"><svg viewBox="0 0 26 26" aria-hidden="true"><path d="M13 2 25 23H1z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><rect x="11.8" y="9" width="2.4" height="8" fill="currentColor"/><circle cx="13" cy="19.6" r="1.4" fill="currentColor"/></svg><span id="next"></span></p>
+    <h2 data-i18n="why">Why</h2>
+    <ul class="reasons" id="reasons"></ul>
+    <div id="linksBox" hidden><h2 data-i18n="links">Links in it</h2><ul class="links" id="links"></ul></div>
+    <div id="numsBox" hidden><h2 data-i18n="numbers">Phone numbers in it</h2><ul class="nums" id="nums"></ul></div>
+    <div class="row">
+      <a class="btn btn-primary" id="share" target="_blank" rel="noopener" data-i18n="share">Warn your family on WhatsApp</a>
+      <a class="btn btn-danger" href="tel:1930" data-i18n="lost">Lost money? Call 1930</a>
+    </div>
+  </section>
+
+  <section class="panel lookup" id="lookup">
+    <h2 data-i18n="lookup_h">Look up or report a number</h2>
+    <form id="numForm" class="num-form">
+      <label class="field"><span data-i18n="number">Phone number</span><input id="num" inputmode="tel" maxlength="16" required placeholder="98765 43210"></label>
+      <button class="btn btn-plain" type="submit" data-i18n="lookup">Look up</button>
+    </form>
+    <div id="numResult" class="num-result" hidden></div>
+    <form id="repForm" class="rep-form" hidden>
+      <label class="field"><span data-i18n="what">What did they do?</span>
+        <select id="repCat">
+          <option value="digital_arrest">Fake police / CBI / “digital arrest”</option>
+          <option value="bank_kyc">Bank, KYC or card block</option>
+          <option value="electricity">Electricity or bill cut-off</option>
+          <option value="parcel">Parcel, courier or customs</option>
+          <option value="refund">“Sent money by mistake” / refund</option>
+          <option value="relative">Relative in trouble / accident</option>
+          <option value="job">Job, task or investment offer</option>
+          <option value="prize">Prize, lottery or reward</option>
+          <option value="loan">Loan or loan recovery threats</option>
+          <option value="other">Something else</option>
+        </select>
+      </label>
+      <label class="field"><span data-i18n="how">How did they reach you?</span>
+        <select id="repCh"><option value="call">Phone call</option><option value="sms">SMS</option><option value="whatsapp">WhatsApp</option></select>
+      </label>
+      <button class="btn btn-danger" type="submit" data-i18n="report">Report this number</button>
+      <p class="small muted" data-i18n="rep_note">Reports are anonymous. Only the number and the scam type are saved, never who reported it.</p>
+    </form>
+    <p class="form-msg" id="repMsg" role="status"></p>
+  </section>
+
+  <section class="panel radar" id="radar">
+    <div class="radar-head"><h2 data-i18n="radar_h">Scam Radar · this week</h2><span class="small muted" data-i18n="radar_src">From Ruko users' reports and live-call alerts</span></div>
+    <ol class="radar-list" id="radarList"></ol>
+  </section>
+</main>
+
+<footer id="siteFooter"></footer>
+<script src="/config.js?v=28"></script>
+<script src="/ruko.js?v=28"></script>
+<script src="/footer.js?v=28"></script>
+<script src="check.js?v=28"></script>
+</body>
+</html>

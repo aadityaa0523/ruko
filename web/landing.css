@@ -71,6 +71,34 @@
   background: var(--bg); color: var(--text); color-scheme: light; }
 .proof { background: var(--surface); }
 
+/* USP comparison */
+.usp, .daily { padding: clamp(64px, 9vw, 112px) 0; }
+.usp { --bg: var(--sign-2); --surface: var(--sign); --text: var(--ink); --muted: var(--ink-2); --line: #cfcdc4; background: var(--surface); color: var(--text); color-scheme: light; }
+.cmp-wrap { overflow-x: auto; margin-top: 36px; }
+.cmp { width: 100%; min-width: 640px; border-collapse: collapse; font-size: .95rem; }
+.cmp th, .cmp td { text-align: left; padding: 14px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.cmp thead th { font-size: .85rem; color: var(--muted); border-bottom: 2px solid var(--text); }
+.cmp tbody th { font-weight: 700; }
+.cmp .us { background: #fff6d6; font-weight: 800; }
+.cmp thead .us { background: var(--yellow); color: var(--ink); }
+.cmp td.no { color: #8a8c90; }
+.cmp td.yes::before { content: ""; display: inline-block; width: 11px; height: 6px; border-left: 3px solid var(--safe); border-bottom: 3px solid var(--safe); transform: rotate(-45deg) translateY(-3px); margin-right: 8px; }
+/* Daily use: a message shared into Ruko */
+.daily { background: var(--asphalt); color: var(--sign); }
+.daily .section-lede { color: #cfcec7; }
+.daily-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+@media (max-width: 900px) { .daily-grid { grid-template-columns: minmax(0, 1fr); } }
+.btn-ghost-dark { color: var(--sign); border-color: #6d7177; }
+.btn-ghost-dark:hover { border-color: var(--sign); }
+.share-demo { max-width: 400px; justify-self: center; width: 100%; display: grid; gap: 12px; }
+.sd-msg { margin: 0; background: #2f3236; border-radius: 14px 14px 14px 4px; padding: 14px 16px; line-height: 1.45; color: #ecebe5; }
+.sd-share { margin: 0; text-align: right; font-weight: 700; color: #b9b8b0; }
+.sd-share b { color: var(--yellow); }
+.sd-verdict { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 14px; align-items: center; background: var(--stop); color: #fff; border-radius: 8px; padding: 14px; }
+.sd-verdict b { display: block; font-size: 1.6rem; font-weight: 900; }
+.sd-verdict small { display: block; font-weight: 600; opacity: .95; line-height: 1.35; }
+.sd-oct svg { width: 64px; height: auto; display: block; }
+
 /* Sections */
 section h2 { font-size: clamp(2rem, 4.4vw, 3.2rem); letter-spacing: -0.03em; max-width: 20ch; }
 .section-lede { font-size: 1.12rem; line-height: 1.6; max-width: 60ch; color: var(--muted); margin: 18px 0 0; }
@@ -158,5 +186,6 @@ section h2 { font-size: clamp(2rem, 4.4vw, 3.2rem); letter-spacing: -0.03em; max
 .foot .muted { color: #a7a69f; }
 
 /* mobile overrides placed last so they win over the base road rules */
+@media (min-width: 521px) and (max-width: 900px) { .road { order: 0; max-width: 520px; width: 100%; justify-self: center; } }
 @media (max-width: 900px) { .road { min-height: 0; } .road-signs { padding-bottom: 6px; } }
 @media (max-width: 900px) { .road-signs { padding-inline: 9%; } .road-signs li span { text-shadow: 0 0 3px var(--asphalt), 0 0 6px var(--asphalt); } }

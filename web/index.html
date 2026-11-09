@@ -8,14 +8,14 @@
 <meta name="theme-color" content="#26282b">
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
-<link rel="stylesheet" href="/ruko.css?v=27">
-<link rel="stylesheet" href="/landing.css?v=27">
+<link rel="stylesheet" href="/ruko.css?v=28">
+<link rel="stylesheet" href="/landing.css?v=28">
 </head>
 <body>
 <header class="nav">
   <div class="wrap nav-row">
     <a class="logo" href="/" aria-label="Ruko home"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M30 2h40l28 28v40L70 98H30L2 70V30z" fill="#c8102e"/><path d="M31.7 9h36.6L91 31.7v36.6L68.3 91H31.7L9 68.3V31.7z" fill="none" stroke="#fff" stroke-width="5"/></svg>Ruko</a>
-    <nav aria-label="Sections"><a href="#how" data-i18n="nav_how">How it works</a><a href="#family" data-i18n="nav_family">Family</a><a href="#proof" data-i18n="nav_proof">Proof</a><a href="#business" data-i18n="nav_biz">For banks</a></nav>
+    <nav aria-label="Sections"><a href="/check/" data-i18n="nav_check">Check a message</a><a href="#how" data-i18n="nav_how">How it works</a><a href="#family" data-i18n="nav_family">Family</a><a href="#proof" data-i18n="nav_proof">Proof</a><a href="#business" data-i18n="nav_biz">For banks</a></nav>
     <div class="lang-toggle" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true"><span>EN</span></button><button type="button" data-lang="hi" aria-pressed="false"><span>हिं</span></button></div>
     <a class="nav-login" href="/account/" data-i18n="login">Log in</a>
     <a class="btn btn-primary nav-cta" href="/account/?new=1" data-i18n="cta">Protect my parents</a>
@@ -94,6 +94,44 @@
     </div>
   </section>
 
+
+  <section class="usp" id="why">
+    <div class="wrap">
+      <h2 data-i18n="usp_h">Caller ID tells you who is calling. Ruko tells you what they're trying to do.</h2>
+      <p class="section-lede" data-i18n="usp_p">Scammers buy a new SIM every day, so number lists are always a step behind. The script never changes. Ruko reads the script, in your language, on any phone, and brings your family in.</p>
+      <div class="cmp-wrap">
+      <table class="cmp">
+        <thead><tr><th scope="col"></th><th scope="col" class="us">Ruko</th><th scope="col">Caller-ID apps</th><th scope="col">Phone-maker AI</th><th scope="col">Telco spam filters</th></tr></thead>
+        <tbody>
+          <tr><th scope="row" data-i18n="u1">Understands what the caller says</th><td class="us yes">Yes</td><td class="no">No, checks the number</td><td class="yes">Yes</td><td class="no">No</td></tr>
+          <tr><th scope="row" data-i18n="u2">Warns before the scammer's next move</th><td class="us yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
+          <tr><th scope="row" data-i18n="u3">Works on keypad phones</th><td class="us yes">Yes (in testing)</td><td class="no">No</td><td class="no">No</td><td class="yes">Labels only</td></tr>
+          <tr><th scope="row" data-i18n="u4">Hindi, Kannada, Telugu, Tamil, Hinglish</th><td class="us yes">Yes</td><td>Partly</td><td class="no">Hindi and English</td><td>n/a</td></tr>
+          <tr><th scope="row" data-i18n="u5">Family's phone turns red live</th><td class="us yes">Yes</td><td>Number-based alerts</td><td class="no">No</td><td class="no">No</td></tr>
+          <tr><th scope="row" data-i18n="u6">Checks SMS, WhatsApp, links, UPI requests</th><td class="us yes">Yes</td><td>Partly</td><td>Partly</td><td class="no">No</td></tr>
+          <tr><th scope="row" data-i18n="u7">1930 complaint ready after the call</th><td class="us yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="small muted" data-i18n="usp_note">Comparison of product categories as publicly described in 2026; individual products vary.</p>
+    </div>
+  </section>
+
+  <section class="daily">
+    <div class="wrap daily-grid">
+      <div>
+        <h2 data-i18n="daily_h">Use it every day, not just on the bad day</h2>
+        <p class="section-lede" data-i18n="daily_p">Most scams start as a message. Paste or share any SMS, WhatsApp forward, link, UPI request or number into Ruko and get an answer in seconds. Report a scam number and everyone who checks it is warned.</p>
+        <div class="hero-actions"><a class="btn btn-primary" href="/check/" data-i18n="daily_cta">Check a message now</a><a class="btn btn-ghost-dark" href="/check/#radar" data-i18n="radar_cta">See Scam Radar</a></div>
+      </div>
+      <div class="share-demo" aria-hidden="true">
+        <p class="sd-msg">Dear consumer, your electricity will be disconnected tonight at 9.30 PM. Contact our officer immediately 98765 43210</p>
+        <p class="sd-share">Share → <b>Ruko</b></p>
+        <div class="sd-verdict"><span class="sd-oct"></span><div><b>Scam</b><small>Threatens to cut your electricity, pushes you to call a private number</small></div></div>
+      </div>
+    </div>
+  </section>
+
   <section class="board-sec">
     <div class="wrap">
       <h2 data-i18n="feat_h">Everything a family needs against scam calls</h2>
@@ -103,6 +141,8 @@
         <div class="board-row" role="listitem"><span class="b-name" data-i18n="b3">Their language</span><span class="b-desc" data-i18n="b3d">Detects the caller's language and speaks the warning in it, slowly if needed.</span><span class="b-tag">6 languages</span></div>
         <div class="board-row" role="listitem"><span class="b-name" data-i18n="b4">Keypad phones</span><span class="b-desc" data-i18n="b4d">Merge the call with Ruko's number. The warning plays inside the call.</span><span class="b-tag">In testing</span></div>
         <div class="board-row" role="listitem"><span class="b-name" data-i18n="b5">1930 report</span><span class="b-desc" data-i18n="b5d">When the call ends: a ready complaint, who said what, and a button to call 1930.</span><span class="b-tag">2.5 s</span></div>
+        <div class="board-row" role="listitem"><span class="b-name" data-i18n="b7">Check anything</span><span class="b-desc" data-i18n="b7d">Share any SMS, WhatsApp message, link or UPI request to Ruko. Verdict in seconds.</span><span class="b-tag">Daily</span></div>
+        <div class="board-row" role="listitem"><span class="b-name" data-i18n="b8">Number reports</span><span class="b-desc" data-i18n="b8d">Look up any number. Report a scammer and everyone who checks it is warned.</span><span class="b-tag">Community</span></div>
         <div class="board-row" role="listitem"><span class="b-name" data-i18n="b6">Voice notes</span><span class="b-desc" data-i18n="b6d">Forwarded a strange WhatsApp voice note? Ruko checks it.</span><span class="b-tag">30 s clips</span></div>
       </div>
     </div>
@@ -171,9 +211,9 @@
 
 <footer id="siteFooter"></footer>
 
-<script src="/config.js?v=27"></script>
-<script src="/ruko.js?v=27"></script>
-<script src="/footer.js?v=27"></script>
-<script src="/landing.js?v=27"></script>
+<script src="/config.js?v=28"></script>
+<script src="/ruko.js?v=28"></script>
+<script src="/footer.js?v=28"></script>
+<script src="/landing.js?v=28"></script>
 </body>
 </html>
