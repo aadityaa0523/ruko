@@ -32,7 +32,7 @@ window.STRINGS = {
     choose_file: "पहले एक ऑडियो फ़ाइल चुनें।", checking: "Gnani Prisma से सुन रहा है…", no_calls: "अभी कोई कीपैड-फ़ोन कॉल नहीं।",
     cut_now: "अभी कॉल काटिए। कोई OTP न बताएँ, पैसे न भेजें।", heard: "Ruko ने सुना: ",
     empty: "कॉल के दौरान शब्द यहाँ दिखेंगे। धोखे वाले शब्द लाल होंगे।",
-    how_far: "धोखा कितना आगे बढ़ा", said: "कॉलर ने क्या कहा", hangup: "कॉल ख़त्म · मेरी रिपोर्ट बनाएँ",
+    how_far: "धोखा कितना आगे बढ़ा", said: "कॉलर ने क्या कहा", hangup: "कॉल ख़त्म: मेरी रिपोर्ट बनाएँ",
     golden: "एक घंटे के अंदर रिपोर्ट करें। जितनी जल्दी, पैसे रुकने की उतनी उम्मीद।", call1930: "अभी 1930 पर कॉल करें",
     complaint: "शिकायत, चिपकाने के लिए तैयार", fam_msg: "परिवार के लिए संदेश", play_it: "सुनाएँ", who: "किसने क्या कहा",
     try: "एक नमूना धोखा कॉल चलाएँ", nomic: "माइक्रोफ़ोन नहीं चाहिए", try_p: "एक लिखी हुई नक़ली कॉल Ruko से चलती है ताकि आप देख सकें क्या होता है।",
@@ -151,7 +151,7 @@ function alarm() {
   const r = lastRisk;
   $("toOct").innerHTML = octagonSVG();
   $("toReason").textContent = r?.playbook?.next || t("cut_now");
-  $("toFlags").textContent = r ? t("heard") + r.flags.map((f) => f.label).join(" · ") : "";
+  $("toFlags").textContent = r ? t("heard") + r.flags.map((f) => f.label).join(", ") : "";
   $("takeover").hidden = false;
   $("takeover").classList.remove("flash"); void $("takeover").offsetWidth; $("takeover").classList.add("flash");
   navigator.vibrate?.([500, 200, 500, 200, 500]);
@@ -360,7 +360,7 @@ $("clipCheck").onclick = async () => {
   if (d.error) return ($("clipResult").textContent = t("problem") + d.error);
   const verdict = { safe: "No scam signs", watch: "Be careful", high: "Likely a scam", critical: "This is a scam" }[d.risk.level];
   $("clipResult").textContent = `${verdict} (${d.risk.score}/100). Heard: “${d.transcript}”` +
-    (d.risk.playbook?.next ? " · " + d.risk.playbook.next : "") + (d.truncated ? " · Only the first 30 seconds were checked." : "");
+    (d.risk.playbook?.next ? ". " + d.risk.playbook.next : "") + (d.truncated ? ". Only the first 30 seconds were checked." : "");
 };
 
 // ---------- keypad-phone calls Ruko joined over the phone network
@@ -371,7 +371,7 @@ async function loadCalls() {
     const li = document.createElement("li");
     const b = document.createElement("button");
     b.type = "button"; b.className = "btn";
-    b.textContent = `${p.complaint.incident_datetime} · ${LEVEL[LANG][p.level]} (${p.score}/100)`;
+    b.textContent = `${p.complaint.incident_datetime}: ${LEVEL[LANG][p.level]} (${p.score}/100)`;
     b.onclick = () => { showPack(p); showTimeline({ error: "Ruko warned inside the phone call. Voices aren't separated for these." }); };
     li.append(b);
     $("calls").append(li);

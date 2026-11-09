@@ -145,7 +145,7 @@ function render() {
     const f = families.find((x) => x.code === a.code);
     const tr = document.createElement("tr");
     tr.innerHTML = "<td></td><td></td><td></td><td></td>";
-    tr.cells[0].textContent = when(a.created_at) + (a.source === "sample" ? " · sample" : "");
+    tr.cells[0].textContent = when(a.created_at) + (a.source === "sample" ? " (sample)" : "");
     tr.cells[1].textContent = f ? f.parent_name : "—";
     tr.cells[2].textContent = t(a.level); tr.cells[2].className = "lvl-" + a.level;
     tr.cells[3].textContent = a.stages.map((s) => STAGE_NAME[s]?.[LANG] || s).join(" → ");

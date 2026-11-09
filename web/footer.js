@@ -19,7 +19,7 @@
     </div>
     <div class="sf-bottom">
       <p>© ${year} Ruko. All rights reserved. Built in India.</p>
-      <p>Speech by Gnani AI Prisma · Voices by Gnani AI Timbre. Ruko only warns; it never blocks calls and keeps no call audio.</p>
+      <p>Speech by Gnani AI Prisma. Voices by Gnani AI Timbre. Ruko only warns; it never blocks calls and keeps no call audio.</p>
     </div>
   </div>`;
 })();

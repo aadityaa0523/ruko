@@ -87,7 +87,7 @@ const LEVEL = { en: { safe: "Safe", watch: "Watching", high: "Likely scam", crit
                 hi: { safe: "सुरक्षित", watch: "नज़र है", high: "शायद धोखा", critical: "धोखा" } };
 function setLevel(el, risk) {
   el.dataset.level = risk.level;
-  el.textContent = `${LEVEL[LANG][risk.level]} · ${risk.score}/100`;
+  el.textContent = `${LEVEL[LANG][risk.level]} – ${risk.score}/100`;
 }
 
 const AHEAD_ICON = '<svg viewBox="0 0 26 26" aria-hidden="true"><path d="M13 2 25 23H1z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><rect x="11.8" y="9" width="2.4" height="8" fill="currentColor"/><circle cx="13" cy="19.6" r="1.4" fill="currentColor"/></svg>';
