@@ -31,7 +31,8 @@ Other guards check the caller's *number* (Truecaller, telcos) or need a flagship
 
 ## Brand Commitments
 - Name: **Ruko** ("stop" in Hindi). Because another Devpost project uses the name, pair it with a descriptor where it first appears.
-- Visual style (user decision, 9 Nov 2026): a polished mainstream consumer app in the class of Truecaller and similar Indian apps (white surfaces, brand blue #1f5eff, red only for scams, Manrope + Mukta). The earlier road-sign world was rejected as "not like a real product".
+- Website style (user decision, 10 Nov 2026): premium dark, CRED-style (near-black, white type, electric-lime accent #c8f560, red only for scams, bento feature grid). App screens stay light.
+- App visual style (user decision, 9 Nov 2026): a polished mainstream consumer app in the class of Truecaller and similar Indian apps (white surfaces, brand blue #1f5eff, red only for scams, Manrope + Mukta). The earlier road-sign world was rejected as "not like a real product".
 - Voice: plain, calm, direct, warm; short sentences; never fear-mongering; Hinglish-friendly.
 
 ## Evidence on Hand
