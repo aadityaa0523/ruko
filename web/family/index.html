@@ -2,38 +2,56 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Ruko · Family Shield</title>
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#22306b">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Noto+Sans:wght@400;600;700&display=swap">
-<link rel="stylesheet" href="/ruko.css?v=10">
+<meta name="theme-color" content="#26282b">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/ruko.css?v=22">
 <style>
-  body[data-state="danger"] { background: var(--danger-bg); }
-  .fam { max-width: 620px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; padding-top: 14px; padding-bottom: 40px; }
-  .hero { padding: 26px 20px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--line); }
-  .hero h1 { font-size: clamp(1.9rem, 8vw, 2.8rem); margin: 6px 0; }
-  .hero p { margin: 0; color: var(--muted); }
-  body[data-state="danger"] .hero { background: transparent; border-color: rgb(255 255 255 / .5); color: #fff; }
-  body[data-state="danger"] .hero p, body[data-state="danger"] .hero .pill { color: #fff; }
-  body[data-state="danger"] .hero .pill { background: transparent; border-color: rgb(255 255 255 / .6); }
-  .todo { margin: 14px 0 0; padding-left: 20px; font-weight: 600; display: grid; gap: 4px; }
-  body[data-state="danger"] .todo { color: #fff; }
-  h2 { font-size: 1.1rem; margin: 0 0 10px; }
-  .voice-script { background: var(--bg); border-radius: 12px; padding: 12px; font-weight: 600; }
-  .row-btns { display: flex; gap: 8px; flex-wrap: wrap; } .row-btns .btn { flex: 1; min-width: 140px; }
-  summary { cursor: pointer; font-weight: 650; min-height: 32px; }
-  .top { display: flex; justify-content: space-between; align-items: center; }
-  body[data-state="danger"] .top .logo { color: #fff; }
+  .bar { background: var(--asphalt); color: var(--sign); }
+  .bar-row { max-width: 640px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 10px; }
+  .bar .tag { margin-left: auto; font-weight: 800; font-size: .9rem; color: #d9d8d1; }
+  .fam { max-width: 640px; margin: 0 auto; padding: 16px 16px 48px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .fam h2 { font-size: 1.2rem; margin-bottom: 14px; }
+  .status { border-radius: var(--radius); padding: 24px 20px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); display: grid; gap: 10px; }
+  .status h1 { font-size: clamp(2rem, 8.5vw, 2.9rem); letter-spacing: -0.03em; }
+  .status p { margin: 0; color: var(--muted); font-size: 1.05rem; line-height: 1.45; }
+  .conn { display: inline-flex; align-items: center; gap: 8px; font-weight: 800; font-size: .85rem; }
+  .cdot { width: 10px; height: 10px; border-radius: 50%; background: var(--safe); }
+  .cdot.wait { background: var(--yellow); animation: blink 1.2s infinite; }
+  @keyframes blink { 50% { opacity: .3; } }
+  @media (prefers-reduced-motion: reduce) { .cdot.wait { animation: none; } }
+  .todo { margin: 6px 0 0; padding-left: 22px; display: grid; gap: 6px; font-weight: 700; font-size: 1.05rem; }
+  .todo-call { margin-top: 6px; }
+  body[data-state="live"] .status { box-shadow: inset 0 0 0 3px var(--yellow); }
+  body[data-state="danger"] { background: var(--stop); }
+  body[data-state="danger"] .status { background: transparent; color: #fff; box-shadow: inset 0 0 0 3px #fff; }
+  body[data-state="danger"] .status p, body[data-state="danger"] .conn { color: #fff; }
+  .oct-wrap { width: 84px; } .oct-wrap svg { width: 100%; height: auto; }
+  .voice-script { background: var(--bg); border-radius: var(--radius); padding: 14px; font-weight: 700; line-height: 1.5; }
+  .row { display: flex; gap: 10px; flex-wrap: wrap; } .row .btn { flex: 1; min-width: 140px; }
+  summary { cursor: pointer; font-weight: 800; min-height: 32px; list-style: none; display: flex; align-items: center; gap: 10px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: ""; width: 8px; height: 8px; border-right: 2.5px solid currentColor; border-bottom: 2.5px solid currentColor; transform: rotate(-45deg); transition: transform .2s; }
+  details[open] > summary::before { transform: rotate(45deg); }
+  details.panel > :not(summary) { margin-top: 12px; }
+  .foot { text-align: center; }
+  body[data-state="danger"] .foot { color: #fff; }
 </style>
 </head>
 <body data-state="idle">
-<main class="wrap fam">
-  <div class="top"><a class="logo" href="/"><i></i>ruko</a><span class="muted small">Family Shield</span></div>
+<header class="bar">
+  <div class="bar-row">
+    <a class="logo" href="/" aria-label="Ruko home"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M30 2h40l28 28v40L70 98H30L2 70V30z" fill="#c8102e"/><path d="M31.7 9h36.6L91 31.7v36.6L68.3 91H31.7L9 68.3V31.7z" fill="none" stroke="#fff" stroke-width="5"/></svg>Ruko</a>
+    <span class="tag">Family Shield</span>
+  </div>
+</header>
 
-  <section class="hero" aria-live="assertive">
-    <span class="pill" id="conn"><span class="dot" id="connDot"></span><span id="connText">Connecting…</span></span>
+<main class="fam">
+  <section class="status" aria-live="assertive">
+    <span class="conn" id="conn"><span class="cdot wait" id="connDot"></span><span id="connText">Connecting…</span></span>
+    <div class="oct-wrap" id="famOct" hidden></div>
     <h1 id="headline">Watching over calls</h1>
     <p id="sub">Keep this page open. If a call turns into a scam, this screen turns red right away.</p>
     <ol class="todo" id="todo" hidden>
@@ -43,36 +61,36 @@
     </ol>
   </section>
 
-  <section class="card" id="liveCard" hidden>
+  <section class="panel" id="liveCard" hidden>
     <h2>How far the scam has gone</h2>
-    <ol class="stages" id="stages"></ol>
-    <p class="next" id="next"></p>
+    <ol class="signs" id="stages"></ol>
+    <p class="ahead"><svg viewBox="0 0 26 26" aria-hidden="true"><path d="M13 2 25 23H1z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><rect x="11.8" y="9" width="2.4" height="8" fill="currentColor"/><circle cx="13" cy="19.6" r="1.4" fill="currentColor"/></svg><span id="next"></span></p>
   </section>
 
-  <section class="card" id="capCard" hidden>
+  <section class="panel" id="capCard" hidden>
     <h2>What the caller is saying</h2>
     <ol class="captions" id="captions"></ol>
   </section>
 
-  <section class="card" id="packCard" hidden>
+  <section class="panel" id="packCard" hidden>
     <h2>After the call</h2>
     <p id="packText"></p>
-    <a class="btn danger block" href="tel:1930">Call 1930 (cyber fraud helpline)</a>
+    <a class="btn btn-danger btn-block" href="tel:1930">Call 1930 · cyber fraud helpline</a>
   </section>
 
-  <details class="card" id="voiceCard">
-    <summary>Warn in <b>your</b> voice</summary>
-    <p class="small">A stranger's warning is easy to ignore. Your voice isn't. Record yourself reading the lines below (about 15 seconds). When a scam call is caught, Ruko speaks the warning in your voice, made with Gnani voice cloning.</p>
+  <details class="panel" id="voiceCard">
+    <summary>Warn them in your voice</summary>
+    <p>A stranger's warning is easy to ignore. Your voice isn't. Record yourself reading the lines below (about 15 seconds). When a scam call is caught, Ruko speaks the warning in your voice, made with Gnani voice cloning.</p>
     <p class="voice-script" lang="hi">“Mummy, main bol raha hoon. Agar koi police, bank ya sarkari officer bankar phone kare aur OTP ya paise maange, to phone turant kaat dena. Pehle mujhe call karna. Main hamesha aapke saath hoon.”</p>
-    <label class="field">Your name (as they call you)<input id="voiceName" maxlength="30" placeholder="e.g. Rahul"></label>
-    <label class="check"><input type="checkbox" id="voiceConsent"> This is my own voice. I agree Ruko may use it only to speak warnings to my family member. I can delete it any time.</label>
-    <div class="row-btns"><button class="btn primary" id="voiceRec" type="button">● Record</button><button class="btn quiet" id="voiceDel" type="button" hidden>Delete my voice</button></div>
+    <label class="field">Your name, as they call you<input id="voiceName" maxlength="30" placeholder="e.g. Rahul"></label>
+    <label class="check"><input type="checkbox" id="voiceConsent"> <span>This is my own voice. I agree Ruko may use it only to speak warnings to my family member. I can delete it any time.</span></label>
+    <div class="row"><button class="btn btn-primary" id="voiceRec" type="button">Record</button><button class="btn btn-plain" id="voiceDel" type="button" hidden>Delete my voice</button></div>
     <p class="small" id="voiceMsg" role="status"></p>
   </details>
 
-  <p class="muted small">Only people with this exact link can see these calls. Ruko keeps no audio. Nothing is shown when no call is being protected.</p>
+  <p class="muted small foot">Only people with this exact link can see these calls. Ruko keeps no call audio. Nothing is shown unless a call is being protected.</p>
 </main>
-<script src="/ruko.js?v=10"></script>
-<script src="family.js?v=10"></script>
+<script src="/ruko.js?v=22"></script>
+<script src="family.js?v=22"></script>
 </body>
 </html>

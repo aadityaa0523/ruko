@@ -1,10 +1,55 @@
-// Ruko guard app. Uses helpers from /ruko.js ($, renderStages, addCaption, setLevel).
+// Ruko guard app. Uses helpers from /ruko.js ($, store, t, renderStages, addCaption, setLevel).
+// UI text. English is the default; Hindi is a full translation of the main flow.
+window.STRINGS = {
+  en: {
+    protect: "Protect this call", listening: "Listening…", connecting: "Connecting…", sample: "Sample call",
+    hint: "Put the call on speaker and tap. Ruko listens and warns you out loud if it is a scam.",
+    listening_hint: "Keep the call on speaker, close to this phone.", connecting_hint: "Connecting to Gnani Prisma…",
+    sample_hint: "Playing a made-up scam call…", making_report: "Making your report…", problem: "Problem: ",
+    need_mic: "Ruko needs the microphone to hear the call. Allow it and tap again.",
+    no_key: "Live listening is off on this server. Sample calls still work.",
+    audio_deleted: "Call audio has been deleted. Only this text report stays, on this phone.",
+    separating: "Separating the caller's voice from yours (Gnani Prisma Batch)…",
+    over_bad: "Call over. Report within the hour.", over: "Call over.",
+    pack_bad: "That was a scam. Your report is ready.", pack_ok: "Call over. No strong scam signs.",
+    copied: "Copied", copy: "Copy complaint", copy_link: "Copy", select_copy: "Select the text above to copy",
+    choose_file: "Choose an audio file first.", checking: "Listening with Gnani Prisma…", no_calls: "No keypad-phone calls yet.",
+    cut_now: "Cut the call now. Do not share any OTP or send money.", heard: "Ruko heard: ",
+    empty: "Words appear here as the call goes on. Scam phrases turn red.",
+  },
+  hi: {
+    protect: "इस कॉल को सुरक्षित करें", listening: "सुन रहा है…", connecting: "जुड़ रहा है…", sample: "नमूना कॉल",
+    hint: "कॉल स्पीकर पर रखें और दबाएँ। Ruko सुनता है और धोखा हो तो ज़ोर से चेतावनी देता है।",
+    listening_hint: "कॉल स्पीकर पर रखें, इस फ़ोन के पास।", connecting_hint: "Gnani Prisma से जुड़ रहा है…",
+    sample_hint: "एक नक़ली धोखे वाली कॉल चल रही है…", making_report: "आपकी रिपोर्ट बन रही है…", problem: "दिक़्क़त: ",
+    need_mic: "कॉल सुनने के लिए Ruko को माइक्रोफ़ोन चाहिए। अनुमति दें और फिर दबाएँ।",
+    no_key: "इस सर्वर पर लाइव सुनना बंद है। नमूना कॉल चलती हैं।",
+    audio_deleted: "कॉल की आवाज़ मिटा दी गई है। सिर्फ़ यह लिखित रिपोर्ट इसी फ़ोन पर है।",
+    separating: "कॉलर की आवाज़ आपकी आवाज़ से अलग की जा रही है…",
+    over_bad: "कॉल ख़त्म। एक घंटे के अंदर रिपोर्ट करें।", over: "कॉल ख़त्म।",
+    pack_bad: "यह धोखा था। आपकी रिपोर्ट तैयार है।", pack_ok: "कॉल ख़त्म। धोखे के पक्के संकेत नहीं मिले।",
+    copied: "कॉपी हो गया", copy: "शिकायत कॉपी करें", copy_link: "कॉपी", select_copy: "ऊपर का टेक्स्ट चुनकर कॉपी करें",
+    choose_file: "पहले एक ऑडियो फ़ाइल चुनें।", checking: "Gnani Prisma से सुन रहा है…", no_calls: "अभी कोई कीपैड-फ़ोन कॉल नहीं।",
+    cut_now: "अभी कॉल काटिए। कोई OTP न बताएँ, पैसे न भेजें।", heard: "Ruko ने सुना: ",
+    empty: "कॉल के दौरान शब्द यहाँ दिखेंगे। धोखे वाले शब्द लाल होंगे।",
+    how_far: "धोखा कितना आगे बढ़ा", said: "कॉलर ने क्या कहा", hangup: "कॉल ख़त्म · मेरी रिपोर्ट बनाएँ",
+    golden: "एक घंटे के अंदर रिपोर्ट करें। जितनी जल्दी, पैसे रुकने की उतनी उम्मीद।", call1930: "अभी 1930 पर कॉल करें",
+    complaint: "शिकायत, चिपकाने के लिए तैयार", fam_msg: "परिवार के लिए संदेश", play_it: "सुनाएँ", who: "किसने क्या कहा",
+    try: "एक नमूना धोखा कॉल चलाएँ", nomic: "माइक्रोफ़ोन नहीं चाहिए", try_p: "एक लिखी हुई नक़ली कॉल Ruko से चलती है ताकि आप देख सकें क्या होता है।",
+    play: "चलाएँ", voice_note: "वॉइस नोट जाँचें", voice_note_p: "अजीब WhatsApp वॉइस नोट या रिकॉर्डिंग? Ruko पहले 30 सेकंड जाँचता है।", check: "जाँचें",
+    keypad: "कीपैड फ़ोन की कॉल", keypad_p: "बेसिक फ़ोन पर कॉल को Ruko के नंबर से जोड़ें। Ruko कॉल के अंदर चेतावनी देता है।", refresh: "रीफ़्रेश",
+    foot: "Ruko सिर्फ़ चेतावनी देता है। कॉल नहीं रोकता, आवाज़ नहीं रखता। पैसे गए? 1930 पर कॉल करें।",
+    to_title: "यह धोखा है। कॉल काटिए।", to_cut: "मैंने कॉल काट दी", to_keep: "सुनते रहें",
+    settings: "सेटिंग्स", speaks_in: "Ruko किस भाषा में बोले", elder: "धीरे बोले, रुक-रुककर (बुज़ुर्गों के लिए)", whisper: "चेतावनी फुसफुसाकर, ताकि कॉलर कम सुने",
+    engine: "स्पीच इंजन", hear: "चेतावनी सुनें", done: "हो गया",
+    fam_p: "यह लिंक अपने बेटे, बेटी या भरोसेमंद पड़ोसी को भेजें। कॉल धोखे में बदलते ही उनके फ़ोन पर दिखेगा, ताकि वे कॉल करके उसे तोड़ सकें।",
+    your_name: "आपका नाम (उन्हें दिखेगा)", name_ph: "जैसे मम्मी", fam_link: "फ़ैमिली लिंक", share: "मेरी कॉल इस लिंक से साझा करें",
+    wa: "WhatsApp पर भेजें", new_link: "नया लिंक बनाएँ",
+  },
+};
+for (const el of document.querySelectorAll("[data-i18n]")) STRINGS.en[el.dataset.i18n] ??= el.textContent;
 let ws = null, audioCtx = null, stream = null, speaking = false, pending = new Int16Array(0), lastPack = null, lastRisk = null;
 
-const store = {
-  get(k, d) { try { return localStorage.getItem(k) ?? d; } catch { return d; } },
-  set(k, v) { try { localStorage.setItem(k, v); } catch {} },
-};
 
 // ---------- settings
 const LANG_NAMES = { auto: "Auto", "hi-en": "Hinglish", "hi-IN": "हिन्दी", "kn-IN": "ಕನ್ನಡ", "te-IN": "తెలుగు", "ta-IN": "தமிழ்", "en-IN": "English" };
@@ -47,9 +92,9 @@ $("familyOn").checked = familyOn();
 $("familyOn").onchange = () => { store.set("ruko.familyOn", $("familyOn").checked ? "1" : "0"); refreshFamily(); };
 $("familyNew").onclick = () => { familyCode = newCode(); store.set("ruko.family", familyCode); refreshFamily(); };
 $("familyCopy").onclick = async () => {
-  try { await navigator.clipboard.writeText(familyLink()); $("familyCopy").textContent = "Copied"; }
+  try { await navigator.clipboard.writeText(familyLink()); $("familyCopy").textContent = t("copied"); }
   catch { $("familyLink").select(); }
-  setTimeout(() => ($("familyCopy").textContent = "Copy"), 2000);
+  setTimeout(() => ($("familyCopy").textContent = t("copy_link")), 2000);
 };
 $("familyBtn").onclick = async () => {
   refreshFamily();
@@ -72,8 +117,8 @@ function toFamily(msg) {
 // ---------- rendering
 function setGuard(state, label, hint) {
   $("guard").dataset.state = state;
-  if (label) $("listenLabel").innerHTML = label;
-  if (hint) $("status").textContent = hint;
+  if (label) $("listenLabel").textContent = t(label);
+  if (hint) $("status").textContent = t(hint);
 }
 
 function showRisk(risk, text) {
@@ -81,14 +126,16 @@ function showRisk(risk, text) {
   setLevel($("level"), risk);
   renderStages($("stages"), risk.playbook);
   $("next").textContent = risk.playbook?.next || "";
+  $("next").parentElement.classList.toggle("now", risk.level === "critical");
   if (text !== undefined) addCaption($("captions"), text, risk);
   if (risk.level === "high" || risk.level === "critical") $("guard").dataset.state = "danger";
 }
 
 function alarm() {
   const r = lastRisk;
-  $("toReason").textContent = r?.playbook?.next || "Cut the call now. Do not share any OTP or send money.";
-  $("toFlags").textContent = r ? "Ruko heard: " + r.flags.map((f) => f.label).join(" · ") : "";
+  $("toOct").innerHTML = octagonSVG();
+  $("toReason").textContent = r?.playbook?.next || t("cut_now");
+  $("toFlags").textContent = r ? t("heard") + r.flags.map((f) => f.label).join(" · ") : "";
   $("takeover").hidden = false;
   $("takeover").classList.remove("flash"); void $("takeover").offsetWidth; $("takeover").classList.add("flash");
   navigator.vibrate?.([500, 200, 500, 200, 500]);
@@ -136,19 +183,19 @@ async function start() {
   ws = new WebSocket(`${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/ws/listen?${q}`);
   ws.onmessage = (e) => {
     const m = JSON.parse(e.data);
-    if (m.type === "connected") setGuard("listening", "Listening…", "Keep the call on speaker, close to this phone.");
+    if (m.type === "connected") setGuard("listening", "listening", "listening_hint");
     else if (m.type === "transcript") showRisk(m.risk, m.text);
     else if (m.type === "warning") { alarm(); if (m.audio) playWav(m.audio); }
     else if (m.type === "pack") showPack(m);
     else if (m.type === "diarized") showTimeline(m);
-    else if (m.type === "done") $("audioNote").textContent = "Call audio has been deleted. Only this text report stays, on this phone.";
-    else if (m.type === "error") $("status").textContent = "Problem: " + m.message;
+    else if (m.type === "done") $("audioNote").textContent = t("audio_deleted");
+    else if (m.type === "error") $("status").textContent = t("problem") + m.message;
   };
   ws.onclose = () => stop(false);
   try {
     stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false, channelCount: 1 } });
   } catch {
-    $("status").textContent = "Ruko needs the microphone to hear the call. Allow it and tap again.";
+    $("status").textContent = t("need_mic");
     return stop();
   }
   audioCtx = new AudioContext({ sampleRate: 16000 });
@@ -157,7 +204,7 @@ async function start() {
   node.port.onmessage = (e) => sendPcm(e.data);
   audioCtx.createMediaStreamSource(stream).connect(node);
   $("hangup").hidden = false;
-  setGuard("listening", "Connecting…", "Connecting to Gnani Prisma…");
+  setGuard("listening", "connecting", "connecting_hint");
 }
 
 function stop(closeWs = true) {
@@ -168,7 +215,7 @@ function stop(closeWs = true) {
   stream = audioCtx = null;
   pending = new Int16Array(0);
   $("hangup").hidden = true;
-  setGuard($("guard").dataset.state === "danger" ? "danger" : "idle", "Protect<br>this call");
+  setGuard($("guard").dataset.state === "danger" ? "danger" : "idle", "protect");
 }
 
 $("listen").onclick = () => (ws ? stop() : start());
@@ -177,14 +224,14 @@ $("hangup").onclick = () => {
   ws.send(JSON.stringify({ type: "hangup" }));
   stream?.getTracks().forEach((t) => t.stop());
   $("hangup").hidden = true;
-  $("status").textContent = "Making your report…";
+  $("status").textContent = t("making_report");
 };
 
 $("testVoice").onclick = async () => {
   const fam = familyOn() ? `&family=${familyCode}` : "";
   const r = await fetch(`/api/warning?lang=${$("lang").value}&whisper=${$("whisper").checked ? 1 : 0}&elder=${$("elder").checked ? 1 : 0}${fam}`);
   if (r.ok) playWav(await r.blob());
-  else $("status").textContent = "Voice problem: " + (await r.text());
+  else $("status").textContent = t("problem") + (await r.text());
 };
 
 // ---------- sample calls (synthetic scripts, text only)
@@ -206,7 +253,7 @@ const SCRIPT_NAMES = {
     $("script").append(og);
   }
   const health = await (await fetch("/api/health")).json();
-  if (!health.gnani_key) $("status").textContent = "Live listening is off on this server (no Gnani key). Sample calls still work.";
+  if (!health.gnani_key) $("status").textContent = t("no_key");
 })();
 
 $("runScript").onclick = async () => {
@@ -217,14 +264,14 @@ $("runScript").onclick = async () => {
     method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ lines, lang: $("lang").value }),
   })).json();
   toFamily({ type: "call_start", demo: true });
-  setGuard("listening", "Sample<br>call", "Playing a made-up scam call…");
+  setGuard("listening", "sample", "sample_hint");
   for (let i = 0; i < lines.length; i++) {
     await new Promise((r) => setTimeout(r, 1600));
     showRisk(states[i], lines[i]);
     toFamily({ type: "transcript", text: lines[i], risk: states[i] });
     if (states[i].alert) { alarm(); toFamily({ type: "warning", level: states[i].level }); await new Promise((r) => setTimeout(r, 2500)); $("takeover").hidden = true; }
   }
-  setGuard(pack.level === "high" || pack.level === "critical" ? "danger" : "idle", "Protect<br>this call");
+  setGuard(pack.level === "high" || pack.level === "critical" ? "danger" : "idle", "protect");
   showPack(pack);
   toFamily({ type: "pack", ...pack });
   showTimeline({ error: "Sample calls have no audio, so voices aren't separated." });
@@ -235,7 +282,7 @@ function showPack(p) {
   lastPack = p;
   $("pack").hidden = false;
   const bad = p.level === "high" || p.level === "critical";
-  $("packTitle").textContent = bad ? "That was a scam. Your report is ready." : "Call over. No strong scam signs.";
+  $("packTitle").textContent = bad ? t("pack_bad") : t("pack_ok");
   const c = p.complaint;
   $("fields").innerHTML = "";
   for (const [k, v] of [["Category", c.category], ["Type", c.sub_category], ["When", c.incident_datetime],
@@ -247,8 +294,8 @@ function showPack(p) {
   $("complaint").textContent = c.description;
   $("familyBox").hidden = !p.family_alert;
   $("family").textContent = p.family_alert || "";
-  $("timeline").innerHTML = '<li class="muted">Separating the caller\'s voice from yours (Gnani Prisma Batch)…</li>';
-  $("status").textContent = bad ? "Call over. Report within the hour." : "Call over.";
+  $("timeline").innerHTML = `<li class="muted">${t("separating")}</li>`;
+  $("status").textContent = bad ? t("over_bad") : t("over");
   $("pack").scrollIntoView({ behavior: "smooth" });
 }
 
@@ -273,9 +320,9 @@ $("copy").onclick = async () => {
   const c = lastPack.complaint;
   const text = `Category: ${c.category}\nType: ${c.sub_category}\nWhen: ${c.incident_datetime}\n` +
     `Caller's number: ${c.suspect_phone_number}\nAmount lost: ${c.amount_lost}\n\n${c.description}`;
-  try { await navigator.clipboard.writeText(text); $("copy").textContent = "Copied"; }
-  catch { $("copy").textContent = "Select the text above to copy"; }
-  setTimeout(() => ($("copy").textContent = "Copy complaint"), 2500);
+  try { await navigator.clipboard.writeText(text); $("copy").textContent = t("copied"); }
+  catch { $("copy").textContent = t("select_copy"); }
+  setTimeout(() => ($("copy").textContent = t("copy")), 2500);
 };
 
 $("playFamily").onclick = async () => {
@@ -287,13 +334,13 @@ $("playFamily").onclick = async () => {
 // ---------- voice-note check (Gnani Prisma REST, <= 30 s)
 $("clipCheck").onclick = async () => {
   const f = $("clipFile").files[0];
-  if (!f) return ($("clipResult").textContent = "Choose an audio file first.");
-  $("clipResult").textContent = "Listening with Gnani Prisma…";
+  if (!f) return ($("clipResult").textContent = t("choose_file"));
+  $("clipResult").textContent = t("checking");
   const fd = new FormData();
   fd.append("file", f);
   fd.append("lang", $("lang").value);
   const d = await (await fetch("/api/clip", { method: "POST", body: fd })).json();
-  if (d.error) return ($("clipResult").textContent = "Problem: " + d.error);
+  if (d.error) return ($("clipResult").textContent = t("problem") + d.error);
   const verdict = { safe: "No scam signs", watch: "Be careful", high: "Likely a scam", critical: "This is a scam" }[d.risk.level];
   $("clipResult").textContent = `${verdict} (${d.risk.score}/100). Heard: “${d.transcript}”` +
     (d.risk.playbook?.next ? " · " + d.risk.playbook.next : "") + (d.truncated ? " · Only the first 30 seconds were checked." : "");
@@ -302,12 +349,12 @@ $("clipCheck").onclick = async () => {
 // ---------- keypad-phone calls Ruko joined over the phone network
 async function loadCalls() {
   const calls = await (await fetch("/api/calls")).json();
-  $("calls").innerHTML = calls.length ? "" : '<li class="muted small">No keypad-phone calls yet.</li>';
+  $("calls").innerHTML = calls.length ? "" : `<li class="muted small">${t("no_calls")}</li>`;
   for (const p of calls) {
     const li = document.createElement("li");
     const b = document.createElement("button");
     b.type = "button"; b.className = "btn";
-    b.textContent = `${p.complaint.incident_datetime} · ${LEVEL_TEXT[p.level]} (${p.score}/100)`;
+    b.textContent = `${p.complaint.incident_datetime} · ${LEVEL[LANG][p.level]} (${p.score}/100)`;
     b.onclick = () => { showPack(p); showTimeline({ error: "Ruko warned inside the phone call. Voices aren't separated for these." }); };
     li.append(b);
     $("calls").append(li);
@@ -316,3 +363,15 @@ async function loadCalls() {
 $("refreshCalls").onclick = loadCalls;
 loadCalls();
 resetView();
+
+// language switch re-renders the dynamic parts
+document.addEventListener("langchange", () => {
+  $("captions").dataset.empty = t("empty");
+  renderStages($("stages"), lastRisk?.playbook);
+  if (lastRisk) setLevel($("level"), lastRisk);
+  if (!ws && $("guard").dataset.state !== "listening") setGuard($("guard").dataset.state, "protect", "hint");
+});
+applyLang(LANG);
+// opened from the landing page's "Protect my parents": go straight to Family Shield setup
+if (new URLSearchParams(location.search).get("setup") === "family") $("familyBtn").click();
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("/sw.js").catch(() => {});

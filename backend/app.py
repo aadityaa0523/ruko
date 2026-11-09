@@ -6,6 +6,7 @@ Run from the ruko/ folder:  .venv/Scripts/python -m uvicorn backend.app:app --po
 import asyncio
 import base64
 import json
+import mimetypes
 import os
 import time
 from datetime import datetime
@@ -27,6 +28,7 @@ from backend.scripts import SAFE, SCAM
 from backend.telephony import router as telephony_router
 
 ROOT = Path(__file__).resolve().parent.parent
+mimetypes.add_type("application/manifest+json", ".webmanifest")
 WAITLIST = ROOT / "data" / "waitlist.jsonl"
 gnani.load_env(ROOT / ".env")
 

@@ -1,0 +1,167 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-09T00:00:00Z",
+  "title": "Design System: Ruko",
+  "extensions": {
+    "colorMeta": {
+      "stop-red": { "role": "primary", "displayName": "Stop Red", "canonical": "#c8102e", "tonalRamp": ["#3d0510", "#5e0a19", "#8d0a1f", "#a30d25", "#c8102e", "#e0233f", "#f2a3ae", "#fbe3e6"] },
+      "stop-red-ink": { "role": "primary", "displayName": "Stop Red Ink", "canonical": "#a30d25" },
+      "stop-red-dark-mode": { "role": "primary", "displayName": "Stop Red (night)", "canonical": "#e0233f" },
+      "hazard-yellow": { "role": "secondary", "displayName": "Hazard Yellow", "canonical": "#ffc20e", "tonalRamp": ["#2e2300", "#4a3800", "#6b4f00", "#a67a00", "#ffc20e", "#ffd34d", "#ffe591", "#fff6d6"] },
+      "hazard-yellow-hover": { "role": "secondary", "displayName": "Hazard Yellow Lit", "canonical": "#ffd34d" },
+      "hazard-yellow-ink": { "role": "secondary", "displayName": "Hazard Yellow Ink", "canonical": "#6b4f00" },
+      "safe-green": { "role": "tertiary", "displayName": "Safe Green", "canonical": "#1f7a45", "tonalRamp": ["#0a2716", "#123f24", "#185e35", "#1f7a45", "#2b9a5a", "#3fbf74", "#9be3b5", "#e2f6ea"] },
+      "safe-green-dark-mode": { "role": "tertiary", "displayName": "Safe Green (night)", "canonical": "#3fbf74" },
+      "asphalt": { "role": "neutral", "displayName": "Asphalt", "canonical": "#26282b", "tonalRamp": ["#121315", "#1c1d20", "#26282b", "#303337", "#45494e", "#6d7177", "#b9b8b0", "#efeee8"] },
+      "asphalt-raised": { "role": "neutral", "displayName": "Asphalt Raised", "canonical": "#303337" },
+      "asphalt-line": { "role": "neutral", "displayName": "Asphalt Line", "canonical": "#45494e" },
+      "sign-white": { "role": "neutral", "displayName": "Sign White", "canonical": "#fafaf7", "tonalRamp": ["#4a4c50", "#7a7a74", "#a7a69f", "#cfcdc4", "#e2e1da", "#efeee8", "#f6f5f1", "#fafaf7"] },
+      "sign-white-band": { "role": "neutral", "displayName": "Sign White Band", "canonical": "#efeee8" },
+      "sign-line": { "role": "neutral", "displayName": "Sign Line", "canonical": "#cfcdc4" },
+      "ink": { "role": "neutral", "displayName": "Sign Ink", "canonical": "#141414" },
+      "ink-muted": { "role": "neutral", "displayName": "Sign Ink Muted", "canonical": "#4a4c50" },
+      "night-ground": { "role": "neutral", "displayName": "Night Ground", "canonical": "#1c1d20" },
+      "night-text": { "role": "neutral", "displayName": "Night Text", "canonical": "#f1f0ea" },
+      "night-muted": { "role": "neutral", "displayName": "Night Muted", "canonical": "#b4b2aa" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero headline on the sign-white plate." },
+      "headline": { "displayName": "Headline", "purpose": "Section headings, max 20ch." },
+      "title": { "displayName": "Title", "purpose": "Playbook step names, board entries, app section heads." },
+      "body": { "displayName": "Body", "purpose": "Running text with tabular numerals." },
+      "label": { "displayName": "Label", "purpose": "Call header, connection state, risk level, table heads." },
+      "body-hi": { "displayName": "Body (Hindi)", "purpose": "Lead family when the page language is Hindi; Mukta carries Devanagari." }
+    },
+    "shadows": [
+      { "name": "panel-rule", "value": "inset 0 0 0 1px var(--line)", "purpose": "Inner border on every sign panel." },
+      { "name": "sign-double-rule", "value": "inset 0 0 0 3px var(--sign), inset 0 0 0 5px var(--ink)", "purpose": "Inner sign border on the hero plate." },
+      { "name": "button-double-rule", "value": "inset 0 0 0 2px var(--yellow), inset 0 0 0 4px var(--ink)", "purpose": "Inner rule on the primary button." },
+      { "name": "alert-rule", "value": "inset 0 0 0 2px var(--red)", "purpose": "Flagged caption rows." }
+    ],
+    "motion": [
+      { "name": "sign-light", "value": "0.45s cubic-bezier(.2,.8,.2,1)", "purpose": "A playbook sign lighting up (scale .82 to 1, fade in). Off under reduced motion." },
+      { "name": "state", "value": "0.15s", "purpose": "Button background and colour changes." },
+      { "name": "takeover-flash", "value": "0.5s x3", "purpose": "Takeover pulses to #8d0a1f three times. Off under reduced motion." },
+      { "name": "breathe", "value": "2s ease-in-out infinite", "purpose": "Listening rule inside the guard octagon. Off under reduced motion." },
+      { "name": "blink", "value": "1.2s infinite", "purpose": "Live and waiting status dots. Off under reduced motion." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "520px" },
+      { "name": "md", "value": "700px" },
+      { "name": "lg", "value": "900px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Hazard-yellow sign plate for the one next action.",
+      "html": "<button class=\"ds-btn ds-btn-primary\">Protect my parents</button>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 22px; border: 2px solid currentColor; border-radius: 4px; background: transparent; font: 800 1rem/1 Overpass, Mukta, system-ui, sans-serif; letter-spacing: .01em; cursor: pointer; transition: background-color .15s, color .15s, transform .1s; } .ds-btn:active { transform: translateY(1px); } .ds-btn:focus-visible { outline: 3px solid #ffc20e; outline-offset: 3px; } .ds-btn-primary { background: #ffc20e; color: #141414; border-color: #ffc20e; box-shadow: inset 0 0 0 2px #ffc20e, inset 0 0 0 4px #141414; } .ds-btn-primary:hover { background: #ffd34d; }"
+    },
+    {
+      "name": "Danger Button",
+      "kind": "button",
+      "refersTo": "button-danger",
+      "description": "Stop-red plate for cutting a call or calling 1930.",
+      "html": "<button class=\"ds-btn-danger\">Call 1930 · cyber fraud helpline</button>",
+      "css": ".ds-btn-danger { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 22px; border: 2px solid #c8102e; border-radius: 4px; background: #c8102e; color: #fff; font: 800 1rem/1 Overpass, Mukta, system-ui, sans-serif; cursor: pointer; } .ds-btn-danger:active { transform: translateY(1px); } .ds-btn-danger:focus-visible { outline: 3px solid #ffc20e; outline-offset: 3px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Ink-outlined secondary on sign-white; fills ink on hover or when pressed.",
+      "html": "<button class=\"ds-btn-ghost\" aria-pressed=\"false\">Hear a scam call get caught</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; min-height: 52px; padding: 0 22px; border: 2px solid #141414; border-radius: 4px; background: #fafaf7; color: #141414; font: 800 1rem/1 Overpass, Mukta, system-ui, sans-serif; cursor: pointer; transition: background-color .15s, color .15s; } .ds-btn-ghost:hover, .ds-btn-ghost[aria-pressed=\"true\"] { background: #141414; color: #fafaf7; } .ds-btn-ghost:focus-visible { outline: 3px solid #ffc20e; outline-offset: 3px; }"
+    },
+    {
+      "name": "Sign Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "The world's container: flat sign-white plate with an inner rule.",
+      "html": "<section class=\"ds-panel\"><h2 class=\"ds-panel-h\">This call</h2><p class=\"ds-panel-p\">Ruko is listening. Nothing suspicious yet.</p></section>",
+      "css": ".ds-panel { background: #fafaf7; color: #141414; border-radius: 4px; padding: 22px; box-shadow: inset 0 0 0 1px #cfcdc4; font: 400 17px/1.55 Overpass, Mukta, system-ui, sans-serif; max-width: 420px; } .ds-panel-h { margin: 0 0 8px; font-size: 1.2rem; font-weight: 800; letter-spacing: -0.01em; line-height: 1.05; } .ds-panel-p { margin: 0; color: #4a4c50; }"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "2px ruled field on the band colour; border darkens on focus.",
+      "html": "<label class=\"ds-field\">Your name, as they call you<input placeholder=\"e.g. Rahul\"></label>",
+      "css": ".ds-field { display: grid; gap: 6px; font: 600 .95rem/1.4 Overpass, Mukta, system-ui, sans-serif; color: #141414; max-width: 360px; } .ds-field input { font: 400 1rem Overpass, Mukta, system-ui, sans-serif; border: 2px solid #cfcdc4; border-radius: 4px; padding: 12px; background: #efeee8; color: #141414; } .ds-field input:focus { border-color: #141414; outline: none; }"
+    },
+    {
+      "name": "Language Toggle",
+      "kind": "nav",
+      "description": "EN / HI segmented pair; pressed option is a sign-white plate.",
+      "html": "<div class=\"ds-lang\"><button aria-pressed=\"true\"><span>EN</span></button><button aria-pressed=\"false\" lang=\"hi\"><span>हि</span></button></div>",
+      "css": ".ds-lang { display: inline-flex; border: 2px solid #fafaf7; border-radius: 4px; overflow: hidden; background: #26282b; color: #fafaf7; } .ds-lang button { border: 0; background: transparent; color: inherit; padding: 4px 10px; min-height: 36px; min-width: 40px; font: 800 1rem Overpass, Mukta, system-ui, sans-serif; cursor: pointer; } .ds-lang button[aria-pressed=\"true\"] { background: #fafaf7; color: #141414; } .ds-lang button:focus-visible { outline: 3px solid #ffc20e; outline-offset: -3px; }"
+    },
+    {
+      "name": "Playbook Signs",
+      "kind": "custom",
+      "description": "Cautionary triangles: unlit dashed ghost, lit white with stop-red edge.",
+      "html": "<ol class=\"ds-signs\"><li class=\"done\"><svg viewBox=\"0 0 100 90\"><path class=\"tri-fill\" d=\"M50 8 94 84H6z\"/><path class=\"tri-edge\" d=\"M50 8 94 84H6z\" stroke-linejoin=\"round\"/><circle class=\"glyph\" cx=\"50\" cy=\"62\" r=\"7\"/></svg>Pretends</li><li><svg viewBox=\"0 0 100 90\"><path class=\"tri-fill\" d=\"M50 8 94 84H6z\"/><path class=\"tri-edge\" d=\"M50 8 94 84H6z\" stroke-linejoin=\"round\"/><circle class=\"glyph\" cx=\"50\" cy=\"62\" r=\"7\"/></svg>Scares</li></ol>",
+      "css": ".ds-signs { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 72px); gap: 10px; font: 600 .8rem/1.25 Overpass, Mukta, system-ui, sans-serif; color: #4a4c50; } .ds-signs li { display: grid; justify-items: center; gap: 6px; text-align: center; } .ds-signs svg { width: 64px; height: auto; } .ds-signs .tri-fill { fill: none; } .ds-signs .tri-edge { fill: none; stroke: #cfcdc4; stroke-width: 7; stroke-dasharray: 10 8; } .ds-signs .glyph { fill: #cfcdc4; } .ds-signs li.done { color: #141414; } .ds-signs li.done .tri-fill { fill: #fff; } .ds-signs li.done .tri-edge { stroke: #c8102e; stroke-dasharray: none; } .ds-signs li.done .glyph { fill: #141414; }"
+    },
+    {
+      "name": "Ahead Plate",
+      "kind": "custom",
+      "refersTo": "ahead-plate",
+      "description": "Yellow plate naming the scammer's predicted next move; turns red when it happens.",
+      "html": "<p class=\"ds-ahead\"><svg viewBox=\"0 0 26 26\"><path d=\"M13 2 25 23H1z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.4\" stroke-linejoin=\"round\"/><rect x=\"11.8\" y=\"9\" width=\"2.4\" height=\"8\" fill=\"currentColor\"/><circle cx=\"13\" cy=\"19.6\" r=\"1.4\" fill=\"currentColor\"/></svg><span>Next they will ask for an OTP.</span></p>",
+      "css": ".ds-ahead { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px; align-items: start; margin: 0; padding: 12px 14px; max-width: 420px; background: #ffc20e; color: #141414; border-radius: 4px; font: 700 1rem/1.35 Overpass, Mukta, system-ui, sans-serif; } .ds-ahead svg { width: 26px; height: 26px; } .ds-ahead.now { background: #c8102e; color: #fff; }"
+    },
+    {
+      "name": "STOP Octagon",
+      "kind": "custom",
+      "description": "Brand mark and takeover sign: red octagon, white inner rule, heavy legend.",
+      "html": "<svg class=\"ds-oct\" viewBox=\"0 0 100 100\" role=\"img\" aria-label=\"RUKO\"><path d=\"M30 2h40l28 28v40L70 98H30L2 70V30z\" fill=\"#c8102e\"/><path d=\"M31.7 6h36.6L94 31.7v36.6L68.3 94H31.7L6 68.3V31.7z\" fill=\"none\" stroke=\"#fff\" stroke-width=\"3\"/><text x=\"50\" y=\"59\" text-anchor=\"middle\" font-family=\"Overpass, sans-serif\" font-weight=\"900\" font-size=\"25\" fill=\"#fff\" letter-spacing=\"1\">RUKO</text></svg>",
+      "css": ".ds-oct { width: 120px; height: auto; display: block; }"
+    },
+    {
+      "name": "Hazard Chevron Band",
+      "kind": "custom",
+      "description": "22px ink strip of yellow chevrons dividing asphalt from sign bands.",
+      "html": "<div class=\"ds-chevrons\" aria-hidden=\"true\"></div>",
+      "css": ".ds-chevrons { height: 22px; width: 100%; background: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 20'%3E%3Cpath d='M3 2h6l9 8-9 8H3l9-8z' fill='%23ffc20e'/%3E%3C/svg%3E\") repeat-x left center / 24px 20px, #141414; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Sign Before the Bend",
+    "overview": "Ruko is drawn as Indian road warning signs. A warning sign tells you what is ahead before you reach it; Ruko does the same for the scammer's next move. The page is a road: asphalt bands carry the road and its signs, sign-white bands carry the reading, and a hazard-chevron strip marks the edge between them. Every container is a sign plate (flat, square-ish, with a thin inner rule) and every colour is one of the four sign inks: white, red, yellow, black.\n\nMeaning is carried by colour, not decoration. Red means it is happening now. Yellow means it is ahead, and it is also the colour of the thing you should press. The scam playbook is shown as four cautionary triangles that start unlit (a dashed ghost outline) and light up in sequence (white fill, red edge) as the call moves through them, ending at a red STOP octagon, the brand mark. The persuasive landing uses full asphalt and sign bands; the guard app and family screen keep the same inks and plates in a quieter, single-column register.\n\nThe surface is flat. Depth comes from inset rules and the contrast between asphalt and sign-white, never from soft shadows, glass or decorative gradients. Type is heavy Overpass (Highway Gothic lineage) for display and UI, with Mukta carrying Devanagari when the EN/HI toggle is on Hindi.",
+    "keyCharacteristics": [
+      "Asphalt grounds, sign-white reading bands, hazard-chevron strips between them.",
+      "Red only for \"now\"; yellow for \"ahead\" and the primary action.",
+      "Cautionary triangles (unlit dashed ghost, lit white with red edge) and a STOP octagon mark.",
+      "Flat sign plates with 4px corners and inset double rules.",
+      "Heavy Overpass (800-900) headings, tabular numerals everywhere, Mukta for Hindi."
+    ],
+    "rules": [
+      { "name": "The Red Means Now Rule", "body": "Stop red is used only for something happening in this call at this moment. Upcoming danger is yellow. If nothing is happening, no red is on screen except the octagon brand mark.", "section": "colors" },
+      { "name": "The Yellow Is Ahead Rule", "body": "Hazard yellow marks what comes next: the predicted next move, and the next action to take. A yellow plate always says what is ahead or what to do.", "section": "colors" },
+      { "name": "The Sign Band Rule", "body": "On the landing, reading bands stay sign-white in OS dark mode (they reset the tokens locally to light). The asphalt and sign rhythm is the page's structure, not a theme. Only the Operate surfaces (app, family) remap to the night palette.", "section": "colors" },
+      { "name": "The Heavy Legend Rule", "body": "Headings and buttons are 800-900 weight with negative tracking (-0.01 to -0.035em). Nothing in the UI is set light or thin.", "section": "typography" },
+      { "name": "The Tabular Rule", "body": "The body sets tabular numerals globally so numbers in results, timelines and risk levels line up.", "section": "typography" },
+      { "name": "The Inner Border Rule", "body": "Edges are drawn inside the plate, as on a road sign. Never lift a surface off the ground with a blur.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do put the road on asphalt and the reading on sign-white, and divide them with the hazard-chevron strip.",
+      "Do reserve stop red for \"happening now\" and hazard yellow for \"ahead\" and the primary action.",
+      "Do draw edges as inset rules inside the plate, with 4px corners.",
+      "Do show the playbook as cautionary triangles that light from dashed ghost to white with a red edge.",
+      "Do set headings and buttons in Overpass at 800-900 and switch to Mukta for Hindi.",
+      "Do keep landing reading bands light in OS dark mode; remap only the Operate surfaces.",
+      "Do honour reduced motion for every sign light, flash, blink and breathe."
+    ],
+    "donts": [
+      "Don't use soft drop shadows, glass or backdrop blur; depth is inset rules and ground contrast.",
+      "Don't use decorative colour gradients. Diagonal hazard stripes, as on the setup band, are sign material and allowed.",
+      "Don't use red for a warning about the future, or for decoration.",
+      "Don't round plates beyond 8px or make pill buttons.",
+      "Don't introduce colours outside the four sign inks, the two grounds and the safe green."
+    ]
+  }
+}

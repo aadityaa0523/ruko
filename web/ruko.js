@@ -1,15 +1,60 @@
-// Shared by the guard app, the family screen and the landing page.
+// Shared by the landing page, the guard app and the family screen.
 const $ = (id) => document.getElementById(id);
-const LEVEL_TEXT = { safe: "Safe", watch: "Watching", high: "Likely scam", critical: "SCAM" };
-const STAGE_LABELS = ["Pretends to be someone you trust", "Scares you or rushes you", "Cuts you off from family", "Asks for OTP, money or your phone"];
+const store = {
+  get(k, d) { try { return localStorage.getItem(k) ?? d; } catch { return d; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch {} },
+};
+
+// ---------- language (English / Hindi). Elements carry data-i18n="key"; dictionaries live per page in window.STRINGS.
+let LANG = store.get("ruko.ui", "en");
+function t(key) { return (window.STRINGS?.[LANG]?.[key]) ?? (window.STRINGS?.en?.[key]) ?? key; }
+function applyLang(lang) {
+  LANG = lang === "hi" ? "hi" : "en";
+  store.set("ruko.ui", LANG);
+  document.documentElement.lang = LANG;
+  for (const el of document.querySelectorAll("[data-i18n]")) el.textContent = t(el.dataset.i18n);
+  for (const el of document.querySelectorAll("[data-i18n-ph]")) el.placeholder = t(el.dataset.i18nPh);
+  for (const b of document.querySelectorAll(".lang-toggle button")) b.setAttribute("aria-pressed", String(b.dataset.lang === LANG));
+  document.dispatchEvent(new Event("langchange"));
+}
+document.addEventListener("click", (e) => {
+  const b = e.target.closest(".lang-toggle button");
+  if (b) applyLang(b.dataset.lang);
+});
+
+// ---------- signs
+const STAGES = [
+  { key: "pose", en: "Pretends to be someone you trust", hi: "भरोसेमंद होने का नाटक" },
+  { key: "fear", en: "Scares you or rushes you", hi: "डराता या जल्दी करवाता है" },
+  { key: "isolate", en: "Cuts you off from family", hi: "परिवार से अलग करता है" },
+  { key: "ask", en: "Asks for OTP, money or your phone", hi: "OTP, पैसे या फ़ोन माँगता है" },
+];
+const GLYPHS = {
+  // badge: a peaked cap over a face (impersonation of an official)
+  pose: '<path class="glyph" d="M36 52h28l-3-8H39z"/><circle class="glyph" cx="50" cy="62" r="7"/><path class="glyph" d="M38 78c2-6 7-9 12-9s10 3 12 9z"/>',
+  // exclamation (threat)
+  fear: '<rect class="glyph" x="45" y="38" width="10" height="26" rx="2"/><circle class="glyph" cx="50" cy="72" r="5.5"/>',
+  // finger to lips: a person and a "hush" bar (secrecy)
+  isolate: '<circle class="glyph" cx="44" cy="54" r="7"/><path class="glyph" d="M32 78c2-7 7-10 12-10s10 3 12 10z"/><rect class="glyph" x="60" y="44" width="5" height="24" rx="2"/>',
+  // keypad (OTP / PIN)
+  ask: '<g class="glyph"><circle cx="40" cy="50" r="4"/><circle cx="50" cy="50" r="4"/><circle cx="60" cy="50" r="4"/><circle cx="40" cy="61" r="4"/><circle cx="50" cy="61" r="4"/><circle cx="60" cy="61" r="4"/><circle cx="40" cy="72" r="4"/><circle cx="50" cy="72" r="4"/><circle cx="60" cy="72" r="4"/></g>',
+};
+const TRI = '<path class="tri-fill" d="M50 8 94 84H6z"/><path class="tri-edge" d="M50 8 94 84H6z" stroke-linejoin="round"/>';
+function signSVG(key) { return `<svg viewBox="0 0 100 90" aria-hidden="true">${TRI}${GLYPHS[key]}</svg>`; }
+function octagonSVG(word = "RUKO") {
+  return `<svg class="octagon" viewBox="0 0 100 100" role="img" aria-label="${word}"><path d="M30 2h40l28 28v40L70 98H30L2 70V30z" fill="#c8102e"/><path d="M31.7 6h36.6L94 31.7v36.6L68.3 94H31.7L6 68.3V31.7z" fill="none" stroke="#fff" stroke-width="3"/><text x="50" y="59" text-anchor="middle" font-family="Overpass, sans-serif" font-weight="900" font-size="25" fill="#fff" letter-spacing="1">${word}</text></svg>`;
+}
 
 function renderStages(el, playbook) {
-  const stages = playbook?.stages || STAGE_LABELS.map((label) => ({ label, done: false }));
+  const done = new Set((playbook?.stages || []).filter((s) => s.done).map((s) => s.key));
   el.innerHTML = "";
-  for (const s of stages) {
+  for (const s of STAGES) {
     const li = document.createElement("li");
-    li.textContent = s.label;
-    if (s.done) li.className = "done";
+    if (done.has(s.key)) li.className = "done";
+    li.innerHTML = signSVG(s.key);
+    const span = document.createElement("span");
+    span.textContent = s[LANG] || s.en;
+    li.append(span);
     el.append(li);
   }
 }
@@ -17,13 +62,12 @@ function renderStages(el, playbook) {
 // Highlight the phrases that raised a flag (best effort: Prisma's punctuation may differ).
 function addCaption(el, text, risk, prefix) {
   const li = document.createElement("li");
-  if (prefix) { const b = document.createElement("b"); b.textContent = prefix + " "; li.append(b); }
-  const phrases = (risk?.flags || []).map((f) => f.phrase).filter((p) => p.length > 1);
+  if (prefix) { const b = document.createElement("b"); b.textContent = prefix; li.append(b); }
   const lower = text.toLowerCase();
   const hits = [];
-  for (const p of phrases) {
-    const i = lower.indexOf(p);
-    if (i >= 0) hits.push([i, i + p.length]);
+  for (const f of risk?.flags || []) {
+    const i = f.phrase.length > 1 ? lower.indexOf(f.phrase) : -1;
+    if (i >= 0) hits.push([i, i + f.phrase.length]);
   }
   hits.sort((a, b) => a[0] - b[0]);
   let pos = 0;
@@ -36,10 +80,14 @@ function addCaption(el, text, risk, prefix) {
   li.append(text.slice(pos));
   if (risk?.new?.length) li.className = "flagged";
   el.append(li);
-  li.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  el.scrollTop = el.scrollHeight;
 }
 
+const LEVEL = { en: { safe: "Safe", watch: "Watching", high: "Likely scam", critical: "Scam" },
+                hi: { safe: "सुरक्षित", watch: "नज़र है", high: "शायद धोखा", critical: "धोखा" } };
 function setLevel(el, risk) {
   el.dataset.level = risk.level;
-  el.textContent = `${LEVEL_TEXT[risk.level]} · ${risk.score}/100`;
+  el.textContent = `${LEVEL[LANG][risk.level]} · ${risk.score}/100`;
 }
+
+const AHEAD_ICON = '<svg viewBox="0 0 26 26" aria-hidden="true"><path d="M13 2 25 23H1z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><rect x="11.8" y="9" width="2.4" height="8" fill="currentColor"/><circle cx="13" cy="19.6" r="1.4" fill="currentColor"/></svg>';

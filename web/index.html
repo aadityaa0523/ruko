@@ -3,142 +3,180 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ruko · the phone call that answers back</title>
-<meta name="description" content="Ruko listens to a phone call, spots a scam as it unfolds and warns out loud in Indian languages. It alerts family live and writes the 1930 complaint. Works with any phone.">
-<meta name="theme-color" content="#22306b">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Noto+Sans:wght@400;600;700&display=swap">
-<link rel="stylesheet" href="/ruko.css?v=10">
-<link rel="stylesheet" href="/landing.css?v=10">
+<title>Ruko · scam-call guard for Indian families</title>
+<meta name="description" content="Ruko listens to a phone call, spots the scam as it unfolds, warns your parents out loud in their language before the scammer's next move, and turns your phone red. Works on speaker with any phone; a keypad-phone line is in testing.">
+<meta name="theme-color" content="#26282b">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="stylesheet" href="/ruko.css?v=22">
+<link rel="stylesheet" href="/landing.css?v=24">
 </head>
 <body>
-<header class="nav wrap">
-  <a class="logo" href="/"><i></i>ruko</a>
-  <nav><a href="#how">How it works</a><a href="#family">Family</a><a href="#business">For banks</a><a href="#pricing">Pricing</a></nav>
-  <a class="btn primary" href="/app/">Open Ruko</a>
+<header class="nav">
+  <div class="wrap nav-row">
+    <a class="logo" href="/" aria-label="Ruko home"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M30 2h40l28 28v40L70 98H30L2 70V30z" fill="#c8102e"/><path d="M31.7 9h36.6L91 31.7v36.6L68.3 91H31.7L9 68.3V31.7z" fill="none" stroke="#fff" stroke-width="5"/></svg>Ruko</a>
+    <nav aria-label="Sections"><a href="#how" data-i18n="nav_how">How it works</a><a href="#family" data-i18n="nav_family">Family</a><a href="#proof" data-i18n="nav_proof">Proof</a><a href="#business" data-i18n="nav_biz">For banks</a></nav>
+    <div class="lang-toggle" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true"><span>EN</span></button><button type="button" data-lang="hi" aria-pressed="false"><span>हिं</span></button></div>
+    <a class="btn btn-primary nav-cta" href="/app/?setup=family" data-i18n="cta">Protect my parents</a>
+  </div>
 </header>
 
 <main>
-  <section class="hero wrap">
-    <div>
-      <h1>The phone call that <span class="u">answers back.</span></h1>
-      <p class="lede">Ruko listens to a call on speaker, recognises a scam while it is happening and says <b>“ruko”</b> out loud in Hindi, Kannada, Telugu, Tamil or Hinglish. Then it alerts the family and writes the 1930 complaint. It works next to any phone, even a ₹1,000 keypad one.</p>
-      <div class="cta"><a class="btn primary" href="/app/">Protect a call now</a><a class="btn" href="#waitlist">Join the Family Shield pilot</a></div>
-      <p class="muted small">Free to try. No app to install. Speech by Gnani AI Prisma, voice by Gnani AI Timbre.</p>
-    </div>
-    <div class="demo card" aria-live="polite">
-      <div class="demo-head"><span class="pill"><span class="dot live"></span>Sample call</span><span class="level" id="dLevel" data-level="safe">Safe · 0/100</span></div>
-      <ol class="captions" id="dCaptions" data-empty="Press play to watch Ruko read a made-up “CBI officer” call."></ol>
-      <ol class="stages" id="dStages"></ol>
-      <p class="next" id="dNext"></p>
-      <button class="btn gold block" id="dPlay" type="button">▶ Watch Ruko catch a scam</button>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-plate">
+        <h1><span data-i18n="h1a">Scam ahead.</span> <span class="h1b" data-i18n="h1b">Ruko warns before it arrives.</span></h1>
+        <p class="lede" data-i18n="lede">Ruko listens to your parents' phone call, recognises the scam as it unfolds, and warns them out loud in their language before the scammer's next move. Your phone turns red at the same moment.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/app/?setup=family" data-i18n="cta">Protect my parents</a>
+          <button class="btn btn-ghost" id="dPlay" type="button"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3.5v13l11-6.5z" fill="currentColor"/></svg><span id="dPlayLabel" data-i18n="play">Hear a scam get caught</span></button>
+        </div>
+        <ul class="facts">
+          <li data-i18n="f1">Any phone; keypad-phone line in testing</li>
+          <li data-i18n="f2">Hindi, Hinglish, Kannada, Telugu, Tamil, English</li>
+          <li data-i18n="f3">Free to try</li>
+        </ul>
+      </div>
+
+      <div class="road" aria-live="polite">
+        <svg class="road-bg" viewBox="0 0 400 520" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M150 0h100l150 520H0z" fill="#303337"/>
+          <path d="M150 0 0 520M250 0l150 520" stroke="#fafaf7" stroke-width="3" opacity=".5"/>
+          <path d="M200 0v520" stroke="#ffc20e" stroke-width="5" stroke-dasharray="26 22"/>
+        </svg>
+        <div class="stop" id="dStop" aria-hidden="true"></div>
+        <ol class="signs road-signs" id="dStages" aria-label="The four steps of a scam call"></ol>
+        <div class="call">
+          <div class="call-head"><span class="dot" id="dDot"></span><span data-i18n="call_label">Sample call · synthetic voices</span><span class="level" id="dLevel" data-level="safe">Safe · 0/100</span></div>
+          <ol class="captions" id="dCaptions" data-empty=""></ol>
+          <p class="ahead"><svg viewBox="0 0 26 26" aria-hidden="true"><path d="M13 2 25 23H1z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><rect x="11.8" y="9" width="2.4" height="8" fill="currentColor"/><circle cx="13" cy="19.6" r="1.4" fill="currentColor"/></svg><span id="dNext"></span></p>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="numbers wrap" aria-label="The problem in numbers">
-    <div><b>₹22,845 Cr</b><span>lost to cyber fraud in India in 2024</span></div>
-    <div><b>₹1,935 Cr</b><span>lost to “digital arrest” calls alone in 2024</span></div>
-    <div><b>250–350 M</b><span>Indians on keypad phones, with no AI scam protection (estimate)</span></div>
-    <p class="muted small src">Government replies in Parliament (MHA, 2025). Keypad-phone figure is an industry estimate.</p>
-  </section>
-
-  <section class="wrap split" id="how">
-    <div>
-      <p class="kicker">Why caller ID isn't enough</p>
-      <h2>Scammers change numbers every day. They don't change the script.</h2>
-      <p>Spam lists block known numbers. A new SIM gets past them. But every phone scam follows the same four steps, whatever language it's in. Ruko tracks the <b>steps</b>, so it knows how far a call has gone and warns about the next move <b>before</b> it comes.</p>
-    </div>
-    <ol class="playbook">
-      <li><b>Pretends to be someone you trust</b><span>“CBI officer”, “bank head office”, “PM-Kisan office”, “I sent money by mistake”</span></li>
-      <li><b>Scares you or rushes you</b><span>Arrest warrant, account freeze, electricity cut tonight, last date today</span></li>
-      <li><b>Cuts you off from family</b><span>“Don't tell anyone, don't cut the call”</span></li>
-      <li><b>Asks for OTP, money or your phone</b><span>OTP, UPI PIN, “safe account”, AnyDesk, a link</span></li>
-    </ol>
-  </section>
-
-  <section class="wrap steps">
-    <div class="card"><span class="n">1</span><h3>Listens</h3><p>Put the call on speaker and tap once. Gnani Prisma transcribes it live, even when Hindi and English are mixed in one sentence.</p></div>
-    <div class="card"><span class="n">2</span><h3>Warns out loud</h3><p>When the pattern adds up, the screen turns red and Gnani Timbre speaks a warning in your language, loud enough to break the spell.</p></div>
-    <div class="card"><span class="n">3</span><h3>Golden hour</h3><p>When you hang up: a ready-to-file 1930 complaint, who-said-what timeline and a family message. The call audio is deleted.</p></div>
-  </section>
-
-  <section class="wrap split family" id="family">
-    <div>
-      <p class="kicker">Family Shield</p>
-      <h2>Scams work when people are alone. So Ruko calls in the family.</h2>
-      <p>Parents send one link to their children. The moment a call turns into a scam, the child's phone turns red with live captions and tells them what to do: call now, because a second call breaks the scammer's hold.</p>
-      <ul class="ticks">
-        <li>Live captions and scam steps on the family member's phone</li>
-        <li>Keypad phones: merge the call with Ruko's number and Ruko warns <i>inside</i> the call</li>
-        <li>Nobody sees anything unless a call is being protected</li>
-      </ul>
-    </div>
-    <div class="phone card" aria-hidden="true">
-      <p class="phone-top">Family Shield · Live</p>
-      <p class="phone-big">Dadi is on a SCAM call right now</p>
-      <ol><li>Call her right now.</li><li>No OTP, no money, no app.</li><li>Money gone? Call 1930 together.</li></ol>
+  <section class="playbook" id="how">
+    <div class="wrap">
+      <h2 data-i18n="pb_h">Scammers change numbers every day. They never change the script.</h2>
+      <p class="section-lede" data-i18n="pb_p">Caller ID and spam lists check the number. Ruko listens to what is being said. Every phone scam walks through the same four signs, in every language, and Ruko knows which sign comes next.</p>
+      <ol class="strip">
+        <li><div class="strip-sign" data-sign="pose"></div><h3 data-i18n="s1">Pretends to be someone you trust</h3><p class="quote">“CBI officer bol raha hoon” · “SBI head office se”</p><p class="next-line"><b data-i18n="ruko_says">Ruko warns:</b> <span data-i18n="s1n">next they will ask for an OTP.</span></p></li>
+        <li><div class="strip-sign" data-sign="fear"></div><h3 data-i18n="s2">Scares you or rushes you</h3><p class="quote">“Warrant nikla hai” · “aaj raat bijli kat jayegi”</p><p class="next-line"><b data-i18n="ruko_says">Ruko warns:</b> <span data-i18n="s2n">real police never arrest anyone on a call.</span></p></li>
+        <li><div class="strip-sign" data-sign="isolate"></div><h3 data-i18n="s3">Cuts you off from family</h3><p class="quote">“Kisi ko mat batana, phone mat kaatna”</p><p class="next-line"><b data-i18n="ruko_says">Ruko warns:</b> <span data-i18n="s3n">tell your family now. Your family's phone is already red.</span></p></li>
+        <li><div class="strip-sign" data-sign="ask"></div><h3 data-i18n="s4">Asks for OTP, money or your phone</h3><p class="quote">“OTP bata dijiye” · “safe account mein transfer” · “AnyDesk”</p><p class="next-line"><b data-i18n="ruko_says">Ruko warns:</b> <span data-i18n="s4n">cut the call now and call 1930.</span></p></li>
+      </ol>
     </div>
   </section>
 
-  <section class="wrap business" id="business">
-    <p class="kicker">Ruko for banks, telcos and insurers</p>
-    <h2>Stop the fraud before the transfer, not after the chargeback.</h2>
-    <div class="biz">
-      <div class="card"><h3>Banks &amp; UPI apps</h3><p>Score a live or recorded call for scam steps through one API, and hold a large transfer when the customer is mid-scam. Fewer frauds, fewer disputes, fewer angry customers.</p></div>
-      <div class="card"><h3>Telcos</h3><p>Offer Ruko as a network add-on for keypad-phone users: the warning is spoken inside the call, no smartphone needed.</p></div>
-      <div class="card"><h3>Cyber cells</h3><p>Complaints that arrive structured, with timestamps and the scam steps used, so the golden hour isn't lost on retelling.</p></div>
+  <section class="family" id="family">
+    <div class="wrap family-grid">
+      <div>
+        <h2 data-i18n="fam_h">When Mummy's call turns red, so does your phone.</h2>
+        <p class="section-lede" data-i18n="fam_p">Scams work because the person on the call is alone. Family Shield puts you on the line: live captions, the scam step, and what to do, the moment it happens.</p>
+        <ul class="ticks">
+          <li data-i18n="fam_1">The warning can be spoken in your own voice. Record 15 seconds; delete it any time.</li>
+          <li data-i18n="fam_2">Keypad phone? Mummy merges the call with Ruko's number and Ruko warns inside the call (in testing).</li>
+          <li data-i18n="fam_3">Nothing is shared unless a call is being protected. No call audio is kept.</li>
+        </ul>
+        <a class="btn btn-primary" href="/app/?setup=family" data-i18n="cta">Protect my parents</a>
+      </div>
+      <div class="phones" aria-hidden="true">
+        <figure class="phone phone-parent">
+          <div class="screen red"><div class="oct-slot" data-oct></div><p class="ph-big" data-i18n="ph_parent">It's a scam. Cut the call.</p><span class="ph-btn" data-i18n="ph_cut">I've cut the call</span></div>
+          <figcaption data-i18n="cap_parent">Mummy's phone, on speaker</figcaption>
+        </figure>
+        <figure class="phone phone-child">
+          <div class="screen red"><p class="ph-small">Live</p><p class="ph-big" data-i18n="ph_child">Mummy is on a scam call right now</p><ol class="ph-list"><li data-i18n="ph_c1">Call her now. A second call breaks the scam.</li><li data-i18n="ph_c2">No OTP, no money, no app.</li></ol></div>
+          <figcaption data-i18n="cap_child">Your phone, at work</figcaption>
+        </figure>
+      </div>
     </div>
-    <pre class="code" aria-label="API example">POST /v1/score   X-Ruko-Key: •••••
-{"lines": ["Main CBI se bol raha hoon", "aapke naam warrant hai", "kisi ko mat batana"]}
+  </section>
+
+  <section class="board-sec">
+    <div class="wrap">
+      <h2 data-i18n="feat_h">Everything a family needs against scam calls</h2>
+      <div class="board" role="list">
+        <div class="board-row" role="listitem"><span class="b-name" data-i18n="b1">Call Guard</span><span class="b-desc" data-i18n="b1d">Put the call on speaker, tap once. Live captions, scam steps, a loud warning.</span><span class="b-tag">Gnani Prisma</span></div>
+        <div class="board-row" role="listitem"><span class="b-name" data-i18n="b2">Warns ahead</span><span class="b-desc" data-i18n="b2d">Tells them what the scammer will ask for next, before it is asked.</span><span class="b-tag">4-step playbook</span></div>
+        <div class="board-row" role="listitem"><span class="b-name" data-i18n="b3">Their language</span><span class="b-desc" data-i18n="b3d">Detects the caller's language and speaks the warning in it, slowly if needed.</span><span class="b-tag">6 languages</span></div>
+        <div class="board-row" role="listitem"><span class="b-name" data-i18n="b4">Keypad phones</span><span class="b-desc" data-i18n="b4d">Merge the call with Ruko's number. The warning plays inside the call.</span><span class="b-tag">In testing</span></div>
+        <div class="board-row" role="listitem"><span class="b-name" data-i18n="b5">1930 report</span><span class="b-desc" data-i18n="b5d">When the call ends: a ready complaint, who said what, and a button to call 1930.</span><span class="b-tag">2.5 s</span></div>
+        <div class="board-row" role="listitem"><span class="b-name" data-i18n="b6">Voice notes</span><span class="b-desc" data-i18n="b6d">Forwarded a strange WhatsApp voice note? Ruko checks it.</span><span class="b-tag">30 s clips</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="proof" id="proof">
+    <div class="wrap proof-grid">
+      <div>
+        <h2 data-i18n="proof_h">Tested on noisy phone audio, not just in a quiet room.</h2>
+        <p class="section-lede" data-i18n="proof_p">36 live runs through Gnani's speech models: 7 scam calls in 5 languages and 2 genuine calls, on a speakerphone and on an 8 kHz phone line, with and without a TV-like voice in the background. All calls are scripted and spoken by synthetic voices.</p>
+        <p class="limits" data-i18n="proof_l">Where it struggles: with background chatter, 2 of 14 alerts came about 4.5 seconds late. Ruko only warns; it never blocks a call.</p>
+      </div>
+      <table class="results">
+        <caption class="sr">Measured results by condition</caption>
+        <thead><tr><th scope="col" data-i18n="t_cond">Condition</th><th scope="col" data-i18n="t_caught">Scams caught</th><th scope="col" data-i18n="t_false">False alarms</th><th scope="col" data-i18n="t_delay">Median delay</th></tr></thead>
+        <tbody>
+          <tr><th scope="row" data-i18n="c1">Speakerphone</th><td>7/7</td><td>0/2</td><td>0.09 s</td></tr>
+          <tr><th scope="row" data-i18n="c2">Phone line, 8 kHz</th><td>7/7</td><td>0/2</td><td>0.07 s</td></tr>
+          <tr><th scope="row" data-i18n="c3">Speaker + background voice</th><td>7/7</td><td>0/2</td><td>0.36 s</td></tr>
+          <tr><th scope="row" data-i18n="c4">Phone line + background voice</th><td>7/7</td><td>0/2</td><td>0.35 s</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="setup">
+    <div class="wrap setup-grid">
+      <h2 data-i18n="setup_h">Set it up for your parents in two minutes</h2>
+      <ol class="steps">
+        <li><b data-i18n="st1">Open Ruko on their phone</b><span data-i18n="st1d">No app store, no sign-up. Add it to the home screen.</span></li>
+        <li><b data-i18n="st2">Send yourself the family link</b><span data-i18n="st2d">One tap shares it on WhatsApp. Keep it open on your phone.</span></li>
+        <li><b data-i18n="st3">Record your voice (optional)</b><span data-i18n="st3d">So the warning they hear is yours.</span></li>
+      </ol>
+      <a class="btn btn-dark" href="/app/?setup=family" data-i18n="cta">Protect my parents</a>
+    </div>
+  </section>
+
+  <section class="business" id="business">
+    <div class="wrap biz-grid">
+      <div>
+        <h2 data-i18n="biz_h">For banks, UPI apps and telcos</h2>
+        <p class="section-lede" data-i18n="biz_p">Score a live or recorded call for scam steps with one API call, and hold a large transfer while a customer is mid-scam. Telcos can offer the keypad-phone line as a network service.</p>
+<pre class="code" aria-label="API example">POST /v1/score   X-Ruko-Key: demo
+{"lines": ["Main CBI se bol raha hoon",
+           "aapke naam warrant hai",
+           "kisi ko mat batana"]}
 
 → {"level": "high", "score": 67,
-   "playbook": {"next": "Real police, CBI or courts never arrest anyone on a phone call…"}}</pre>
-  </section>
-
-  <section class="wrap" id="pricing">
-    <p class="kicker">Pricing</p>
-    <h2>Free for the person on the call. Paid by the people who lose when scams win.</h2>
-    <div class="plans">
-      <div class="card plan"><h3>Ruko</h3><p class="price">Free</p><ul class="ticks"><li>Speakerphone guard, 6 languages</li><li>Spoken warning</li><li>1930 complaint pack</li><li>Voice-note check</li></ul><a class="btn block" href="/app/">Open Ruko</a></div>
-      <div class="card plan hot"><h3>Family Shield</h3><p class="price">₹49<small>/month per family</small></p><ul class="ticks"><li>Live red-alert screen for up to 5 family members</li><li>Keypad-phone line: warning inside the call</li><li>Call reports for the family</li></ul><a class="btn gold block" href="#waitlist">Join the pilot (free)</a></div>
-      <div class="card plan"><h3>Business</h3><p class="price">Per protected call</p><ul class="ticks"><li>Scam-score API</li><li>In-call warnings on your telephony</li><li>Cyber-cell complaint export</li></ul><a class="btn block" href="#waitlist">Talk to us</a></div>
+   "playbook": {"next": "Real police, CBI or courts
+                never arrest anyone on a phone call…"}}</pre>
+      </div>
+      <form id="wl" class="panel wl">
+        <h3 data-i18n="wl_h">Join the pilot</h3>
+        <label class="field"><span data-i18n="wl_name">Your name</span><input name="name" required maxlength="60" autocomplete="name"></label>
+        <label class="field"><span data-i18n="wl_contact">Phone or email</span><input name="contact" required maxlength="100" autocomplete="email"></label>
+        <label class="field"><span data-i18n="wl_role">I'm joining as</span>
+          <select name="role"><option value="family" data-i18n="r_family">Protecting my parents</option><option value="self" data-i18n="r_self">I get these calls</option><option value="bank" data-i18n="r_bank">Bank or fintech</option><option value="telco" data-i18n="r_telco">Telco</option><option value="police" data-i18n="r_police">Police or cyber cell</option><option value="other" data-i18n="r_other">Other</option></select>
+        </label>
+        <label class="check"><input type="checkbox" name="consent" required><span data-i18n="wl_consent">Ruko may contact me about the pilot. Nothing else.</span></label>
+        <button class="btn btn-dark btn-block" type="submit" data-i18n="wl_btn">Join the pilot</button>
+        <p class="small" id="wlMsg" role="status"></p>
+      </form>
     </div>
-  </section>
-
-  <section class="wrap waitlist card" id="waitlist">
-    <div>
-      <h2>Join the pilot</h2>
-      <p class="muted">We're onboarding the first families and partners now. Leave a way to reach you and we'll set you up.</p>
-    </div>
-    <form id="wl">
-      <label class="field">Your name<input name="name" required maxlength="60" autocomplete="name"></label>
-      <label class="field">Phone or email<input name="contact" required maxlength="100" autocomplete="email"></label>
-      <label class="field">I'm joining as
-        <select name="role"><option value="family">Someone protecting my parents</option><option value="self">Someone who gets these calls</option><option value="bank">A bank / fintech</option><option value="telco">A telco</option><option value="police">Police / cyber cell</option><option value="other">Other</option></select>
-      </label>
-      <label class="check"><input type="checkbox" name="consent" required> Ruko may contact me about the pilot. Nothing else, ever.</label>
-      <button class="btn primary block" type="submit">Join the pilot</button>
-      <p class="small" id="wlMsg" role="status"></p>
-    </form>
-  </section>
-
-  <section class="wrap honest">
-    <h2>Where Ruko is today</h2>
-    <ul class="ticks">
-      <li>Working: live listening, spoken warnings in 6 languages, scam-step tracking, Family Shield, 1930 pack, voice-note check, scoring API.</li>
-      <li>Tested on: 15 made-up calls in Hinglish, Hindi, Kannada and Telugu, plus real Gnani Prisma transcripts of them, mistakes included. All test data is synthetic.</li>
-      <li>Next: keypad-phone line on a live carrier number (built and tested on a simulator), and a field pilot with families.</li>
-      <li>Ruko only warns. It never blocks a call, and it doesn't replace 1930.</li>
-    </ul>
   </section>
 </main>
 
-<footer class="wrap foot">
-  <a class="logo" href="/"><i></i>ruko</a>
-  <p class="muted small">Lost money to a call? Call <a href="tel:1930">1930</a> now or report at <a href="https://cybercrime.gov.in" target="_blank" rel="noopener">cybercrime.gov.in</a>.<br>Built on Gnani AI Prisma and Timbre for the Great Indian AI Internship Challenge.</p>
+<footer class="foot">
+  <div class="wrap foot-grid">
+    <a class="logo" href="/"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M30 2h40l28 28v40L70 98H30L2 70V30z" fill="#c8102e"/><path d="M31.7 9h36.6L91 31.7v36.6L68.3 91H31.7L9 68.3V31.7z" fill="none" stroke="#fff" stroke-width="5"/></svg>Ruko</a>
+    <p><span data-i18n="foot_1">Lost money to a call? Call</span> <a href="tel:1930"><b>1930</b></a> <span data-i18n="foot_2">now, or report at</span> <a href="https://cybercrime.gov.in" target="_blank" rel="noopener">cybercrime.gov.in</a>.</p>
+    <p class="muted small" data-i18n="foot_3">Built solo for the Gnani AI Great Indian AI Internship Challenge. Speech by Gnani Prisma, voices by Gnani Timbre. Ruko only warns; it never blocks calls and keeps no call audio.</p>
+  </div>
 </footer>
 
-<script src="/ruko.js?v=10"></script>
-<script src="/landing.js?v=10"></script>
+<script src="/ruko.js?v=22"></script>
+<script src="/landing.js?v=22"></script>
 </body>
 </html>

@@ -9,6 +9,8 @@ function setState(state, headline, sub) {
   $("headline").textContent = headline;
   $("sub").textContent = sub;
   $("todo").hidden = state !== "danger";
+  $("famOct").hidden = state !== "danger";
+  if (state === "danger" && !$("famOct").innerHTML) $("famOct").innerHTML = octagonSVG();
 }
 
 function idle() {
@@ -28,6 +30,7 @@ function handle(m) {
     addCaption($("captions"), m.text, m.risk);
     renderStages($("stages"), m.risk.playbook);
     $("next").textContent = m.risk.playbook?.next || "";
+    $("next").parentElement.classList.toggle("now", m.risk.level === "critical");
     if (m.risk.level === "high" || m.risk.level === "critical") danger();
     else if (m.risk.level === "watch") setState("live", `${who} is on a call`, "Some warning signs. Ruko is watching closely.");
   } else if (m.type === "warning") {
@@ -50,7 +53,7 @@ function danger() {
 
 function connect() {
   const ws = new WebSocket(`${location.protocol === "https:" ? "wss" : "ws"}://${location.host}/ws/family?c=${encodeURIComponent(code)}`);
-  ws.onopen = () => { retry = 1000; $("connText").textContent = "Live"; $("connDot").className = "dot"; };
+  ws.onopen = () => { retry = 1000; $("connText").textContent = "Live"; $("connDot").className = "cdot"; };
   ws.onmessage = (e) => handle(JSON.parse(e.data));
   ws.onclose = (e) => {
     if (e.code === 1008) {
@@ -58,7 +61,7 @@ function connect() {
       return setState("idle", "This family link isn't valid", "Ask for a new link from the Ruko app (Family Shield → Copy).");
     }
     $("connText").textContent = "Reconnecting…";
-    $("connDot").className = "dot live";
+    $("connDot").className = "cdot wait";
     setTimeout(connect, (retry = Math.min(retry * 2, 15000)));
   };
 }
@@ -101,7 +104,7 @@ $("voiceRec").onclick = async () => {
     node.port.onmessage = (e) => chunks.push(e.data);
     ctx.createMediaStreamSource(stream).connect(node);
     rec = { stream, ctx, chunks, t0: Date.now(), timer: setTimeout(stopRec, 30000) };
-    $("voiceRec").textContent = "■ Stop";
+    $("voiceRec").textContent = "Stop recording";
     $("voiceMsg").textContent = "Recording… read the lines above, then tap Stop.";
   } catch {
     $("voiceMsg").textContent = "Microphone permission is needed to record your voice.";
@@ -113,7 +116,7 @@ async function stopRec() {
   clearTimeout(r.timer);
   r.stream.getTracks().forEach((t) => t.stop());
   r.ctx.close();
-  $("voiceRec").textContent = "● Record again";
+  $("voiceRec").textContent = "Record again";
   if ((Date.now() - r.t0) / 1000 < 5) return ($("voiceMsg").textContent = "That was too short. Record at least 5 seconds.");
   $("voiceMsg").textContent = "Making your voice with Gnani…";
   const fd = new FormData();

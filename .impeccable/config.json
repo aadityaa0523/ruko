@@ -1,0 +1,26 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "repeating-stripes-gradient",
+        "value": "*",
+        "files": [
+          "web/landing.css"
+        ],
+        "createdAt": "2026-11-09T14:01:51.984Z",
+        "reason": "direction contract: hazard-stripe band is the road-sign world's own material (setup section only)"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "web/index.html"
+        ],
+        "createdAt": "2026-11-09T14:02:48.749Z",
+        "reason": "agent verified in render: flagged sections have 64-112px padding and strip items 26px; detector measures without layout CSS"
+      }
+    ]
+  }
+}

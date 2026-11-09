@@ -16,7 +16,7 @@ Only use a personal story if it's true. Misleading demos and claims are banned.
 >
 > Google's scam detection needs a Pixel. Most of the people these gangs call own a keypad phone.
 >
-> So we're building something for them, on Gnani AI's Indian-language voice models. It listens, it understands Kannada, Telugu, Hindi and Hinglish, and it speaks up.
+> So I'm building something for them, on Gnani AI's Indian-language voice models. It listens, it understands Kannada, Telugu, Hindi and Hinglish, and it speaks up.
 >
 > Reveal in 48 hours.
 >
@@ -48,8 +48,6 @@ Only use a personal story if it's true. Misleading demos and claims are banned.
 > Built with: Gnani Prisma v3.0 (Realtime, Batch diarization, REST) + Timbre v2.5/v3.0
 > Free for the person on the call; Family Shield ₹49/month; an API for banks and telcos. Pilot waitlist open.
 > Demo: [link] · Code: [link]
->
-> Earlier, our cyber-fraud complaint tool Samarthan was shortlisted at OpenAI × Varun Mayya's Build What Moves India. Ruko is the half that acts *during* the call.
 >
 > Share it with one person whose parents live alone.
 >

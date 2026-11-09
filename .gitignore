@@ -2,3 +2,8 @@
 .env
 __pycache__/
 data/
+.impeccable/review/
+.impeccable/*.log
+.impeccable/direction-round.json
+.impeccable/brief-landing.md
+.impeccable/icon-origin.txt
