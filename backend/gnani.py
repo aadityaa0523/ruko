@@ -51,9 +51,9 @@ def api_key() -> str:
     return os.environ.get("GNANI_API_KEY", "")
 
 
-def stt_headers(lang: str, model: str) -> dict:
+def stt_headers(lang: str, model: str, rate: int = 16000) -> dict:
     cfg = LANGS[lang]
-    h = {"x-api-key-id": api_key(), "model": model, "x-sample-rate": "16000"}
+    h = {"x-api-key-id": api_key(), "model": model, "x-sample-rate": str(rate)}
     if model == "prisma-v3.0":
         # Realtime takes exactly one locale; codemix keeps the English words that callers mix in.
         h["language_code"] = cfg["stt"]
@@ -142,16 +142,21 @@ async def diarize(wav: bytes, lang: str, max_wait_s: int = 240) -> list[dict]:
     return [s for s in doc.get("segments", []) if s.get("text")]
 
 
-async def tts(text: str, lang: str, whisper: bool = False) -> bytes:
-    """Speak text with Timbre. v2.5 by default (named in the challenge); v3.0 only for <whispers>."""
+async def tts(text: str, lang: str, whisper: bool = False, telephony: bool = False) -> bytes:
+    """Speak text with Timbre. v2.5 by default (named in the challenge); v3.0 only for <whispers>.
+    telephony=True returns raw 8 kHz G.711 mu-law, the format phone lines carry."""
     cfg = LANGS[lang]
     if whisper:
         body = {"text": f"<whispers> {text}", "voice": "Shivani", "model": "timbre-v3.0", "language": cfg["v3"]}
     else:
         body = {"text": text, "voice": cfg["voice"], "model": "timbre-v2.5", "language": cfg["tts"]}
     body["speed"] = 0.85  # slowest allowed, for elders (API rejects the documented "slow" string)
-    body["audio_config"] = {"sample_rate": 24000, "num_channels": 1, "sample_width": 2,
-                            "encoding": "linear_pcm", "container": "wav"}
+    if telephony:
+        body["audio_config"] = {"sample_rate": 8000, "num_channels": 1, "sample_width": 1,
+                                "encoding": "pcm_mulaw", "container": "raw"}
+    else:
+        body["audio_config"] = {"sample_rate": 24000, "num_channels": 1, "sample_width": 2,
+                                "encoding": "linear_pcm", "container": "wav"}
     async with httpx.AsyncClient(timeout=30) as client:
         r = await client.post(TTS_URL, json=body, headers={"X-API-Key-ID": api_key()})
     if r.status_code != 200:

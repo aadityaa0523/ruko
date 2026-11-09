@@ -20,11 +20,13 @@ from backend import gnani
 from backend.pack import build_pack, pick_caller
 from backend.risk import CallRisk
 from backend.scripts import SAFE, SCAM
+from backend.telephony import router as telephony_router
 
 ROOT = Path(__file__).resolve().parent.parent
 gnani.load_env(ROOT / ".env")
 
 app = FastAPI(title="Ruko")
+app.include_router(telephony_router)
 
 
 @app.get("/api/health")

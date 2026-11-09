@@ -228,3 +228,24 @@ $("clipCheck").onclick = async () => {
     (d.risk.flags.length ? " · Red flags: " + d.risk.flags.map((x) => x.label).join(", ") : "") +
     (d.truncated ? " · Only the first 30 seconds were checked." : "");
 };
+
+// ---- Phone-line calls (packs from calls Ruko joined over the phone network)
+async function loadCalls() {
+  const calls = await (await fetch("/api/calls")).json();
+  $("calls").innerHTML = calls.length ? "" : '<li class="hint">No phone-line calls yet.</li>';
+  for (const p of calls) {
+    const li = document.createElement("li");
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "ghost lvl-" + p.level;
+    b.textContent = `${p.complaint.incident_datetime} · ${LEVEL_TEXT[p.level]} (${p.score}/100)`;
+    b.onclick = () => {
+      showPack(p);
+      showTimeline({ error: "Phone-line mode: Ruko warned during the call. Voices are not separated for phone-line calls." });
+    };
+    li.append(b);
+    $("calls").append(li);
+  }
+}
+$("refreshCalls").onclick = loadCalls;
+loadCalls();
