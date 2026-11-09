@@ -300,14 +300,16 @@ function showPack(p) {
   lastPack = p;
   const scam = p.level === "high" || p.level === "critical";
   $("repCaller").hidden = !scam;
-  $("repMsg").textContent = "";
+  $("repMsg").textContent = ""; $("repGov").hidden = true;
   $("repCaller").onsubmit = async (e) => {
     e.preventDefault();
     try {
       const n = await reportNumber($("repNum").value, guessCategory(p.flags), "call");
       $("repMsg").textContent = `Thank you. ${n} is reported; once someone else reports it too, everyone who checks it is warned.`;
       $("repNum").value = "";
-    } catch { $("repMsg").textContent = "Type the full 10-digit number."; }
+      $("repGov").hidden = false;
+      $("repChakshu").onclick = () => chakshuReport(n, guessCategory(p.flags), "call", (p.flags || []).map((f) => f.phrase).filter(Boolean).join("; "));
+    } catch (e) { $("repMsg").textContent = e.message === "bad number" ? "Type the full 10-digit number." : reportError(e); }
   };
   $("pack").hidden = false;
   const bad = p.level === "high" || p.level === "critical";

@@ -4,7 +4,7 @@ window.STRINGS = {
   hi: {
     nav_check: "जाँचें", nav_guard: "कॉल गार्ड", nav_family: "परिवार", h1: "क्या यह धोखा है?",
     sub: "कोई भी SMS, WhatsApp संदेश, लिंक, UPI अनुरोध या फ़ोन नंबर चिपकाएँ। Ruko कुछ सेकंड में बताता है, और यह भी कि ठग आगे क्या करेगा।",
-    ph: "जैसे “आज रात आपकी बिजली कट जाएगी। अधिकारी को 98765 43210 पर कॉल करें”", paste: "चिपकाएँ", check: "जाँचें",
+    ph: "जैसे “आज रात आपकी बिजली कट जाएगी। अधिकारी को 98765 43210 पर कॉल करें”", paste: "चिपकाएँ और जाँचें", check: "जाँचें",
     private: "आपका चिपकाया हुआ कुछ भी सेव नहीं होता। नंबर सिर्फ़ तब सेव होता है जब आप उसे रिपोर्ट करें।", try: "आज़माएँ:",
     why: "क्यों", links: "इसमें लिंक", numbers: "इसमें फ़ोन नंबर", share: "WhatsApp पर परिवार को सावधान करें", lost: "पैसे गए? 1930 पर कॉल करें",
     lookup_h: "नंबर जाँचें या रिपोर्ट करें", number: "फ़ोन नंबर", lookup: "जाँचें", what: "उन्होंने क्या किया?", how: "कैसे संपर्क किया?",
@@ -90,11 +90,17 @@ function show(r, text) {
     const cat = guessCategory(r.flags);
     $("rcTitle").textContent = `Warn others about ${pretty(target)}?`;
     $("rcSub").textContent = `It will be reported as: ${CATEGORY_LABEL[cat]}. Reports are anonymous; after two reports, everyone who checks this number is warned.`;
-    $("rcBtn").disabled = false; $("rcBtn").textContent = "Report it";
+    const ch = /whatsapp/i.test(text) ? "whatsapp" : "sms";
+    $("rcBtn").disabled = false; $("rcBtn").textContent = "Report it"; $("rcGov").hidden = true;
+    $("rcChakshu").onclick = () => chakshuReport(target, cat, ch, text);
     $("rcBtn").onclick = async () => {
       $("rcBtn").disabled = true;
-      try { await reportNumber(target, cat, /whatsapp/i.test(text) ? "whatsapp" : "sms"); $("rcBtn").textContent = "Reported, thank you"; loadRadar(); }
-      catch { $("rcBtn").disabled = false; $("rcBtn").textContent = "Try again"; }
+      try { await reportNumber(target, cat, ch); $("rcBtn").textContent = "Reported, thank you"; $("rcGov").hidden = false; loadRadar(); }
+      catch (e) {
+        const m = reportError(e);
+        if (m.startsWith("You already")) { $("rcBtn").textContent = "Already reported"; $("rcGov").hidden = false; }
+        else { $("rcBtn").disabled = false; $("rcBtn").textContent = "Try again"; $("rcSub").textContent = m; }
+      }
     };
   }
   $("numsBox").hidden = !r.phones.length;
@@ -122,7 +128,12 @@ function show(r, text) {
 
 $("form").onsubmit = (e) => { e.preventDefault(); const v = $("text").value.trim(); if (v) runCheck(v); };
 $("paste").onclick = async () => {
-  try { $("text").value = await navigator.clipboard.readText(); $("text").focus(); } catch { $("text").focus(); }
+  try {
+    const v = (await navigator.clipboard.readText()).trim();
+    if (v) { $("text").value = v.slice(0, 4000); runCheck($("text").value); return; }
+  } catch {}
+  $("text").focus(); // clipboard blocked: let them long-press and paste
+
 };
 for (const b of document.querySelectorAll("[data-sample]")) b.onclick = () => { $("text").value = SAMPLES[+b.dataset.sample]; runCheck($("text").value); };
 
@@ -157,8 +168,9 @@ $("repForm").onsubmit = async (e) => {
     $("repMsg").classList.remove("err");
     $("repMsg").textContent = `Thanks. Once one more person reports ${pretty(n)}, everyone who checks it will see a warning.`;
     lookup(n); loadRadar();
-  } catch {
-    $("repMsg").classList.add("err"); $("repMsg").textContent = "Couldn't save the report. Please try again.";
+    $("repGov").hidden = false; $("repChakshu").onclick = () => chakshuReport(n, $("repCat").value, $("repCh").value);
+  } catch (e) {
+    $("repMsg").classList.add("err"); $("repMsg").textContent = reportError(e);
   }
 };
 

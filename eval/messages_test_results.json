@@ -1,0 +1,31 @@
+{
+  "messages": 100,
+  "scams": 50,
+  "genuine": 50,
+  "caught": 36,
+  "missed": 14,
+  "false_alarms": 3,
+  "precision": 0.923,
+  "recall": 0.72,
+  "missed_kinds": [
+    "refund_upi",
+    "task_job",
+    "loan_harassment",
+    "friend_trouble",
+    "courier_fee",
+    "gas",
+    "sim_block",
+    "olx_army",
+    "olx_army",
+    "job_fee",
+    "insurance_bonus",
+    "electricity",
+    "kyc_wallet",
+    "instant_loan"
+  ],
+  "false_alarm_kinds": [
+    "ride (suspicious)",
+    "delivery (suspicious)",
+    "kyc_branch (scam)"
+  ]
+}

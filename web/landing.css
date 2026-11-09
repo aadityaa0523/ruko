@@ -160,6 +160,8 @@ section h2 { font-size: clamp(2rem, 4.2vw, 3.3rem); letter-spacing: -0.045em; li
 /* Proof */
 .proof-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 64px; align-items: center; }
 @media (max-width: 900px) { .proof-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; } }
+.proof-msg { margin-top: 72px; padding-top: 56px; border-top: 1px solid rgba(255,255,255,.1); }
+.proof-msg h3 { font-size: clamp(1.5rem, 3vw, 2rem); line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 16px; }
 .limits { margin: 20px 0 0; padding: 14px 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; line-height: 1.6; max-width: 60ch; color: var(--muted); }
 .results { width: 100%; border-collapse: collapse; font-size: 1rem; border: 1px solid var(--line); border-radius: 20px; overflow: hidden; background: var(--surface); }
 .results th, .results td { text-align: left; padding: 16px; border-bottom: 1px solid var(--line); }

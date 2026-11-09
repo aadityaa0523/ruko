@@ -43,3 +43,15 @@ Hinglish, Hindi, Kannada, Telugu, Tamil and English. Each language had a scam ca
 - A real carrier call through Twilio or Exotel. Only a simulator speaking Twilio's protocol was used.
 - Real scam recordings. The challenge allows synthetic data only.
 - A native speaker reviewing the Kannada, Telugu and Tamil warning text.
+
+## Message checker (SMS, WhatsApp, links)
+
+Two synthetic sets, each written by a separate writer who never saw the checker's rules (`eval/messages.json`, `eval/messages_test.json`). Reproduce with `.venv/Scripts/python -m eval.messages_eval messages_test`. "Warned" means Ruko said *Be careful* or *Scam*. Masked numbers in the data (`97XXXX4410`) are filled with digits before checking, because real messages carry real numbers.
+
+| Set | Use | Precision | Recall | False alarms |
+|---|---|---|---|---|
+| Set 1, first blind run | before any changes | 85% | 68% (41/60) | 7/60 |
+| Set 1, after improving the rules | used to improve the rules, so this number is optimistic | 100% | 92% (55/60) | 0/60 |
+| **Set 2, held out** | **scored once, nothing changed afterwards** | **92%** | **72% (36/50)** | **3/50** |
+
+The held-out set is the honest number. All 12 held-out scams with a risky link or APK were caught. What rules still miss: new scripts with no link, such as fake army buyers on OLX, "pay GST to release your LIC bonus", and polite "accidentally sent you money" messages. False alarms come from genuine ride and delivery messages that ask you to share an OTP with the driver or courier. Next step: a small trained classifier alongside the rules, evaluated the same way on a new held-out set.

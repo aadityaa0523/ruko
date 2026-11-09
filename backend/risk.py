@@ -41,7 +41,7 @@ PHRASES = {
         "arrest", "digital arrest", "warrant", "case darj", "fir", "jail", "giraftar", "giraftaar",
         "account freeze", "freeze ho", "block ho", "band ho jayega", "band ho jayegi", "band ho jaega",
         "kat jayegi", "kat jayega", "cut ho jayegi", "kist ruk", "kist band", "drugs", "money laundering",
-        "illegal", "गिरफ्तार", "वारंट", "बंद हो जाएग", "band हो", "bond हो", "block हो", "ब्लॉक हो", "freeze हो",
+        "illegal", "गिरफ्तार", "वारंट", "बंद हो जाएग", "बंद कर दिया जाएग", "काट दिया जाएग", "band हो", "bond हो", "block हो", "ब्लॉक हो", "freeze हो",
         "कट जाएग", "किस्त रुक", "किस्त बंद", "जेल", "केस दर्ज", "ड्रग्स", "डिजिटल अरेस्ट", "ಬಂಧನ", "ಕೇಸ್", "case ಆಗಿದೆ", "block ಆಗ", "block అవ", "అరెస్ట్", "బ్లాక్",
         "கைது", "வழக்கு", "முடக்க", "block ஆக",
         "अटक", "केस दाखल", "গ্রেফতার", "গ্রেপ্তার", "ব্লক", "block হ", "ধরপকડ", "ધરપકડ", "કેસ", "બ્લોક", "block થ", "അറസ്റ്റ്", "ബ്ലോക്ക്", "block ആ", "കേസ്",

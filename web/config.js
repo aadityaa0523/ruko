@@ -12,5 +12,5 @@ async function sbInsert(table, row) {
     headers: { apikey: c.supabaseKey, Authorization: `Bearer ${c.supabaseKey}`, "Content-Type": "application/json", Prefer: "return=minimal" },
     body: JSON.stringify(row),
   });
-  if (!r.ok) throw new Error(`save failed (${r.status})`);
+  if (!r.ok) { let m = ""; try { m = (await r.json()).message || ""; } catch {} throw new Error(m || `save failed (${r.status})`); }
 }

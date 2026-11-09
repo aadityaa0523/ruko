@@ -1,0 +1,502 @@
+[
+ {
+  "text": "Dear Consumer, your electricity power will be disconnected tonight at 9.30 PM as previous month bill is not updated. Contact electricity officer immediately on 97xxxx4412. Thank you.",
+  "label": "scam",
+  "kind": "electricity"
+ },
+ {
+  "text": "Sir aapka bijli ka connection aaj raat kat jayega, bill update nahi hua hai. Abhi is number par call karein 97xxxx0831 aur officer ko batayein, warna meter hata diya jayega.",
+  "label": "scam",
+  "kind": "electricity"
+ },
+ {
+  "text": "Your account has been temporarily restricted due to incomplete KYC. Update within 24 hrs to avoid permanent block: http://kyc-update-secure.in.net/verify",
+  "label": "scam",
+  "kind": "kyc"
+ },
+ {
+  "text": "Dear customer, aapka SBI YONO account aaj block ho jayega. PAN update karne ke liye ye app install karein: yono-sbi-rewards.apk-dl.top/SBI.apk",
+  "label": "scam",
+  "kind": "kyc_apk"
+ },
+ {
+  "text": "प्रिय ग्राहक, आपका बैंक खाता केवाईसी अपडेट न होने के कारण आज बंद कर दिया जाएगा। तुरंत यहां क्लिक करें: bit.ly/kyc-bank-upd8 और अपना कार्ड नंबर व ओटीपी भरें।",
+  "label": "scam",
+  "kind": "kyc"
+ },
+ {
+  "text": "This is Inspector Rajesh Kumar from CBI Cyber Cell, Delhi. A parcel in your name with 5 passports and MDMA was seized. Join Skype video call now, do not disconnect or inform anyone. You are under digital arrest until verification is complete.",
+  "label": "scam",
+  "kind": "digital_arrest"
+ },
+ {
+  "text": "Main Mumbai Police se bol raha hu. Aapke Aadhaar se ek money laundering case juda hai. Aap video call par bane rahiye, kisi ko mat batana, warna arrest warrant nikal diya jayega. Verification ke liye paise RBI account me transfer karne honge.",
+  "label": "scam",
+  "kind": "digital_arrest"
+ },
+ {
+  "text": "TRAI NOTICE: Your mobile number will be disconnected in 2 hours due to illegal activity complaints. Press 9 to speak with the TRAI officer or call 97xxxx2290 immediately.",
+  "label": "scam",
+  "kind": "trai"
+ },
+ {
+  "text": "FedEx: Your package is held at Mumbai hub as it contains restricted items. Please call our executive on 97xxxx6615 to avoid police action and release it.",
+  "label": "scam",
+  "kind": "parcel"
+ },
+ {
+  "text": "Aapke naam ka ek parcel Customs Delhi me ruka hua hai. Clearance ke liye Rs 4,850 ka duty charge abhi UPI se bhejiye, nahi to parcel wapas ya seize ho jayega. Pay: customs-clear-india.top/pay",
+  "label": "scam",
+  "kind": "customs"
+ },
+ {
+  "text": "Hi, I accidentally sent Rs 12,000 to your number instead of my brother's. Please return it, I am sending you a request, just accept it to cancel. So sorry for the trouble.",
+  "label": "scam",
+  "kind": "refund_upi"
+ },
+ {
+  "text": "Bhaiya galti se aapke number pe 5000 rupaye chale gaye, plz wapas kar do. Maine ek collect request bheji hai wo approve kar dena, paisa cancel ho jayega. Bahut meherbani.",
+  "label": "scam",
+  "kind": "refund_upi"
+ },
+ {
+  "text": "Hello! We are hiring for part-time work from home. Earn Rs 3,000 to 8,000 daily by liking YouTube videos. No experience needed. Message us on WhatsApp wa.me/9197xxxx5521 to start today.",
+  "label": "scam",
+  "kind": "task_job"
+ },
+ {
+  "text": "Namaste, hum Amazon products ke review likhne ke liye logon ko hire kar rahe hain. Har review pe Rs 150. Pehle Telegram group join karein aur chhota sa deposit karke account activate karein. Aaj hi shuru karein!",
+  "label": "scam",
+  "kind": "task_job"
+ },
+ {
+  "text": "बधाई हो! आपका नंबर लकी ड्रा में चुना गया है और आपने 25 लाख रुपये जीते हैं। इनाम पाने के लिए 97xxxx7743 पर संपर्क करें और रजिस्ट्रेशन फीस 2,500 रुपये जमा करें।",
+  "label": "scam",
+  "kind": "lottery"
+ },
+ {
+  "text": "KBC Lucky Draw: Your WhatsApp number has won Rs 25,00,000 in the Jio anniversary lottery. To claim, send your name, address and Aadhaar to our manager and pay Rs 3,200 processing fee.",
+  "label": "scam",
+  "kind": "lottery"
+ },
+ {
+  "text": "You have borrowed Rs 3,000 from our app and the due date is over. Pay Rs 9,500 now or we will send your morphed photos and your loan details to every contact in your phonebook. Last warning.",
+  "label": "scam",
+  "kind": "loan_harassment"
+ },
+ {
+  "text": "Pre-approved personal loan of Rs 2,00,000 at 0% interest for you! No CIBIL check, no documents. Pay Rs 1,999 processing fee first and amount will be credited in 10 minutes. Apply: quickcash-loan-now.xyz",
+  "label": "scam",
+  "kind": "instant_loan"
+ },
+ {
+  "text": "Beta mai Rohit ka dost bol raha hu, uska accident ho gaya hai hospital me hai, abhi turant 15000 is number pe bhej do GPay se, uska phone toot gaya hai. Baad me ghar pe bata dena.",
+  "label": "scam",
+  "kind": "relative_trouble"
+ },
+ {
+  "text": "Hi, it's me. I changed my number, my old phone got damaged. Can you do me a quick favour? I need to pay a vendor urgently and my bank app is down. Can you send Rs 18,500? Will return by evening.",
+  "label": "scam",
+  "kind": "friend_trouble"
+ },
+ {
+  "text": "Traffic Challan Notice: Vehicle KA01xx4402 has a pending e-challan of Rs 500. Download the official RTO Parivahan app to pay: parivahan-challan.help/RTO_Echallan.apk. Late fee applies after today.",
+  "label": "scam",
+  "kind": "apk_challan"
+ },
+ {
+  "text": "Shaadi ka card dekhiye, hamare ghar ki shaadi hai. Ye file download karke kholiye: shaadi-invite-card.com/Card2024.apk. Zarur aana!",
+  "label": "scam",
+  "kind": "apk_invite"
+ },
+ {
+  "text": "Your parcel from the courier could not be delivered because the address was incomplete. Pay a re-delivery fee of Rs 29 at indiapost-redeliver.cc to reschedule. Parcel returns in 24 hours.",
+  "label": "scam",
+  "kind": "courier_fee"
+ },
+ {
+  "text": "Dear HDFC Credit Card holder, your 9,850 reward points will expire today. Redeem now as cash by installing our rewards app: hdfc-redeem-points.apk-store.in. Do not delay.",
+  "label": "scam",
+  "kind": "reward_points"
+ },
+ {
+  "text": "Priya ji, aapke credit card ke 8200 reward points aaj raat expire ho rahe hain. Turant redeem kijiye is link se: cardpoints-redeem.live aur apne card ki details dalein.",
+  "label": "scam",
+  "kind": "reward_points"
+ },
+ {
+  "text": "Income Tax Department: You are eligible for a refund of Rs 24,680 for AY 2025-26. Your refund could not be processed due to wrong bank details. Submit your account number here: incometax-refund-claim.in/submit",
+  "label": "scam",
+  "kind": "tax_refund"
+ },
+ {
+  "text": "आयकर विभाग: आपका 18,450 रुपये का रिफंड स्वीकृत हो गया है। राशि पाने के लिए अपना बैंक खाता और डेबिट कार्ड की जानकारी इस लिंक पर भरें: itr-refund-gov.co.in",
+  "label": "scam",
+  "kind": "tax_refund"
+ },
+ {
+  "text": "I have recorded your video while you were on the call. If you don't want me to send it to all your Facebook friends and family, pay Rs 25,000 within 1 hour. Don't try to block me.",
+  "label": "scam",
+  "kind": "sextortion"
+ },
+ {
+  "text": "Join our exclusive VIP trading group. Our SEBI-registered analysts give guaranteed 300% returns on stocks every week. 500+ members already profited. Free entry for first 50 people: chat.whatsapp.com/Ab3xFakeLink",
+  "label": "scam",
+  "kind": "stock_tips"
+ },
+ {
+  "text": "Bhai ek crypto coin hai jo 10 din me double hoga, humare admin ka confirm tip hai. Sirf 5000 se start karo, group me daily screenshot aate hain profit ke. Link: t.me/cryptoprofit_india_vip",
+  "label": "scam",
+  "kind": "crypto"
+ },
+ {
+  "text": "Hi, I am calling from Amazon customer care. A fraudulent order of iPhone worth Rs 89,999 is placed from your account. To cancel, call our helpline 97xxxx3058 and share the code we send.",
+  "label": "scam",
+  "kind": "fake_customer_care"
+ },
+ {
+  "text": "आपके पेटीएम वॉलेट में समस्या है। तुरंत हमारे कस्टमर केयर 97xxxx1176 पर कॉल करें और AnyDesk डाउनलोड करें ताकि हमारा एजेंट आपका खाता ठीक कर सके।",
+  "label": "scam",
+  "kind": "fake_customer_care"
+ },
+ {
+  "text": "गैस सब्सिडी योजना: आपकी एलपीजी सब्सिडी 1,850 रुपये आपके खाते में नहीं आ पाई। KYC पूरा करने के लिए लिंक खोलें और अपना आधार और ओटीपी डालें: gas-subsidy-india.in/kyc",
+  "label": "scam",
+  "kind": "gas_subsidy"
+ },
+ {
+  "text": "Dear customer, aapka gas connection band hone wala hai. Cylinder booking jaari rakhne ke liye 97xxxx9014 par call karein aur 10 rupaye verification fee UPI se bhejein.",
+  "label": "scam",
+  "kind": "gas"
+ },
+ {
+  "text": "Your SIM will be blocked within 24 hours as KYC is not updated. For immediate update, send your Aadhaar number to 97xxxx0602 or call customer support. Ignore if already done.",
+  "label": "scam",
+  "kind": "sim_block"
+ },
+ {
+  "text": "Aapka Airtel SIM aaj raat 12 baje block ho jayega, KYC adhura hai. Abhi 4G upgrade ke liye hamare executive se baat karein, wo ek code bhejenge wo bata dijiye.",
+  "label": "scam",
+  "kind": "sim_block"
+ },
+ {
+  "text": "Hey, I just got a WhatsApp code by mistake on your number, can you please forward me the 6-digit code? It's urgent, I'm locked out of my account. Thanks a lot!",
+  "label": "scam",
+  "kind": "whatsapp_code"
+ },
+ {
+  "text": "Bhai tere number pe galti se mera WhatsApp ka 6 digit code chala gaya hai, jaldi se bhej de na, mera account lock ho gaya hai. Please urgent hai.",
+  "label": "scam",
+  "kind": "whatsapp_code"
+ },
+ {
+  "text": "Hello, I am Major Vikram Singh posted at Pathankot. I saw your sofa listing on OLX. I like it and will pay full price, my army courier will collect. Please scan this QR I am sending to receive advance payment.",
+  "label": "scam",
+  "kind": "olx_army"
+ },
+ {
+  "text": "Sir main CRPF me hu, transfer ho raha hai isliye fridge aur AC sasta bech raha hu, sirf 8000 me. Advance 2000 UPI karo, army transport se bhej dunga. Meri ID dekh lo bhej raha hu.",
+  "label": "scam",
+  "kind": "olx_army"
+ },
+ {
+  "text": "Dear Anjali, I am Dr. James from London, I have sent you a gift parcel with gold jewellery and a laptop as a token of my love. The courier needs Rs 35,000 customs clearance fee before it reaches you. Please pay today.",
+  "label": "scam",
+  "kind": "romance_customs"
+ },
+ {
+  "text": "Namaste, matrimony site par aapka profile pasand aaya. Main NRI engineer hu, aapke liye ek gift bheja hai. Delhi airport par rok liya hai, 28,000 ka customs fee abhi bhej dijiye, baat pakki karenge.",
+  "label": "scam",
+  "kind": "romance_customs"
+ },
+ {
+  "text": "Dear user, your FASTag is deactivated due to pending KYC. Recharge Rs 100 and verify here: fastag-kyc-npci.live to avoid being charged double toll.",
+  "label": "scam",
+  "kind": "fastag"
+ },
+ {
+  "text": "Congratulations! You are selected for a work from home data entry role at Flipkart. Salary Rs 45,000 per month. Pay Rs 1,200 refundable registration and training fee to confirm your joining. Offer closes today.",
+  "label": "scam",
+  "kind": "job_fee"
+ },
+ {
+  "text": "Dear Sir, your LIC policy bonus of Rs 3,40,000 is lying unclaimed. To release it, pay GST and processing charges of Rs 7,500 to our nodal officer. Reply fast, only valid till Friday.",
+  "label": "scam",
+  "kind": "insurance_bonus"
+ },
+ {
+  "text": "Hello, good evening. This is regarding your electricity connection. Due to a pending bill your supply will be stopped tonight. Kindly call the officer on 97xxxx7720. Kindly don't ignore, sir.",
+  "label": "scam",
+  "kind": "electricity"
+ },
+ {
+  "text": "Your Paytm KYC has expired and wallet will be frozen in 2 hours. Send a screenshot of your debit card and PIN to our verification executive on WhatsApp to continue using Paytm.",
+  "label": "scam",
+  "kind": "kyc_wallet"
+ },
+ {
+  "text": "आपके नाम से 5 लाख का प्री-अप्रूव्ड पर्सनल लोन तैयार है। कोई दस्तावेज नहीं लगेगा। बस 1,500 रुपये बीमा शुल्क भेजिए और रकम तुरंत आपके खाते में।",
+  "label": "scam",
+  "kind": "instant_loan"
+ },
+ {
+  "text": "123456 is your OTP for HDFC Bank transaction of Rs 2,450 at AMAZON PAY. OTP valid for 10 minutes. Do not share it with anyone, including bank staff. -HDFC Bank",
+  "label": "genuine",
+  "kind": "otp"
+ },
+ {
+  "text": "Rs 1,250.00 debited from A/c XX4821 on 08-Nov-26 to VPA swiggy@icici. UPI Ref 431287659021. If not you, call 1930 or your bank. -Axis Bank",
+  "label": "genuine",
+  "kind": "txn_alert"
+ },
+ {
+  "text": "Your ICICI Bank Credit Card XX3302 statement is generated. Total amount due Rs 14,820.00, minimum due Rs 740.00, due date 20-Nov-26. Pay via iMobile or net banking.",
+  "label": "genuine",
+  "kind": "bill_reminder"
+ },
+ {
+  "text": "Reminder: Your EMI of Rs 6,420 for loan account ending 7781 will be auto-debited on 05-Dec-26. Please keep sufficient balance in your account. -Bajaj Finance",
+  "label": "genuine",
+  "kind": "emi"
+ },
+ {
+  "text": "Dear customer, as per RBI guidelines your KYC re-verification is due. Please visit your home branch with Aadhaar and PAN before 31 Dec. No action is required on phone or link. -Union Bank of India",
+  "label": "genuine",
+  "kind": "kyc_branch"
+ },
+ {
+  "text": "Your Amazon order #407-2218893 of Boat Earbuds has been shipped and will arrive by Thursday. Track here: amazon.in/trk/yourorders",
+  "label": "genuine",
+  "kind": "delivery"
+ },
+ {
+  "text": "Delhivery: Your shipment AWB 1490xxxx221 is out for delivery today. Delivery executive will call you. Track: delhivery.com/track",
+  "label": "genuine",
+  "kind": "delivery"
+ },
+ {
+  "text": "Income Tax Department: ITR for AY 2026-27 filed successfully on 22-Oct-26. Acknowledgement number 38201xxxxxx. E-verify within 30 days at incometax.gov.in.",
+  "label": "genuine",
+  "kind": "govt_notice"
+ },
+ {
+  "text": "Hey, dinner at Barbeque Nation came to Rs 3,600 and 6 of us were there so it's Rs 600 each. Can you GPay me when you get a chance?",
+  "label": "genuine",
+  "kind": "split_bill"
+ },
+ {
+  "text": "Hi team, tomorrow's sprint review is moved to 11:30 AM in Conference Room B. Please update your tickets before the meeting. Regards, Neha, HR and Admin",
+  "label": "genuine",
+  "kind": "office"
+ },
+ {
+  "text": "Dear Karthik, thank you for applying to Infosys. Your technical interview is scheduled for 14 Nov 2026 at 10:00 AM on Microsoft Teams. The link has been sent to your registered email. Please carry your ID proof.",
+  "label": "genuine",
+  "kind": "job_interview"
+ },
+ {
+  "text": "Your salary of Rs 52,300.00 for Oct-26 has been credited to A/c XX9034 on 31-Oct-26. Available balance Rs 61,442.50. -Kotak Mahindra Bank",
+  "label": "genuine",
+  "kind": "salary"
+ },
+ {
+  "text": "Your Star Health policy 2201xxxx is due for renewal on 27-Nov-26. Premium Rs 18,940. Renew online at starhealth.in or through your agent. Avoid lapse of cover.",
+  "label": "genuine",
+  "kind": "insurance"
+ },
+ {
+  "text": "Dear Parents, school will remain closed on 12 Nov for Diwali break. Classes resume on 17 Nov. Unit test 2 schedule is on the school portal. -Principal, DPS Noida",
+  "label": "genuine",
+  "kind": "school"
+ },
+ {
+  "text": "Notice: B.Tech 5th semester examination fee must be paid by 20 Nov at the college accounts office or on the official portal. Late fee Rs 500 after the due date. -Examination Cell",
+  "label": "genuine",
+  "kind": "college"
+ },
+ {
+  "text": "Your Uber ride with Suresh (KA05 AB 1234, white Swift) is arriving in 3 mins. Share OTP 4471 with the driver to start the trip.",
+  "label": "genuine",
+  "kind": "ride"
+ },
+ {
+  "text": "Zomato: Your order from Meghana Foods is on its way! Arriving in about 20 minutes. Delivery partner: Ramesh. Rs 487 paid via UPI.",
+  "label": "genuine",
+  "kind": "food"
+ },
+ {
+  "text": "BESCOM: Your electricity bill for Oct 2026 is Rs 1,340.00, due date 18-Nov-26. Pay on the BESCOM website or app, or at the nearest office. Consumer no. XXXX5521.",
+  "label": "genuine",
+  "kind": "bill_reminder"
+ },
+ {
+  "text": "Your Indane LPG refill booking is confirmed. Cylinder will be delivered in 2 to 3 days. Please pay Rs 905.50 to the delivery person only after receiving the cylinder. -Indian Oil",
+  "label": "genuine",
+  "kind": "gas"
+ },
+ {
+  "text": "Airtel: Your plan of Rs 299 expires on 12-Nov. Recharge on the Airtel Thanks app or airtel.in to continue enjoying 1.5 GB/day.",
+  "label": "genuine",
+  "kind": "telecom"
+ },
+ {
+  "text": "Rs 2,000.00 credited to A/c XX1187 on 09-Nov-26 from Arjun Mehta via UPI. Ref 431870022118. -State Bank of India",
+  "label": "genuine",
+  "kind": "txn_alert"
+ },
+ {
+  "text": "Dear customer, beware of fraud calls. Bank never asks for your OTP, PIN or CVV on call, SMS or WhatsApp. Report cyber fraud on 1930. -Punjab National Bank",
+  "label": "genuine",
+  "kind": "awareness"
+ },
+ {
+  "text": "FASTag: Balance in your FASTag wallet linked to vehicle KA01xx4402 is below Rs 150. Please recharge through your bank's FASTag app. -ICICI Bank",
+  "label": "genuine",
+  "kind": "fastag"
+ },
+ {
+  "text": "Your passport appointment is confirmed at PSK Hyderabad on 19-Nov-26 at 11:15 AM. Carry original documents and the appointment confirmation. -Passport Seva",
+  "label": "genuine",
+  "kind": "govt_notice"
+ },
+ {
+  "text": "IRCTC: PNR 4521xxxx90 booked. Train 12627 Karnataka Express, 15-Nov-26, SBC to NDLS, Coach S4 Berth 23. Wish you a happy journey.",
+  "label": "genuine",
+  "kind": "travel"
+ },
+ {
+  "text": "Reminder from Apollo Clinic: Your appointment with Dr. Sharma is tomorrow at 5:00 PM. Please arrive 10 minutes early. Reply 1 to confirm or 2 to reschedule.",
+  "label": "genuine",
+  "kind": "appointment"
+ },
+ {
+  "text": "Beta, mummy bol rahi hu. Is mahine ghar ka kharcha zyada ho gaya, ho sake to 5000 bhej dena. Aaram se, jab ho jaye tab. Khana time pe kha lena.",
+  "label": "genuine",
+  "kind": "family_money"
+ },
+ {
+  "text": "Bhai kal ka dinner 2400 ka tha, 4 log the to 600 per head. Mujhe UPI kar dena jab free ho, sab ka hisaab bhej raha hu.",
+  "label": "genuine",
+  "kind": "split_bill"
+ },
+ {
+  "text": "Sab log dhyan dein, aaj ki client call 4 baje se 5 baje shift ho gayi hai. Deck ready rakhna. Reminder: Friday ko team lunch hai. - Amit",
+  "label": "genuine",
+  "kind": "office"
+ },
+ {
+  "text": "Aapke Bajaj Finance loan ki EMI Rs 4,200 kal debit hogi. Kripya account me balance rakhein. Agar already pay kar diya hai to is message ko ignore karein.",
+  "label": "genuine",
+  "kind": "emi"
+ },
+ {
+  "text": "Flipkart: Aapka order (Redmi Note 14) aaj shaam tak deliver ho jayega. Delivery agent ko OTP 5532 dena. Order flipkart.com/orders par track karein.",
+  "label": "genuine",
+  "kind": "delivery"
+ },
+ {
+  "text": "Your OTP for login to Paytm is 884213. Do not share with anyone. Paytm never calls to ask for your OTP.",
+  "label": "genuine",
+  "kind": "otp"
+ },
+ {
+  "text": "Sir, aapka KYC update pending hai. Kripya kisi bhi link par click na karein. Apne nazdiki Bank of Baroda branch me Aadhaar aur PAN ke saath 30 Nov tak aayein. - BOB",
+  "label": "genuine",
+  "kind": "kyc_branch"
+ },
+ {
+  "text": "Dear Employee, aapki October ki salary Rs 38,500 aapke account me credit ho gayi hai. Payslip HR portal par dekh sakte hain. - Accounts Dept",
+  "label": "genuine",
+  "kind": "salary"
+ },
+ {
+  "text": "Dobara yaad dila raha hu, is mahine ka rent 14,000 kal tak bhej dena. Account number wahi purana hai. Thanks, Verma uncle",
+  "label": "genuine",
+  "kind": "rent"
+ },
+ {
+  "text": "Swiggy: Aapka order ghar ke paas pahunch gaya hai! Delivery partner Imran aapko call karega. Enjoy your meal.",
+  "label": "genuine",
+  "kind": "food"
+ },
+ {
+  "text": "Priya Sharma, aapko TCS ki taraf se interview ke liye shortlist kiya gaya hai. Date: 13 Nov, time 11 baje, Pune office. Details aapki official email par bheji gayi hain.",
+  "label": "genuine",
+  "kind": "job_interview"
+ },
+ {
+  "text": "College me kal se mid-sem exams shuru honge. Hall ticket portal se download karein. ID card zaroor laana. Timetable notice board par bhi hai. - Exam Cell",
+  "label": "genuine",
+  "kind": "college"
+ },
+ {
+  "text": "Papa ne bola hai UPI se 2000 bhej dena mama ko, unka gas ka bill dena hai. Bhej ke screenshot dikha dena. Thanks",
+  "label": "genuine",
+  "kind": "family_money"
+ },
+ {
+  "text": "Mitra, Goa trip ka hotel booking 18,000 ka hua, 6 log hain to 3000 each. Group me QR daal diya hai, jab suvidha ho tab bhej do.",
+  "label": "genuine",
+  "kind": "split_bill"
+ },
+ {
+  "text": "Aapki LIC policy ka premium Rs 12,400 ki due date 30 Nov hai. Kripya licindia.in par ya apne agent ke paas jama karein. Samay par bhugtan karein, policy lapse na ho.",
+  "label": "genuine",
+  "kind": "insurance"
+ },
+ {
+  "text": "आपका एचडीएफसी बैंक ओटीपी 552910 है, 2,100 रुपये के लेनदेन के लिए। इसे किसी के साथ साझा न करें, बैंक कर्मचारी के साथ भी नहीं।",
+  "label": "genuine",
+  "kind": "otp"
+ },
+ {
+  "text": "अभिभावकों को सूचित किया जाता है कि कल विद्यालय में अभिभावक शिक्षक बैठक सुबह 10 बजे से होगी। कृपया अपने बच्चे की डायरी साथ लाएं। -प्रधानाचार्य",
+  "label": "genuine",
+  "kind": "school"
+ },
+ {
+  "text": "बेटा, तेरी मम्मी बोल रही हूँ। इस महीने थोड़े पैसे की जरूरत है, हो सके तो 3000 भेज देना। जब सुविधा हो तब ही। अपना ध्यान रखना।",
+  "label": "genuine",
+  "kind": "family_money"
+ },
+ {
+  "text": "आपकी इंडेन गैस सिलेंडर बुकिंग सफल रही। सिलेंडर 2-3 दिन में डिलीवर होगा। कृपया डिलीवरी के बाद ही भुगतान करें। -इंडियन ऑयल",
+  "label": "genuine",
+  "kind": "gas"
+ },
+ {
+  "text": "आपके खाते से 850 रुपये यूपीआई द्वारा दिनांक 08-11-26 को डेबिट हुए। यदि यह लेनदेन आपने नहीं किया तो 1930 पर कॉल करें। -एसबीआई",
+  "label": "genuine",
+  "kind": "txn_alert"
+ },
+ {
+  "text": "आपका बिजली बिल अक्टूबर माह का 1,120 रुपये है, अंतिम तिथि 20 नवंबर। भुगतान आधिकारिक वेबसाइट या नजदीकी बिजली कार्यालय पर करें। -पावर कॉरपोरेशन",
+  "label": "genuine",
+  "kind": "bill_reminder"
+ },
+ {
+  "text": "ग्राम पंचायत सूचना: राशन कार्ड सत्यापन शिविर 15 नवंबर को पंचायत भवन में लगेगा। कृपया आधार और राशन कार्ड की प्रति साथ लाएं। कोई शुल्क नहीं है।",
+  "label": "genuine",
+  "kind": "govt_notice"
+ },
+ {
+  "text": "सभी को सूचित किया जाता है कि रविवार को मौसी की बेटी की शादी में दोपहर 12 बजे घर पर पूजा है। जरूर आना। खाना हमारे यहां ही है।",
+  "label": "genuine",
+  "kind": "family"
+ },
+ {
+  "text": "Hi, I'm from the Mumbai Cyber Crime branch. Your SIM was used to send threatening messages. Pay a Rs 9,000 settlement today to close the case quietly, else we will register an FIR and arrest you.",
+  "label": "scam",
+  "kind": "police"
+ },
+ {
+  "text": "Bhai part time job hai, ghar baithe task complete karo aur roz 2000 kamao. Pehle 500 ka prepaid task kharido, commission ke saath wapas milega. Telegram: t.me/earnfast_india",
+  "label": "scam",
+  "kind": "task_job"
+ },
+ {
+  "text": "Hi Rahul, your Myntra return for order #MYN4421 has been picked up. Refund of Rs 1,299 will be credited to your original payment method in 5 to 7 working days.",
+  "label": "genuine",
+  "kind": "refund"
+ }
+]

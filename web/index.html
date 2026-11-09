@@ -8,8 +8,8 @@
 <meta name="theme-color" content="#0b0b0f">
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
-<link rel="stylesheet" href="/ruko.css?v=41">
-<link rel="stylesheet" href="/landing.css?v=41">
+<link rel="stylesheet" href="/ruko.css?v=42">
+<link rel="stylesheet" href="/landing.css?v=42">
 </head>
 <body class="site">
 <header class="nav">
@@ -171,6 +171,22 @@
         </tbody>
       </table>
     </div>
+    <div class="wrap proof-grid proof-msg">
+      <div>
+        <h3 data-i18n="pm_h">Message checker, scored on messages it had never seen</h3>
+        <p class="section-lede" data-i18n="pm_p">100 synthetic SMS and WhatsApp messages (50 scams, 50 look-alike genuine ones: bank OTPs, KYC reminders, family asking for money) in English, Hinglish and Hindi, written by someone who never saw Ruko's rules. We scored it once and changed nothing afterwards.</p>
+        <p class="limits" data-i18n="pm_l">Where it struggles: brand-new wording, such as fake army buyers on OLX or "pay GST to release your LIC bonus". It warns on every scam with a risky link, but rules alone miss about 1 in 4 new scripts.</p>
+      </div>
+      <table class="results">
+        <caption class="sr">Message checker results on a held-out set</caption>
+        <thead><tr><th scope="col" data-i18n="pm_m">Measure</th><th scope="col" data-i18n="pm_v">Result</th></tr></thead>
+        <tbody>
+          <tr><th scope="row" data-i18n="pm1">Precision (when Ruko warns, it's a scam)</th><td>92%</td></tr>
+          <tr><th scope="row" data-i18n="pm2">Recall (scams caught)</th><td>72% (36/50)</td></tr>
+          <tr><th scope="row" data-i18n="pm3">False alarms on genuine messages</th><td>3/50</td></tr>
+        </tbody>
+      </table>
+    </div>
   </section>
 
   <section class="setup">
@@ -216,9 +232,9 @@
 
 <footer id="siteFooter"></footer>
 
-<script src="/config.js?v=41"></script>
-<script src="/ruko.js?v=41"></script>
-<script src="/footer.js?v=41"></script>
-<script src="/landing.js?v=41"></script>
+<script src="/config.js?v=42"></script>
+<script src="/ruko.js?v=42"></script>
+<script src="/footer.js?v=42"></script>
+<script src="/landing.js?v=42"></script>
 </body>
 </html>

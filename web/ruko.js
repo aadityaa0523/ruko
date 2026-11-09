@@ -104,6 +104,8 @@ function guessCategory(flags) {
   if (c.has("refund_trick") || c.has("upi_collect")) return "refund";
   if (c.has("job")) return "job";
   if (c.has("prize")) return "prize";
+  if (c.has("loan")) return "loan";
+  if (c.has("relative")) return "relative";
   if (c.has("threat") && c.has("authority") && !c.has("risky_link")) return "digital_arrest";
   if (c.has("link_bait") || c.has("risky_link") || c.has("apk") || (c.has("payment") && c.has("authority"))) return "bank_kyc";
   return "other";
@@ -111,6 +113,23 @@ function guessCategory(flags) {
 const CATEGORY_LABEL = { digital_arrest: "fake police / CBI", bank_kyc: "bank or KYC scam", electricity: "electricity cut-off scam",
   parcel: "parcel or customs scam", refund: "\u201csent by mistake\u201d refund scam", relative: "relative-in-trouble scam", job: "job or task scam",
   prize: "prize or lottery scam", loan: "loan scam", other: "scam" };
+function reportError(e) {
+  const m = String(e && e.message);
+  if (m.includes("already_reported")) return "You already reported this number. Thank you.";
+  if (m.includes("too_many_reports") || m.includes("number_flooded")) return "Too many reports right now. Please try again in an hour.";
+  return "Couldn't save the report. Please try again.";
+}
+// Chakshu (DoT, Sanchar Saathi) has no public API and needs an OTP, so we hand over a ready report:
+// copy the details, open the official form. The person submits it themselves.
+const CHAKSHU_URL = "https://sancharsaathi.gov.in/sfc/";
+async function chakshuReport(number, category, channel, message) {
+  const via = { call: "Call", sms: "SMS", whatsapp: "WhatsApp" }[channel] || "Call";
+  const text = [`Suspected fraud ${via} from: +91 ${number}`, `Date: ${new Date().toLocaleString("en-IN")}`,
+    `Type: ${CATEGORY_LABEL[category] || "scam"}`, message ? `What they said: ${message.slice(0, 500)}` : ""].filter(Boolean).join("\n");
+  try { await navigator.clipboard.writeText(text); } catch {}
+  window.open(CHAKSHU_URL, "_blank", "noopener");
+  return text;
+}
 async function reportNumber(number, category, channel) {
   const n = String(number).replace(/\D/g, "").slice(-10);
   if (n.length < 6 || typeof sbInsert !== "function") throw new Error("bad number");

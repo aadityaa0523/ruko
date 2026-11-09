@@ -1,0 +1,18 @@
+{
+  "messages": 120,
+  "scams": 60,
+  "genuine": 60,
+  "caught": 55,
+  "missed": 5,
+  "false_alarms": 0,
+  "precision": 1.0,
+  "recall": 0.917,
+  "missed_kinds": [
+    "job_task",
+    "job_task",
+    "sextortion",
+    "fake_customer_care",
+    "fake_customer_care"
+  ],
+  "false_alarm_kinds": []
+}

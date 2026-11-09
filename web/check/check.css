@@ -57,6 +57,8 @@
 .report-cta p { margin: 0; display: grid; gap: 2px; line-height: 1.4; }
 .report-cta span { font-size: .85rem; color: #4b5567; }
 .report-cta .btn { min-height: 44px; }
+.rc-gov { grid-column: 1 / -1; margin: 0; font-size: .9rem; color: #4b5567; }
+.linkish { background: none; border: 0; padding: 0; font: inherit; font-weight: 800; color: var(--brand-text, #1d55e6); text-decoration: underline; cursor: pointer; min-height: 24px; }
 @media (max-width: 420px) { .report-cta { grid-template-columns: minmax(0, 1fr); } }
 .radar-list { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; }
 .radar-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; }

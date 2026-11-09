@@ -8,8 +8,8 @@
 <meta name="theme-color" content="#26282b">
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
-<link rel="stylesheet" href="/ruko.css?v=41">
-<link rel="stylesheet" href="check.css?v=41">
+<link rel="stylesheet" href="/ruko.css?v=42">
+<link rel="stylesheet" href="check.css?v=42">
 </head>
 <body class="app-shell" data-tab="check">
 <header class="bar">
@@ -28,7 +28,7 @@
       <label class="sr" for="text" data-i18n="field">Message, link or number</label>
       <textarea id="text" maxlength="4000" required data-i18n-ph="ph" placeholder="e.g. “Your electricity will be cut tonight. Call officer 98765 43210”"></textarea>
       <div class="ask-row">
-        <button class="btn btn-plain" id="paste" type="button" data-i18n="paste">Paste</button>
+        <button class="btn btn-plain" id="paste" type="button" data-i18n="paste">Paste and check</button>
         <button class="btn btn-primary" id="go" type="submit" data-i18n="check">Check it</button>
       </div>
       <p class="small muted" data-i18n="private">Nothing you paste is stored. Phone numbers are only saved if you choose to report them.</p>
@@ -43,7 +43,7 @@
     <h2 data-i18n="why">Why</h2>
     <ul class="reasons" id="reasons"></ul>
     <div id="linksBox" hidden><h2 data-i18n="links">Links in it</h2><ul class="links" id="links"></ul></div>
-    <div class="report-cta" id="reportCta" hidden><p><b id="rcTitle"></b><span id="rcSub">Reports are anonymous. Two reports and everyone who checks this number is warned.</span></p><button class="btn btn-danger" id="rcBtn" type="button">Report it</button></div>
+    <div class="report-cta" id="reportCta" hidden><p><b id="rcTitle"></b><span id="rcSub">Reports are anonymous. Two reports and everyone who checks this number is warned.</span></p><button class="btn btn-danger" id="rcBtn" type="button">Report it</button><p class="rc-gov" id="rcGov" hidden>Also tell the government: <button class="linkish" id="rcChakshu" type="button">report on Chakshu</button>. We copy the details for you; paste them into the form.</p></div>
     <div id="numsBox" hidden><h2 data-i18n="numbers">Phone numbers in it</h2><ul class="nums" id="nums"></ul></div>
     <div class="row">
       <a class="btn btn-primary" id="share" target="_blank" rel="noopener" data-i18n="share">Warn your family on WhatsApp</a>
@@ -79,7 +79,8 @@
       <button class="btn btn-danger" type="submit" data-i18n="report">Report this number</button>
       <p class="small muted" data-i18n="rep_note">Reports are anonymous. Only the number and the scam type are saved, never who reported it.</p>
     </form>
-    <p class="form-msg" id="repMsg" role="status"></p>
+    <p class="small" id="repGov" hidden>Also tell the government: <button class="linkish" id="repChakshu" type="button">report on Chakshu</button> (details copied for you).</p>
+      <p class="form-msg" id="repMsg" role="status"></p>
   </section>
 
   <section class="panel radar" id="radar">
@@ -89,10 +90,10 @@
 </main>
 
 <footer id="siteFooter"></footer>
-<script src="/config.js?v=41"></script>
-<script src="/ruko.js?v=41"></script>
-<script src="/tabs.js?v=41"></script>
-<script src="/footer.js?v=41"></script>
-<script src="check.js?v=41"></script>
+<script src="/config.js?v=42"></script>
+<script src="/ruko.js?v=42"></script>
+<script src="/tabs.js?v=42"></script>
+<script src="/footer.js?v=42"></script>
+<script src="check.js?v=42"></script>
 </body>
 </html>
