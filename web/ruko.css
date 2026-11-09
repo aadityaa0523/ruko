@@ -2,11 +2,11 @@
 
 /* Ruko: a consumer safety app. White surfaces, one brand blue, red only for a scam, amber for "what's next". */
 :root {
-  --brand: #1f5eff; --brand-2: #1648cc; --brand-soft: #e8efff;
+  --brand: #1d55e6; --brand-2: #1646c2; --brand-soft: #e8efff; --brand-text: #1d55e6;
   --asphalt: #0d1b3e; --asphalt-2: #15264f; --asphalt-line: #2a3a63;   /* dark navy for headers and footer */
   --sign: #ffffff; --sign-2: #f4f6fb; --ink: #0f172a; --ink-2: #4b5567;
-  --red: #e5383b; --red-ink: #b42326; --stop: #e5383b; --yellow: #ffb020; --yellow-ink: #7a4f00; --amber-soft: #fff4dd;
-  --safe: #12925a;
+  --red: #d32f2f; --red-ink: #b42326; --stop: #d32f2f; --yellow: #ffb020; --yellow-ink: #7a4f00; --amber-soft: #fff4dd;
+  --safe: #0e7a4b;
   --bg: var(--sign-2); --surface: var(--sign); --text: var(--ink); --muted: var(--ink-2); --line: #dfe4ee;
   --radius: 14px;
   --shadow: 0 1px 2px rgb(15 23 42 / .06), 0 8px 24px rgb(15 23 42 / .07);
@@ -17,7 +17,7 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --bg: #0b1222; --surface: #121c33; --text: #eef2fb; --muted: #a9b3c7; --line: #24314f;
-    --brand-soft: #1a2a52; --amber-soft: #3a2e12; --red: #ff5a5d; --safe: #3ccf8e; --shadow: none; color-scheme: dark;
+    --brand-soft: #1a2a52; --brand-text: #9db8ff; --amber-soft: #3a2e12; --red: #ff6b6d; --safe: #3ccf8e; --shadow: none; color-scheme: dark;
   }
 }
 * { box-sizing: border-box; }
@@ -47,7 +47,7 @@ button { cursor: pointer; }
 .btn:hover { border-color: var(--muted); }
 .btn:active { transform: scale(.98); }
 .btn svg { width: 18px; height: 18px; flex: none; }
-.btn-primary { background: var(--brand); color: #fff; border-color: var(--brand); box-shadow: 0 6px 16px -6px rgb(31 94 255 / .55); }
+.btn-primary { background: var(--brand); color: #fff; border-color: var(--brand); box-shadow: 0 6px 16px -8px rgb(15 23 42 / .35); }
 .btn-primary:hover { background: var(--brand-2); border-color: var(--brand-2); }
 .btn-danger { background: var(--stop); border-color: var(--stop); color: #fff; }
 .btn-danger:hover { background: var(--red-ink); border-color: var(--red-ink); }

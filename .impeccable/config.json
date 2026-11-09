@@ -53,6 +53,15 @@
         ],
         "createdAt": "2026-11-09T16:18:03.345Z",
         "reason": "agent verified: flagged rules are rotated L-shaped checkmark glyphs (.cmp td.yes::before, .ticks li::before), not card side borders"
+      },
+      {
+        "rule": "nested-cards",
+        "value": "*",
+        "files": [
+          "web/index.html"
+        ],
+        "createdAt": "2026-11-09T16:38:33.966Z",
+        "reason": "agent: the Ruko verdict card sits on a phone mock-up's call screen by design (caller-ID overlay pattern)"
       }
     ]
   }
