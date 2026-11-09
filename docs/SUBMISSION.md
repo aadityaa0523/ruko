@@ -75,7 +75,7 @@ The landing page (`/`) has a live pilot waitlist for families and partners.
 Solo build: product, backend, Gnani integration, risk engine, telephony, design, evaluation and video by [your name].
 
 ## Links
-- Live demo: [Render URL]
+- Live product: https://ruko-ohn2.onrender.com (check a message: /check/, call guard: /app/, family account: /account/)
 - Code: https://github.com/aadityaa0523/ruko
 - Video: docs/ruko-demo.mp4 in the repo (also attached to the posts)
 - Nominated posts: [LinkedIn URL] · [X URL]
