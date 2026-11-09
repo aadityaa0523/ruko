@@ -113,3 +113,17 @@ label.field { display: grid; gap: 6px; font-size: .95rem; font-weight: 600; marg
 .field input:focus, .field select:focus { border-color: var(--text); outline: none; }
 .check { display: flex; gap: 12px; align-items: flex-start; font-size: .95rem; margin-bottom: 14px; line-height: 1.4; }
 .check input { width: 22px; height: 22px; flex: none; accent-color: var(--ink); margin-top: 1px; }
+
+/* Site footer (landing, account, legal pages) */
+.site-foot { background: var(--asphalt); color: #d9d8d1; padding: 56px 0 40px; position: relative; }
+.site-foot::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 22px; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 20'%3E%3Cpath d='M3 2h6l9 8-9 8H3l9-8z' fill='%23ffc20e'/%3E%3C/svg%3E") repeat-x left center / 24px 20px, var(--ink); }
+.site-foot .logo { color: #fff; }
+.sf-top { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 2fr); gap: 40px; padding-top: 22px; }
+.sf-brand p { margin: 14px 0 0; max-width: 36ch; line-height: 1.55; }
+.sf-cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.sf-cols h2 { font-size: .9rem; color: #fff; margin: 0 0 10px; letter-spacing: 0; }
+.sf-cols a { display: block; padding: 6px 0; text-decoration: none; color: #d9d8d1; }
+.sf-cols a:hover { color: #fff; text-decoration: underline; }
+.sf-bottom { margin-top: 40px; padding-top: 18px; border-top: 1px solid var(--asphalt-line); display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; font-size: .85rem; color: #a7a69f; }
+.sf-bottom p { margin: 0; }
+@media (max-width: 800px) { .sf-top { grid-template-columns: minmax(0, 1fr); } .sf-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

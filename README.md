@@ -18,6 +18,8 @@ Open http://localhost:8870. The browser only lets a page use the microphone on l
 - `/`: landing page (problem, how it works, Family Shield, business, pricing, pilot waitlist, live demo of the scoring).
 - `/app/`: the guard. One tap to protect a call, live captions, the scam-step tracker, red alert, golden-hour pack, sample calls, voice-note check.
 - `/family/?c=<code>&n=<name>`: Family Shield. Turns red live when the protected person's call becomes a scam. The link is made in the app (Family Shield button).
+- `/account/`: family account (Supabase Auth, email + password). Add the people you protect, send each one a setup link (`/app/?f=<code>&n=<name>`), watch them live, see the alert history, delete your data.
+- `/privacy/`, `/terms/`, `/licenses/`, `/contact/`: trust pages; contact and pilot forms write to Supabase `leads`.
 - `POST /v1/score` (header `X-Ruko-Key`): partner API returning `level`, `score`, `flags` and `playbook` for transcript lines. Keys come from `RUKO_PARTNER_KEYS`; the key `demo` works for up to 20 lines.
 - `POST/GET/DELETE /api/family/voice`: a family member's consented voice clip (5–30 s) becomes a Gnani voice embedding; warnings are then spoken in that voice. Memory only; deletable.
 - `POST /api/waitlist`: pilot sign-ups, appended to `data/waitlist.jsonl` (git-ignored; local disk only).
@@ -50,3 +52,13 @@ Setup:
 4. Put the account's auth token in `TWILIO_AUTH_TOKEN`, so only Twilio-signed requests can start a session. Each stream also needs a one-time token that the webhook issues.
 
 Without a Twilio account, you can exercise the same code with a simulator that speaks Twilio's message format. That is how this mode has been tested so far. No real phone call has been made yet.
+
+## Data (Supabase, Mumbai)
+
+Tables `leads`, `families`, `alerts`, all with row-level security: anyone can submit a lead or log an alert for an existing family code; only the owner can read their families and alerts; leads are readable only from the Supabase dashboard. The browser uses the public publishable key in `web/config.js`. Alerts store time, level, steps reached and source only (no audio, words or numbers).
+
+Auth settings to set in the Supabase dashboard: Site URL = the deployed URL; add `<url>/account/` to Redirect URLs; either turn off "Confirm email" or add your own SMTP (the built-in sender only delivers to your own team).
+
+## Licence
+
+© 2026 Ruko. All rights reserved. See `LICENSE` and `/licenses/`.

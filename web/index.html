@@ -8,8 +8,8 @@
 <meta name="theme-color" content="#26282b">
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
-<link rel="stylesheet" href="/ruko.css?v=22">
-<link rel="stylesheet" href="/landing.css?v=24">
+<link rel="stylesheet" href="/ruko.css?v=25">
+<link rel="stylesheet" href="/landing.css?v=25">
 </head>
 <body>
 <header class="nav">
@@ -17,7 +17,8 @@
     <a class="logo" href="/" aria-label="Ruko home"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M30 2h40l28 28v40L70 98H30L2 70V30z" fill="#c8102e"/><path d="M31.7 9h36.6L91 31.7v36.6L68.3 91H31.7L9 68.3V31.7z" fill="none" stroke="#fff" stroke-width="5"/></svg>Ruko</a>
     <nav aria-label="Sections"><a href="#how" data-i18n="nav_how">How it works</a><a href="#family" data-i18n="nav_family">Family</a><a href="#proof" data-i18n="nav_proof">Proof</a><a href="#business" data-i18n="nav_biz">For banks</a></nav>
     <div class="lang-toggle" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true"><span>EN</span></button><button type="button" data-lang="hi" aria-pressed="false"><span>हिं</span></button></div>
-    <a class="btn btn-primary nav-cta" href="/app/?setup=family" data-i18n="cta">Protect my parents</a>
+    <a class="nav-login" href="/account/" data-i18n="login">Log in</a>
+    <a class="btn btn-primary nav-cta" href="/account/?new=1" data-i18n="cta">Protect my parents</a>
   </div>
 </header>
 
@@ -28,7 +29,7 @@
         <h1><span data-i18n="h1a">Scam ahead.</span> <span class="h1b" data-i18n="h1b">Ruko warns before it arrives.</span></h1>
         <p class="lede" data-i18n="lede">Ruko listens to your parents' phone call, recognises the scam as it unfolds, and warns them out loud in their language before the scammer's next move. Your phone turns red at the same moment.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="/app/?setup=family" data-i18n="cta">Protect my parents</a>
+          <a class="btn btn-primary" href="/account/?new=1" data-i18n="cta">Protect my parents</a>
           <button class="btn btn-ghost" id="dPlay" type="button"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3.5v13l11-6.5z" fill="currentColor"/></svg><span id="dPlayLabel" data-i18n="play">Hear a scam get caught</span></button>
         </div>
         <ul class="facts">
@@ -78,7 +79,7 @@
           <li data-i18n="fam_2">Keypad phone? Mummy merges the call with Ruko's number and Ruko warns inside the call (in testing).</li>
           <li data-i18n="fam_3">Nothing is shared unless a call is being protected. No call audio is kept.</li>
         </ul>
-        <a class="btn btn-primary" href="/app/?setup=family" data-i18n="cta">Protect my parents</a>
+        <a class="btn btn-primary" href="/account/?new=1" data-i18n="cta">Protect my parents</a>
       </div>
       <div class="phones" aria-hidden="true">
         <figure class="phone phone-parent">
@@ -135,7 +136,7 @@
         <li><b data-i18n="st2">Send yourself the family link</b><span data-i18n="st2d">One tap shares it on WhatsApp. Keep it open on your phone.</span></li>
         <li><b data-i18n="st3">Record your voice (optional)</b><span data-i18n="st3d">So the warning they hear is yours.</span></li>
       </ol>
-      <a class="btn btn-dark" href="/app/?setup=family" data-i18n="cta">Protect my parents</a>
+      <a class="btn btn-dark" href="/account/?new=1" data-i18n="cta">Protect my parents</a>
     </div>
   </section>
 
@@ -168,15 +169,11 @@
   </section>
 </main>
 
-<footer class="foot">
-  <div class="wrap foot-grid">
-    <a class="logo" href="/"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M30 2h40l28 28v40L70 98H30L2 70V30z" fill="#c8102e"/><path d="M31.7 9h36.6L91 31.7v36.6L68.3 91H31.7L9 68.3V31.7z" fill="none" stroke="#fff" stroke-width="5"/></svg>Ruko</a>
-    <p><span data-i18n="foot_1">Lost money to a call? Call</span> <a href="tel:1930"><b>1930</b></a> <span data-i18n="foot_2">now, or report at</span> <a href="https://cybercrime.gov.in" target="_blank" rel="noopener">cybercrime.gov.in</a>.</p>
-    <p class="muted small" data-i18n="foot_3">Built solo for the Gnani AI Great Indian AI Internship Challenge. Speech by Gnani Prisma, voices by Gnani Timbre. Ruko only warns; it never blocks calls and keeps no call audio.</p>
-  </div>
-</footer>
+<footer id="siteFooter"></footer>
 
-<script src="/ruko.js?v=22"></script>
-<script src="/landing.js?v=22"></script>
+<script src="/config.js?v=25"></script>
+<script src="/ruko.js?v=25"></script>
+<script src="/footer.js?v=25"></script>
+<script src="/landing.js?v=25"></script>
 </body>
 </html>

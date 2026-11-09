@@ -70,6 +70,14 @@ function newCode() {
   const a = crypto.getRandomValues(new Uint8Array(10));
   return Array.from(a, (b) => "abcdefghijkmnpqrstuvwxyz23456789"[b % 32]).join("");
 }
+{
+  const q = new URLSearchParams(location.search);
+  if (/^[a-z0-9]{8,16}$/.test(q.get("f") || "")) {
+    store.set("ruko.family", q.get("f")); store.set("ruko.familyOn", "1");
+    if (q.get("n")) store.set("ruko.name", q.get("n").slice(0, 30));
+    history.replaceState(null, "", "/app/");
+  }
+}
 let familyCode = store.get("ruko.family", "") || newCode();
 store.set("ruko.family", familyCode);
 const familyOn = () => store.get("ruko.familyOn", "1") === "1";
@@ -131,6 +139,14 @@ function showRisk(risk, text) {
   if (risk.level === "high" || risk.level === "critical") $("guard").dataset.state = "danger";
 }
 
+let logged = new Set();
+function logAlert(risk, source) {
+  if (!familyOn() || !risk || logged.has(risk.level) || typeof sbInsert !== "function") return;
+  logged.add(risk.level);
+  const stages = (risk.playbook?.stages || []).filter((s) => s.done).map((s) => s.key);
+  sbInsert("alerts", { code: familyCode, level: risk.level, stages, source }).catch(() => {});  // unknown codes are rejected; that is fine
+}
+
 function alarm() {
   const r = lastRisk;
   $("toOct").innerHTML = octagonSVG();
@@ -154,6 +170,7 @@ async function playWav(b64OrBlob) {
 }
 
 function resetView() {
+  logged = new Set();
   $("captions").innerHTML = "";
   $("pack").hidden = true;
   $("takeover").hidden = true;
@@ -185,7 +202,7 @@ async function start() {
     const m = JSON.parse(e.data);
     if (m.type === "connected") setGuard("listening", "listening", "listening_hint");
     else if (m.type === "transcript") showRisk(m.risk, m.text);
-    else if (m.type === "warning") { alarm(); if (m.audio) playWav(m.audio); }
+    else if (m.type === "warning") { logAlert(lastRisk, "speaker"); alarm(); if (m.audio) playWav(m.audio); }
     else if (m.type === "pack") showPack(m);
     else if (m.type === "diarized") showTimeline(m);
     else if (m.type === "done") $("audioNote").textContent = t("audio_deleted");
@@ -269,7 +286,7 @@ $("runScript").onclick = async () => {
     await new Promise((r) => setTimeout(r, 1600));
     showRisk(states[i], lines[i]);
     toFamily({ type: "transcript", text: lines[i], risk: states[i] });
-    if (states[i].alert) { alarm(); toFamily({ type: "warning", level: states[i].level }); await new Promise((r) => setTimeout(r, 2500)); $("takeover").hidden = true; }
+    if (states[i].alert) { logAlert(states[i], "sample"); alarm(); toFamily({ type: "warning", level: states[i].level }); await new Promise((r) => setTimeout(r, 2500)); $("takeover").hidden = true; }
   }
   setGuard(pack.level === "high" || pack.level === "critical" ? "danger" : "idle", "protect");
   showPack(pack);

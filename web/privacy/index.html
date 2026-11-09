@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy policy · Ruko</title>
+<meta name="theme-color" content="#26282b">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/ruko.css?v=25">
+<link rel="stylesheet" href="/legal.css?v=25">
+</head>
+<body>
+<header class="bar"><div class="bar-row">
+  <a class="logo" href="/" aria-label="Ruko home"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M30 2h40l28 28v40L70 98H30L2 70V30z" fill="#c8102e"/><path d="M31.7 9h36.6L91 31.7v36.6L68.3 91H31.7L9 68.3V31.7z" fill="none" stroke="#fff" stroke-width="5"/></svg>Ruko</a>
+  <nav aria-label="Legal"><a href="/privacy/" aria-current="page">Privacy</a><a href="/terms/">Terms</a><a href="/licenses/">Licences</a><a href="/contact/">Contact</a></nav>
+</div></header>
+
+<main class="doc">
+  <h1>Privacy policy</h1>
+  <p class="updated">Last updated 9 November 2026</p>
+
+  <div class="summary">In short:
+    <ul>
+      <li>Ruko never saves the audio of your calls.</li>
+      <li>What was said stays on your phone's screen, not on our servers.</li>
+      <li>We store only your account, the names you add, and a record that an alert happened.</li>
+      <li>We don't sell data, show ads or track you across sites.</li>
+      <li>You can delete your data at any time.</li>
+    </ul>
+  </div>
+
+  <h2>Who we are</h2>
+  <p>Ruko is an early-stage product built and run by an independent developer in India. It is not yet a registered company. For anything about your data, use the <a href="/contact/">contact page</a>; it reaches the founder directly.</p>
+
+  <h2>What Ruko processes, and why</h2>
+  <h3>1. Call audio (to warn you during the call)</h3>
+  <p>When you tap <b>Protect this call</b>, your phone's microphone audio is streamed through our server to <b>Gnani AI</b>'s speech recognition (Prisma) in real time, so Ruko can understand the call. Ruko does not save this audio.</p>
+  <p>If a call is flagged as a likely scam, then when you end the call, the call's audio is held in memory and sent once to Gnani AI to separate the caller's voice from yours. It is then deleted from our server, and the app shows "audio deleted" when that's done.</p>
+  <h3>2. What was said</h3>
+  <p>Captions, the scam steps and the 1930 complaint text are shown on your screen and kept in that browser tab only. We don't store them.</p>
+  <p>For calls Ruko joins through its phone number (in testing), the last 20 reports are kept in server memory, so you can open them in the app; they are lost when the server restarts.</p>
+  <h3>3. Family Shield</h3>
+  <p>If you share a family link, live captions and alerts are relayed through our server to whoever has that exact link, while the call is happening. They are not stored.</p>
+  <p>If the phone is linked to a family account, we save an <b>alert record</b> for each warning:</p>
+  <ul>
+    <li>the time;</li>
+    <li>the level (likely scam or scam);</li>
+    <li>which scam steps were reached;</li>
+    <li>whether it was a real call or a sample.</li>
+  </ul>
+  <p>The record contains no audio, no words and no phone numbers.</p>
+  <h3>4. Your account</h3>
+  <p>We store:</p>
+  <ul>
+    <li>your email and a password (hashed by our authentication provider; we never see it);</li>
+    <li>the names you give to the people you protect (for example "Mummy");</li>
+    <li>a random family code for each of them.</li>
+  </ul>
+  <h3>5. A family member's voice for the warning</h3>
+  <p>If a family member records their voice, the 5 to 30 second recording is sent to Gnani AI to create a voice profile (an embedding), and the recording itself is not kept.</p>
+  <p>We hold the voice profile only in server memory. It is used only to speak warnings to their family member, it can be deleted from the family screen at any time, and it is lost when the server restarts. Only the person whose voice it is may record it, and only with their consent.</p>
+  <h3>6. Pilot and contact forms</h3>
+  <p>The name, contact detail, role and message you send us, so we can reply.</p>
+  <h3>7. On your device</h3>
+  <p>Your settings (language, voice options, family code) are kept in your browser's local storage. We use no advertising or tracking cookies.</p>
+
+  <h2>What we never collect</h2>
+  <p>The caller's phone number, your contacts, your location, your messages or your bank details. Ruko never asks for an OTP or PIN.</p>
+
+  <h2>Service providers</h2>
+  <table>
+    <thead><tr><th scope="col">Provider</th><th scope="col">What for</th><th scope="col">Where</th></tr></thead>
+    <tbody>
+      <tr><td>Gnani AI (Vachana: Prisma, Timbre, voice cloning)</td><td>Speech recognition, spoken warnings, family voice</td><td>India</td></tr>
+      <tr><td>Supabase</td><td>Accounts, family list, alert records, form messages</td><td>Mumbai, India (ap-south-1)</td></tr>
+      <tr><td>Render</td><td>Hosting the website and server</td><td>Per Render's region</td></tr>
+      <tr><td>Twilio</td><td>Keypad-phone line (in testing only)</td><td>Per Twilio's terms</td></tr>
+      <tr><td>jsDelivr</td><td>Delivers the sign-in library on the account page</td><td>Global CDN</td></tr>
+    </tbody>
+  </table>
+  <p>Each provider processes data under its own terms. We don't sell or rent your data to anyone.</p>
+
+  <h2>The other person on the call</h2>
+  <p>To protect you, Ruko processes the caller's voice in real time.</p>
+  <ul>
+    <li>It does not try to identify the caller.</li>
+    <li>It does not keep their audio.</li>
+    <li>On a phone-line call, it tells them once that the call is being checked for fraud.</li>
+  </ul>
+  <p>Please use Ruko only on your own calls, or on the calls of a family member who has agreed, and follow the law where you live.</p>
+
+  <h2>Your rights</h2>
+  <p>Under India's Digital Personal Data Protection Act, 2023, you can:</p>
+  <ul>
+    <li>ask what data we hold about you;</li>
+    <li>correct it;</li>
+    <li>delete it;</li>
+    <li>withdraw consent;</li>
+    <li>nominate someone to act for you;</li>
+    <li>raise a grievance.</li>
+  </ul>
+  <p>To act on these:</p>
+  <ul>
+    <li>Delete your family data from the <a href="/account/">account page</a> at any time.</li>
+    <li>For anything else, including closing your account, use the <a href="/contact/">contact page</a>. We aim to reply within 7 days.</li>
+  </ul>
+
+  <h2>How long we keep data</h2>
+  <ul>
+    <li><b>Alert records and the people you add:</b> until you delete them or close your account.</li>
+    <li><b>Form messages:</b> up to 12 months.</li>
+    <li><b>Call audio:</b> never kept.</li>
+  </ul>
+
+  <h2>Children</h2>
+  <p>You must be 18 or older to create an account. Anyone can be protected by a family member's account.</p>
+
+  <h2>Changes</h2>
+  <p>If we change this policy, we will update the date above and, for important changes, tell account holders by email.</p>
+</main>
+
+<footer id="siteFooter"></footer>
+<script src="/footer.js?v=25"></script>
+</body>
+</html>

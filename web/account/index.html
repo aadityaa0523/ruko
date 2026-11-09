@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ruko · Family account</title>
+<meta name="theme-color" content="#26282b">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="stylesheet" href="/ruko.css?v=25">
+<link rel="stylesheet" href="account.css?v=25">
+</head>
+<body>
+<header class="bar">
+  <div class="bar-row">
+    <a class="logo" href="/" aria-label="Ruko home"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M30 2h40l28 28v40L70 98H30L2 70V30z" fill="#c8102e"/><path d="M31.7 9h36.6L91 31.7v36.6L68.3 91H31.7L9 68.3V31.7z" fill="none" stroke="#fff" stroke-width="5"/></svg>Ruko</a>
+    <div class="bar-right">
+      <div class="lang-toggle" role="group" aria-label="Language"><button type="button" data-lang="en" aria-pressed="true"><span>EN</span></button><button type="button" data-lang="hi" aria-pressed="false"><span>हिं</span></button></div>
+      <button class="btn btn-plain bar-btn" id="signOut" type="button" hidden data-i18n="sign_out">Sign out</button>
+    </div>
+  </div>
+</header>
+
+<main class="acct">
+  <p class="loading" id="loading" data-i18n="loading">Loading…</p>
+
+  <!-- Signed out -->
+  <section class="auth" id="authView" hidden>
+    <div class="auth-plate">
+      <h1 id="authTitle" data-i18n="auth_title_new">Protect your parents</h1>
+      <p class="muted" data-i18n="auth_sub">One family account. Add the people you protect, send each one their setup link, and see every scam call Ruko stops.</p>
+      <div class="tabs" role="tablist">
+        <button type="button" role="tab" id="tabNew" aria-selected="true" data-i18n="tab_new">Create account</button>
+        <button type="button" role="tab" id="tabLogin" aria-selected="false" data-i18n="tab_login">Log in</button>
+      </div>
+      <form id="authForm" novalidate>
+        <label class="field"><span data-i18n="email">Email</span><input id="email" type="email" autocomplete="email" required></label>
+        <label class="field"><span data-i18n="password">Password</span><input id="password" type="password" autocomplete="new-password" minlength="8" required><small class="muted" id="pwHint" data-i18n="pw_hint">At least 8 characters.</small></label>
+        <p class="small muted" id="agree"><span data-i18n="agree_1">By creating an account you agree to the</span> <a href="/terms/" data-i18n="terms">Terms of use</a> <span data-i18n="agree_2">and</span> <a href="/privacy/" data-i18n="privacy">Privacy policy</a>.</p>
+        <button class="btn btn-primary btn-block" id="authBtn" type="submit" data-i18n="create">Create account</button>
+        <button class="linkish" id="forgot" type="button" hidden data-i18n="forgot">Forgot password?</button>
+        <p class="form-msg" id="authMsg" role="status"></p>
+      </form>
+    </div>
+    <aside class="auth-side">
+      <ol class="signs" id="authSigns"></ol>
+      <ul class="ticks-dark">
+        <li data-i18n="side_1">Free to try. No card, no app store.</li>
+        <li data-i18n="side_2">Your parents don't need an account. They just open their link.</li>
+        <li data-i18n="side_3">Ruko keeps no call audio. Delete your data any time.</li>
+      </ul>
+    </aside>
+  </section>
+
+  <!-- Signed in: the family dashboard -->
+  <section class="dash" id="dashView" hidden>
+    <div class="dash-head">
+      <div>
+        <h1 data-i18n="your_family">Your family</h1>
+        <p class="muted small" id="who"></p>
+      </div>
+      <a class="btn btn-plain" href="/app/" data-i18n="open_app">Open Ruko on this phone</a>
+    </div>
+
+    <section class="panel">
+      <h2 data-i18n="people">People you protect</h2>
+      <ul class="people" id="people"></ul>
+      <form class="add" id="addForm">
+        <label class="field"><span data-i18n="add_label">Add someone (what you call them)</span><input id="addName" maxlength="30" required data-i18n-ph="add_ph" placeholder="e.g. Mummy, Papa, Nani"></label>
+        <button class="btn btn-primary" type="submit" data-i18n="add_btn">Add</button>
+      </form>
+      <p class="form-msg" id="addMsg" role="status"></p>
+    </section>
+
+    <section class="panel">
+      <h2 data-i18n="history">Scam calls Ruko caught</h2>
+      <p class="muted small" data-i18n="history_p">Only the time, the person and how far the scam got. No audio, no words, no phone numbers.</p>
+      <table class="hist">
+        <thead><tr><th scope="col" data-i18n="h_when">When</th><th scope="col" data-i18n="h_who">Who</th><th scope="col" data-i18n="h_level">Level</th><th scope="col" data-i18n="h_steps">Steps reached</th></tr></thead>
+        <tbody id="hist"></tbody>
+      </table>
+    </section>
+
+    <section class="panel danger-zone">
+      <h2 data-i18n="your_data">Your data</h2>
+      <p class="muted small" data-i18n="your_data_p">Deletes everyone you added and all their alert history. To close the account itself, send a request from the contact page.</p>
+      <button class="btn btn-plain" id="wipe" type="button" data-i18n="wipe">Delete all my family data</button>
+    </section>
+  </section>
+</main>
+
+<footer id="siteFooter"></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="/config.js?v=25"></script>
+<script src="/ruko.js?v=25"></script>
+<script src="/footer.js?v=25"></script>
+<script src="account.js?v=25"></script>
+</body>
+</html>

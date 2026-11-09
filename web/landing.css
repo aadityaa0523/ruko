@@ -6,7 +6,10 @@
 .nav nav a { text-decoration: none; font-weight: 700; color: #d9d8d1; }
 .nav nav a:hover { color: #fff; }
 .nav .btn { min-height: 44px; padding: 0 16px; }
+.nav-login { font-weight: 800; text-decoration: none; color: #fff; padding: 10px 4px; }
+.nav-login:hover { text-decoration: underline; }
 @media (max-width: 900px) { .nav nav { display: none; } .nav .lang-toggle { margin-left: auto; } }
+@media (max-width: 380px) { .nav-login { display: none; } }
 @media (max-width: 520px) { .nav-cta { display: none; } }
 
 /* Hero */

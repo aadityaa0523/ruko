@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact · Ruko</title>
+<meta name="theme-color" content="#26282b">
+<link rel="icon" href="/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/ruko.css?v=25">
+<link rel="stylesheet" href="/legal.css?v=25">
+</head>
+<body>
+<header class="bar"><div class="bar-row">
+  <a class="logo" href="/" aria-label="Ruko home"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M30 2h40l28 28v40L70 98H30L2 70V30z" fill="#c8102e"/><path d="M31.7 9h36.6L91 31.7v36.6L68.3 91H31.7L9 68.3V31.7z" fill="none" stroke="#fff" stroke-width="5"/></svg>Ruko</a>
+  <nav aria-label="Legal"><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a><a href="/licenses/">Licences</a><a href="/contact/" aria-current="page">Contact</a></nav>
+</div></header>
+
+<main class="doc">
+  <h1>Contact Ruko</h1>
+  <p class="updated">Questions, partnerships, privacy requests or grievances. The founder reads every message and aims to reply within 7 days.</p>
+
+  <div class="summary">Lost money to a scam call right now? Don't wait for us: call <a href="tel:1930"><b>1930</b></a> and your bank immediately, then report at <a href="https://cybercrime.gov.in" target="_blank" rel="noopener">cybercrime.gov.in</a>.</div>
+
+  <form id="contactForm">
+    <label class="field">Your name<input name="name" required maxlength="60" autocomplete="name"></label>
+    <label class="field">Phone or email, so we can reply<input name="contact" required maxlength="100" autocomplete="email"></label>
+    <label class="field">This is about
+      <select name="topic">
+        <option value="other">A question about Ruko</option>
+        <option value="family">Help setting up for my family</option>
+        <option value="privacy">My data: access, correction or deletion</option>
+        <option value="grievance">A complaint or grievance</option>
+        <option value="bank">Partnership: bank or fintech</option>
+        <option value="telco">Partnership: telco</option>
+        <option value="police">Police, cyber cell or NGO</option>
+      </select>
+    </label>
+    <label class="field">Message<textarea name="message" required maxlength="1000"></textarea></label>
+    <label class="check"><input type="checkbox" name="consent" required> <span>Ruko may use these details only to reply to me.</span></label>
+    <button class="btn btn-primary" type="submit">Send message</button>
+    <p class="form-msg" id="contactMsg" role="status"></p>
+  </form>
+</main>
+
+<footer id="siteFooter"></footer>
+<script src="/config.js?v=25"></script>
+<script src="/footer.js?v=25"></script>
+<script>
+  // Topics map onto the lead roles the database accepts; the full topic is kept in the message.
+  const ROLE = { family: "family", bank: "bank", telco: "telco", police: "police" };
+  document.getElementById("contactForm").onsubmit = async (e) => {
+    e.preventDefault();
+    const f = Object.fromEntries(new FormData(e.target));
+    const out = document.getElementById("contactMsg");
+    out.classList.remove("err");
+    out.textContent = "Sending…";
+    try {
+      await sbInsert("leads", { kind: "contact", name: f.name.trim(), contact: f.contact.trim(), role: ROLE[f.topic] || "other",
+        message: `[${f.topic}] ${f.message.trim()}`.slice(0, 1000), consent: !!f.consent });
+      e.target.reset();
+      out.textContent = "Thanks. Your message has reached us; we aim to reply within 7 days.";
+    } catch {
+      out.classList.add("err");
+      out.textContent = "Couldn't send that. Please check your connection and try again.";
+    }
+  };
+</script>
+</body>
+</html>

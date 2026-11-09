@@ -2,7 +2,7 @@
 window.STRINGS = {
   en: {},
   hi: {
-    nav_how: "कैसे काम करता है", nav_family: "परिवार", nav_proof: "सबूत", nav_biz: "बैंकों के लिए",
+    nav_how: "कैसे काम करता है", nav_family: "परिवार", nav_proof: "सबूत", nav_biz: "बैंकों के लिए", login: "लॉग इन",
     cta: "मम्मी-पापा को सुरक्षित करें",
     h1a: "आगे धोखा है।", h1b: "Ruko पहले ही चेतावनी देता है।",
     lede: "Ruko आपके मम्मी-पापा की कॉल सुनता है, धोखे को होते हुए पहचानता है, और ठग की अगली चाल से पहले उनकी भाषा में ज़ोर से चेतावनी देता है। उसी पल आपका फ़ोन भी लाल हो जाता है।",
@@ -116,8 +116,7 @@ $("wl").onsubmit = async (e) => {
   data.consent = !!data.consent;
   $("wlMsg").textContent = t("wl_sending");
   try {
-    const r = await fetch("/api/waitlist", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) });
-    if (!r.ok) throw new Error();
+    await sbInsert("leads", { kind: "pilot", name: data.name, contact: data.contact, role: data.role, consent: data.consent });
     e.target.reset();
     $("wlMsg").textContent = t("wl_ok");
   } catch {

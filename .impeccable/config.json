@@ -20,6 +20,12 @@
         ],
         "createdAt": "2026-11-09T14:02:48.749Z",
         "reason": "agent verified in render: flagged sections have 64-112px padding and strip items 26px; detector measures without layout CSS"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "cascadia mono",
+        "createdAt": "2026-11-09T14:12:52.206Z",
+        "reason": "agent: system monospace fallback used only for the API code sample and complaint text, real code/data per craft floor"
       }
     ]
   }
