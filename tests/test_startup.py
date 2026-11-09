@@ -46,7 +46,7 @@ def test_family_rejects_bad_code():
 def test_auto_language_and_elder_text():
     from backend import gnani
     assert gnani.stt_headers("auto", "prisma-v3.0")["language_code"] == "indic-auto"
-    assert gnani.speak_lang("auto", "kn-IN") == "kn-IN" and gnani.speak_lang("auto", "bn-IN") == "hi-en"
+    assert gnani.speak_lang("auto", "kn-IN") == "kn-IN" and gnani.speak_lang("auto", "pa-IN") == "hi-en" and gnani.speak_lang("auto", "bn-IN") == "bn-IN"
     assert gnani.speak_lang("te-IN", "kn-IN") == "te-IN"  # a chosen language is never overridden
     assert gnani.elder_text("Ruko! Phone kaat dijiye. Call 1930.") == \
         "<slow> Ruko! <pauses> <slow> Phone kaat dijiye. <pauses> <slow> Call 1930."
@@ -87,3 +87,18 @@ def test_family_voice_needs_consent_and_can_be_deleted(monkeypatch):
     assert family.voice_for(c)["shape"] == [1, 768]
     assert client.delete(f"/api/family/voice?c={c}").json() == {"deleted": True}
     assert family.voice_for(c) is None
+
+
+def test_push_subscribe_and_one_push_per_call(monkeypatch):
+    from backend import family
+    sent = []
+    monkeypatch.setenv("VAPID_PRIVATE_KEY", "x")
+    monkeypatch.setattr(family, "_send_push", lambda sub, payload: sent.append(payload) or True)
+    c = "pushfam234"
+    sub = {"endpoint": "https://push.example.com/abc", "keys": {"p256dh": "k", "auth": "a"}}
+    assert client.post("/api/push/subscribe", json={"c": c, "name": "Mummy", "subscription": {"endpoint": "http://x"}}).status_code == 400
+    assert client.post("/api/push/subscribe", json={"c": c, "name": "Mummy", "subscription": sub}).json() == {"ok": True}
+    for msg in ({"type": "call_start"}, {"type": "transcript", "text": "t", "risk": {"playbook": {"next": "Next they will ask for an OTP."}}},
+                {"type": "warning", "level": "high"}, {"type": "warning", "level": "critical"}):
+        client.post("/api/family/publish", json={"code": c, "msg": msg})
+    assert len(sent) == 1 and sent[0]["title"] == "Mummy is on a scam call right now" and "OTP" in sent[0]["body"]

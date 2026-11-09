@@ -133,3 +133,26 @@ $("voiceDel").onclick = async () => {
   $("voiceDel").hidden = true;
 };
 voiceStatus();
+
+// ---------- push alerts: the phone buzzes even when this page is closed
+(async () => {
+  if (!("serviceWorker" in navigator) || !("PushManager" in window) || !/^[a-z0-9]{8,16}$/.test(code)) return;
+  const { key } = await (await fetch("/api/push/key")).json().catch(() => ({}));
+  if (!key) return;  // server has no push keys configured yet
+  const reg = await navigator.serviceWorker.register("/sw.js");
+  const btn = $("pushBtn");
+  const b64 = (s) => Uint8Array.from(atob((s + "===".slice((s.length + 3) % 4)).replace(/-/g, "+").replace(/_/g, "/")), (c) => c.charCodeAt(0));
+  async function subscribe() {
+    const sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: b64(key) });
+    const r = await fetch("/api/push/subscribe", { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ c: code, name: who, subscription: sub.toJSON() }) });
+    btn.textContent = r.ok ? "Alerts are on for this phone" : "Couldn't turn on alerts";
+    btn.disabled = r.ok;
+  }
+  btn.hidden = false;
+  if (Notification.permission === "granted") { btn.textContent = "Alerts are on for this phone"; btn.disabled = true; subscribe(); }
+  btn.onclick = async () => {
+    if ((await Notification.requestPermission()) !== "granted") { btn.textContent = "Notifications are blocked in this browser"; return; }
+    subscribe();
+  };
+})();

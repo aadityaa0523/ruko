@@ -26,6 +26,8 @@ const CAT = { digital_arrest: "Fake police / CBI / digital arrest", bank_kyc: "B
   parcel: "Parcel, courier or customs", refund: "“Sent money by mistake”", relative: "Relative in trouble", job: "Job, task or investment",
   prize: "Prize or lottery", loan: "Loan or recovery threats", other: "Other scams", high: "Likely-scam calls warned live", critical: "Scam calls stopped live" };
 const C = window.RUKO_CONFIG;
+// One report alone never marks a number, so a single person can't brand someone's number a scam.
+const MIN_REPORTS = 2;
 
 async function rpc(fn, args) {
   const r = await fetch(`${C.supabaseUrl}/rest/v1/rpc/${fn}`, { method: "POST",
@@ -91,8 +93,9 @@ function show(r, text) {
     $("nums").append(li);
     rpc("number_lookup", { p_number: n }).then(([d]) => {
       const tag = li.querySelector(".tag");
-      tag.textContent = d && d.reports > 0 ? `Reported ${d.reports}× · ${CAT[d.top_category] || ""}` : "No reports yet";
-      tag.classList.toggle("hot", d && d.reports > 0);
+      const hot = d && d.reports >= MIN_REPORTS;
+      tag.textContent = hot ? `Reported ${d.reports}×: ${CAT[d.top_category] || ""}` : "No reports yet";
+      tag.classList.toggle("hot", hot);
     }).catch(() => (li.querySelector(".tag").textContent = "Lookup unavailable"));
   }
   const top = r.flags[0]?.label?.toLowerCase() || "";
@@ -115,7 +118,7 @@ async function lookup(n, openReport = false) {
   box.hidden = false; box.className = "num-result"; box.textContent = "Checking…";
   try {
     const [d] = await rpc("number_lookup", { p_number: n });
-    if (d && d.reports > 0) {
+    if (d && d.reports >= MIN_REPORTS) {
       box.classList.add("hot");
       box.textContent = `${pretty(n)} has been reported ${d.reports} time${d.reports > 1 ? "s" : ""}` +
         `${d.reports_7d ? ` (${d.reports_7d} this week)` : ""}, mostly for: ${CAT[d.top_category] || d.top_category}. Don't trust calls or messages from it.`;
@@ -138,7 +141,7 @@ $("repForm").onsubmit = async (e) => {
   try {
     await sbInsert("number_reports", { number: n, category: $("repCat").value, channel: $("repCh").value, language: LANG });
     $("repMsg").classList.remove("err");
-    $("repMsg").textContent = `Thanks. ${pretty(n)} is now flagged for everyone who checks it.`;
+    $("repMsg").textContent = `Thanks. Once one more person reports ${pretty(n)}, everyone who checks it will see a warning.`;
     lookup(n); loadRadar();
   } catch {
     $("repMsg").classList.add("err"); $("repMsg").textContent = "Couldn't save the report. Please try again.";

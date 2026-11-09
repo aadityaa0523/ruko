@@ -35,6 +35,19 @@ LANGS = {
               "warning": "நிறுத்துங்கள்! இது மோசடி அழைப்பு போல் தெரிகிறது. வங்கியோ காவல்துறையோ ஒருபோதும் "
                          "தொலைபேசியில் ஓ டி பி அல்லது பணம் கேட்காது. அழைப்பைத் துண்டித்து, ஒன்று ஒன்பது மூன்று "
                          "பூஜ்யம் எண்ணை அழையுங்கள்."},
+    # Marathi, Bengali, Gujarati, Malayalam: warning text drafted without a native review yet.
+    "mr-IN": {"stt": "mr-IN", "tts": "mr-IN", "voice": "Zahira", "v3": "mr-IN",
+              "warning": "थांबा! हा कॉल फसवणुकीचा वाटतो. बँक, पोलीस किंवा सरकार कधीही फोनवर ओ टी पी किंवा पैसे मागत नाहीत. "
+                         "फोन कट करा, आणि एक नऊ तीन शून्य वर कॉल करा."},
+    "bn-IN": {"stt": "bn-IN", "tts": "bn-IN", "voice": "Kirra", "v3": "bn-IN",
+              "warning": "থামুন! এই কলটি প্রতারণা মনে হচ্ছে। ব্যাংক, পুলিশ বা সরকার কখনও ফোনে ও টি পি বা টাকা চায় না। "
+                         "ফোন কেটে দিন, আর এক নয় তিন শূন্যে কল করুন।"},
+    "gu-IN": {"stt": "gu-IN", "tts": "gu-IN", "voice": "Falak", "v3": "gu-IN",
+              "warning": "રોકાઓ! આ કૉલ છેતરપિંડી લાગે છે. બેંક, પોલીસ કે સરકાર ક્યારેય ફોન પર ઓ ટી પી કે પૈસા માંગતી નથી. "
+                         "ફોન કાપી નાખો, અને એક નવ ત્રણ શૂન્ય પર કૉલ કરો."},
+    "ml-IN": {"stt": "ml-IN", "tts": "ml-IN", "voice": "Reshma", "v3": "ml-IN",
+              "warning": "നിൽക്കൂ! ഈ കോൾ തട്ടിപ്പാണെന്ന് തോന്നുന്നു. ബാങ്കോ പോലീസോ സർക്കാരോ ഒരിക്കലും ഫോണിൽ ഒ ടി പി യോ പണമോ ചോദിക്കില്ല. "
+                         "ഫോൺ കട്ട് ചെയ്യൂ, ഒന്ന് ഒമ്പത് മൂന്ന് പൂജ്യം എന്ന നമ്പറിൽ വിളിക്കൂ."},
     "en-IN": {"stt": "en-IN", "tts": "en-IN", "voice": "Kaveri", "v3": "en-IN",
               "warning": "Stop! This call looks like a scam. Banks, police and the government never ask for an "
                          "O T P or money on the phone. Hang up, and call one nine three zero."},
@@ -43,7 +56,8 @@ LANGS = {
 
 # "auto": Prisma identifies the language (indic-auto) and Ruko warns in the language it heard.
 AUTO = "auto"
-DETECTED = {"hi-IN": "hi-en", "kn-IN": "kn-IN", "te-IN": "te-IN", "ta-IN": "ta-IN", "en-IN": "en-IN"}
+DETECTED = {"hi-IN": "hi-en", "kn-IN": "kn-IN", "te-IN": "te-IN", "ta-IN": "ta-IN", "en-IN": "en-IN",
+            "mr-IN": "mr-IN", "bn-IN": "bn-IN", "gu-IN": "gu-IN", "ml-IN": "ml-IN"}
 
 
 def valid_lang(lang: str) -> bool:

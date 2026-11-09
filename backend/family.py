@@ -3,6 +3,9 @@
 The code is a random secret shared by the person being protected (like an unlisted link).
 shortcut: rooms live in memory on one server, move to Redis pub/sub when running more than one instance.
 """
+import asyncio
+import json
+import os
 import re
 
 from fastapi import APIRouter, File, Form, UploadFile, WebSocket
@@ -20,6 +23,35 @@ TYPES = {"call_start", "transcript", "warning", "pack", "diarized", "call_end"}
 # Family member's cloned voice for the warning, recorded by them with consent. Memory only, deletable.
 # shortcut: lost on restart; persist encrypted per family if this becomes a paid feature.
 VOICES: dict[str, dict] = {}
+# Push subscriptions per family code (Web Push). shortcut: memory only, lost on restart; store in the database when it matters.
+SUBS: dict[str, list[dict]] = {}
+PUSHED: set[str] = set()  # family codes already notified during the current call
+MAX_SUBS = 5
+
+
+def _send_push(sub: dict, payload: dict) -> bool:
+    """Returns False when the browser has dropped the subscription."""
+    from pywebpush import WebPushException, webpush
+    try:
+        webpush(sub["subscription"], json.dumps(payload), vapid_private_key=os.environ["VAPID_PRIVATE_KEY"],
+                vapid_claims={"sub": "mailto:ruko-alerts@users.noreply.github.com"}, ttl=600)
+        return True
+    except WebPushException as e:
+        return getattr(e.response, "status_code", 0) not in (404, 410)
+
+
+async def notify(code: str):
+    """One push per call to every family member who asked for alerts."""
+    if not SUBS.get(code) or code in PUSHED or not os.environ.get("VAPID_PRIVATE_KEY"):
+        return
+    PUSHED.add(code)
+    last = next((e for e in reversed(HISTORY.get(code, [])) if e.get("type") == "transcript"), None)
+    nxt = (last or {}).get("risk", {}).get("playbook", {}).get("next") or "Ruko has warned them out loud."
+    for sub in list(SUBS[code]):
+        payload = {"title": f"{sub['name']} is on a scam call right now", "body": f"{nxt} Call them now.",
+                   "url": f"/family/?c={code}&n={sub['name']}", "tag": f"ruko-{code}"}
+        if not await asyncio.to_thread(_send_push, sub, payload):
+            SUBS[code].remove(sub)
 
 
 def voice_for(code: str | None) -> dict | None:
@@ -33,6 +65,7 @@ async def publish(code: str | None, msg: dict):
     msg = {k: v for k, v in msg.items() if k != "audio"}  # family gets text, not the warning audio
     if msg["type"] == "call_start":
         HISTORY[code] = []
+        PUSHED.discard(code)
     elif code not in HISTORY and len(HISTORY) >= MAX_ROOMS:
         return
     events = HISTORY.setdefault(code, [])
@@ -43,6 +76,8 @@ async def publish(code: str | None, msg: dict):
             await ws.send_json(msg)
         except Exception:
             ROOMS[code].discard(ws)
+    if msg["type"] == "warning":
+        asyncio.create_task(notify(code))
 
 
 class Event(BaseModel):
@@ -56,6 +91,28 @@ async def publish_http(ev: Event):
     if len(str(ev.msg)) > 20000:
         return {"ok": False}
     await publish(ev.code, ev.msg)
+    return {"ok": True}
+
+
+@router.get("/api/push/key")
+def push_key():
+    return {"key": os.environ.get("VAPID_PUBLIC_KEY") or None}
+
+
+class PushSub(BaseModel):
+    c: str
+    name: str = ""
+    subscription: dict
+
+
+@router.post("/api/push/subscribe")
+def push_subscribe(body: PushSub):
+    endpoint = str(body.subscription.get("endpoint", ""))
+    if not CODE.match(body.c) or not endpoint.startswith("https://") or len(json.dumps(body.subscription)) > 2000:
+        return JSONResponse({"error": "invalid subscription"}, status_code=400)
+    subs = [s for s in SUBS.get(body.c, []) if s["subscription"].get("endpoint") != endpoint]
+    subs.append({"subscription": body.subscription, "name": (body.name.strip() or "Your family member")[:30]})
+    SUBS[body.c] = subs[-MAX_SUBS:]
     return {"ok": True}
 
 

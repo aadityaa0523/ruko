@@ -17,7 +17,20 @@ BRANDS = ["sbi", "hdfc", "icici", "axis", "kotak", "paytm", "phonepe", "gpay", "
 OFFICIAL = {"sbi.co.in", "onlinesbi.sbi", "hdfcbank.com", "icicibank.com", "axisbank.com", "kotak.com", "paytm.com",
             "phonepe.com", "pay.google.com", "amazon.in", "amazon.com", "flipkart.com", "irctc.co.in", "uidai.gov.in",
             "epfindia.gov.in", "incometax.gov.in", "npci.org.in", "rbi.org.in", "cybercrime.gov.in", "pmkisan.gov.in",
-            "indiapost.gov.in", "sancharsaathi.gov.in", "gov.in", "nic.in", "wa.me", "whatsapp.com", "youtube.com", "youtu.be"}
+            "indiapost.gov.in", "sancharsaathi.gov.in", "gov.in", "nic.in", "wa.me", "whatsapp.com", "youtube.com", "youtu.be",
+            # banks, cards and insurers
+            "sbicard.com", "sbilife.co.in", "sbimf.com", "bankofbaroda.in", "bankofbaroda.com", "pnbindia.in", "canarabank.com",
+            "unionbankofindia.co.in", "bankofindia.co.in", "indianbank.in", "iob.in", "centralbankofindia.co.in", "idbibank.in",
+            "yesbank.in", "indusind.com", "idfcfirstbank.com", "federalbank.co.in", "aubank.in", "rblbank.com", "bandhanbank.com",
+            "hdfclife.com", "iciciprulife.com", "icicilombard.com", "licindia.in", "policybazaar.com", "hdfcsec.com", "icicidirect.com",
+            # payments, telcos, utilities, shopping, travel
+            "bhimupi.org.in", "razorpay.com", "cred.club", "mobikwik.com", "airtel.in", "jio.com", "myvi.in", "bsnl.co.in",
+            "tatapower.com", "adanielectricity.com", "bescom.co.in", "tangedco.org", "mahadiscom.in", "myntra.com", "meesho.com",
+            "swiggy.com", "zomato.com", "bigbasket.com", "blinkit.com", "zeptonow.com", "makemytrip.com", "redbus.in", "indianrail.gov.in",
+            "bluedart.com", "delhivery.com", "dhl.com", "fedex.com",
+            # government and big platforms
+            "india.gov.in", "mygov.in", "digilocker.gov.in", "umang.gov.in", "passportindia.gov.in", "parivahan.gov.in",
+            "google.com", "apple.com", "microsoft.com", "linkedin.com", "github.com", "instagram.com", "facebook.com", "x.com"}
 RISKY_TLDS = {"xyz", "top", "click", "link", "live", "online", "site", "info", "buzz", "shop", "icu", "cfd", "sbs", "rest", "lol", "monster", "fun"}
 
 URL_RE = re.compile(r"(?:https?://|www\.)[^\s<>\"')]+|\b[a-z0-9-]+(?:\.[a-z0-9-]+)*\.(?:com|in|net|org|xyz|top|click|link|live|online|site|info|buzz|shop|icu|ly|gl|me|co|io|apk)(?:/[^\s<>\"')]*)?", re.I)

@@ -62,6 +62,22 @@ SCAM = {
         "There is an arrest warrant against you. Do not tell anyone about this call.",
         "Transfer your savings to the RBI safe account immediately for verification.",
     ],
+    "police_marathi": [
+        "मी पोलीस अधिकारी बोलतोय. तुमच्या नावावर केस दाखल झाली आहे, तुम्हाला अटक होईल.",
+        "हे कोणालाही सांगू नका. लगेच तुमचा ओटीपी सांगा.",
+    ],
+    "bank_bengali": [
+        "আমি ব্যাংক থেকে বলছি। আপনার অ্যাকাউন্ট ব্লক হয়ে যাবে।",
+        "এখনই আপনার ওটিপি বলুন। কাউকে বলবেন না।",
+    ],
+    "police_gujarati": [
+        "હું પોલીસ અધિકારી બોલું છું. તમારા પર કેસ દાખલ થયો છે, તમારી ધરપકડ થશે.",
+        "આ વાત કોઈને કહેશો નહીં. તરત તમારો ઓટીપી કહો.",
+    ],
+    "bank_malayalam": [
+        "ഞാൻ ബാങ്കിൽ നിന്നാണ് വിളിക്കുന്നത്. നിങ്ങളുടെ അക്കൗണ്ട് ബ്ലോക്ക് ആകും.",
+        "ഉടനെ നിങ്ങളുടെ ഒടിപി പറയൂ. ആരോടും പറയരുത്.",
+    ],
     "cbi_devanagari": [
         "मैं सीबीआई से बोल रहा हूँ, आपके खिलाफ वारंट है।",
         "किसी को मत बताना, तुरंत पैसे भेजिए।",
@@ -69,6 +85,8 @@ SCAM = {
 }
 
 SAFE = {
+    "marathi_family": ["आई, मी आज लवकर घरी येईन.", "रात्री आपण एकत्र जेवू."],
+    "bengali_family": ["মা, আমি আজ সন্ধ্যায় বাড়ি ফিরব।", "রাতে একসঙ্গে খাব।"],
     "card_bill_english": [
         "Hello, this is your bank. Your credit card bill is due on the fifth.",
         "Please remember, never share your OTP with anyone.",

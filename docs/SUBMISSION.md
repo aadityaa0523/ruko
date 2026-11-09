@@ -42,7 +42,7 @@ Elders living alone, farmers, kirana shop owners and first-time digital users, w
 - **Prisma v2.5, Realtime:** selectable fallback.
 - **Prisma v3.0, REST:** voice-note check.
 - **Prisma v3.0, Batch with diarization:** who said what after the call.
-- **Timbre v2.5:** warnings in 6 languages (voices Poorvi, Nalini, Saanvi, Suhana, Asmita, Kaveri), the family alert, and 8 kHz `pcm_mulaw` audio spoken into phone calls.
+- **Timbre v2.5:** warnings in 10 languages (voices Poorvi, Nalini, Saanvi, Suhana, Asmita, Kaveri, Zahira, Kirra, Falak, Reshma), the family alert, and 8 kHz `pcm_mulaw` audio spoken into phone calls.
 - **Timbre SSE streaming:** phone-line warnings start playing as the first chunk arrives (measured 0.7 s to first audio vs about 2.0 s for the full clip over REST). Warnings are also made in advance at call start, so the speakerphone alert plays instantly.
 - **Voice cloning (`vachana-vc-v1`):** on the Family Shield screen, a family member records 5–30 s of their own voice, with an explicit consent checkbox, and can delete it any time. Warnings, including the ones spoken into a phone call, then come in that trusted voice. The voice embedding is kept in memory only.
 - **Timbre v3.0:** `<whispers>` audio tag for a quiet warning, and an elder mode that uses `<slow>` on every sentence with `<pauses>` between them.
@@ -57,7 +57,7 @@ A team can win only one award; these are the categories Ruko competes in, with p
 - **Solo Ninja:** built end to end by one person: speech pipeline, risk engine, telephony, accounts, design, evaluation, video.
 - **Noise Canceller:** measured on 8 kHz G.711 phone audio with background chatter at +5 dB SNR: 7/7 scams caught, 0/2 false alarms, median alert 0.35 s after the trigger line (36 live runs, `docs/EVALUATION.md`). Phone-line mode runs Prisma at 8 kHz and speaks Timbre μ-law back into the call.
 - **Mixed Vibes:** Prisma v3.0 code-mix output (Devanagari and Latin in one sentence) is matched with mixed-script phrases ("block हो", "link पे click"); warnings are spoken in Hinglish; Auto mode detects the caller's language mid-call.
-- **Main Character:** full detection and spoken warnings in Kannada, Telugu and Tamil, tested live, with a slow, paused elder voice.
+- **Main Character:** full detection and spoken warnings in Kannada, Telugu, Tamil, Marathi, Bengali, Gujarati and Malayalam, each tested live with Prisma's automatic language detection, with a slow, paused elder voice.
 - **Real Deal:** protects the groups scammers target most: farmers (PM-Kisan "installment stopped"), kirana owners (fake army orders, "sent by mistake" UPI refunds) and elders on keypad phones; ends with a ready 1930 complaint inside the golden hour.
 - **Jugaad Genius:** merge a keypad-phone call with Ruko's number so the AI speaks *inside* the call; the warning comes in a family member's cloned voice (with consent); Ruko sits in Android's Share menu; it predicts the scammer's next step from a four-step playbook.
 - **Demo Day Drop:** 44-second vertical video recorded from the real product (`docs/ruko-demo.mp4`).

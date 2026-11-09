@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#26282b">
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="/ruko.css?v=34">
+<link rel="stylesheet" href="/ruko.css?v=35">
 <style>
   .bar { background: var(--asphalt); color: var(--sign); }
   .bar-row { max-width: 640px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 10px; }
@@ -54,6 +54,7 @@
     <div class="oct-wrap" id="famOct" hidden></div>
     <h1 id="headline">Watching over calls</h1>
     <p id="sub">Keep this page open. If a call turns into a scam, this screen turns red right away.</p>
+    <button class="btn btn-primary" id="pushBtn" type="button" hidden>Alert me even when this page is closed</button>
     <ol class="todo" id="todo" hidden>
       <li>Call them right now. A second call breaks the scammer's hold.</li>
       <li>Tell them: no OTP, no money, no app. Real police never call like this.</li>
@@ -90,7 +91,7 @@
 
   <p class="muted small foot">Only people with this exact link can see these calls. Ruko keeps no call audio. Nothing is shown unless a call is being protected.</p>
 </main>
-<script src="/ruko.js?v=30"></script>
-<script src="family.js?v=30"></script>
+<script src="/ruko.js?v=35"></script>
+<script src="family.js?v=35"></script>
 </body>
 </html>

@@ -3,8 +3,8 @@
 window.STRINGS = {
   en: {
     protect: "Protect this call", listening: "Listening…", connecting: "Connecting…", sample: "Sample call",
-    hint: "Put the call on speaker and tap. Ruko listens and warns you out loud if it is a scam.",
-    listening_hint: "Keep the call on speaker, close to this phone.", connecting_hint: "Connecting to Gnani Prisma…",
+    hint: "Put the call on speaker and keep this device next to it, then tap. Phones can't share the microphone during a call, so use a second phone or tablet, or the keypad-phone line.",
+    listening_hint: "Keep the call on speaker, close to this device.", connecting_hint: "Connecting to Gnani Prisma…",
     sample_hint: "Playing a made-up scam call…", making_report: "Making your report…", problem: "Problem: ",
     need_mic: "Ruko needs the microphone to hear the call. Allow it and tap again.",
     no_key: "Live listening is off on this server. Sample calls still work.",
@@ -19,7 +19,7 @@ window.STRINGS = {
   },
   hi: {
     protect: "इस कॉल को सुरक्षित करें", listening: "सुन रहा है…", connecting: "जुड़ रहा है…", sample: "नमूना कॉल",
-    hint: "कॉल स्पीकर पर रखें और दबाएँ। Ruko सुनता है और धोखा हो तो ज़ोर से चेतावनी देता है।",
+    hint: "कॉल स्पीकर पर रखें, यह डिवाइस उसके पास रखें, फिर दबाएँ। कॉल के दौरान फ़ोन माइक्रोफ़ोन साझा नहीं करते, इसलिए दूसरा फ़ोन या टैबलेट इस्तेमाल करें, या कीपैड-फ़ोन लाइन।",
     listening_hint: "कॉल स्पीकर पर रखें, इस फ़ोन के पास।", connecting_hint: "Gnani Prisma से जुड़ रहा है…",
     sample_hint: "एक नक़ली धोखे वाली कॉल चल रही है…", making_report: "आपकी रिपोर्ट बन रही है…", problem: "दिक़्क़त: ",
     need_mic: "कॉल सुनने के लिए Ruko को माइक्रोफ़ोन चाहिए। अनुमति दें और फिर दबाएँ।",
@@ -52,7 +52,7 @@ let ws = null, audioCtx = null, stream = null, speaking = false, pending = new I
 
 
 // ---------- settings
-const LANG_NAMES = { auto: "Auto", "hi-en": "Hinglish", "hi-IN": "हिन्दी", "kn-IN": "ಕನ್ನಡ", "te-IN": "తెలుగు", "ta-IN": "தமிழ்", "en-IN": "English" };
+const LANG_NAMES = { auto: "Auto", "hi-en": "Hinglish", "hi-IN": "हिन्दी", "kn-IN": "ಕನ್ನಡ", "te-IN": "తెలుగు", "ta-IN": "தமிழ்", "en-IN": "English", "mr-IN": "मराठी", "bn-IN": "বাংলা", "gu-IN": "ગુજરાતી", "ml-IN": "മലയാളം" };
 for (const id of ["lang", "model"]) {
   $(id).value = store.get("ruko." + id, $(id).value);
   $(id).onchange = () => { store.set("ruko." + id, $(id).value); $("langName").textContent = LANG_NAMES[$("lang").value]; };
@@ -258,7 +258,8 @@ const SCRIPT_NAMES = {
   relative_in_custody: "Your son is at the police station", bank_kyc_screenshare: "Bank KYC + screen share", police_kannada: "Police call (Kannada)",
   bank_telugu: "Bank call (Telugu)", police_tamil: "Police call (Tamil)",
   cyber_branch_english: "Cyber crime branch (English)", card_bill_english: "Real card bill reminder (English)",
-  tamil_family: "Family call (Tamil)", cbi_devanagari: "CBI call (Hindi)", real_bank_reminder: "Real bank EMI reminder",
+  tamil_family: "Family call (Tamil)", cbi_devanagari: "CBI call (Hindi)", police_marathi: "Police call (Marathi)", bank_bengali: "Bank call (Bengali)",
+  police_gujarati: "Police call (Gujarati)", bank_malayalam: "Bank call (Malayalam)", marathi_family: "Family call (Marathi)", bengali_family: "Family call (Bengali)", real_bank_reminder: "Real bank EMI reminder",
   delivery_otp: "Real delivery OTP", doctor_appointment: "Doctor's appointment", family_surprise: "Family surprise party",
 };
 (async () => {

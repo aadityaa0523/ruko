@@ -70,8 +70,15 @@ PRISMA_SCAM = {
     "cyber_branch_english": ["This is Inspector Sharma from the Mumbai Cyber Crime Branch. A parcel in your name has drugs.",
                              "There is an arrest warrant against you. Do not tell anyone about this call.",
                              "Transfer your savings to the RBI safe account immediately for verification."],
+    # Live Prisma (Auto) transcripts of the synthetic scripts, 10 Nov 2026
+    "police_marathi": ["मी पोलीस अधिकारी बोलतोय, तुमच्या नावावर केस दाखल झाली आहे, तुम्हाला अटक होईल.", "हे कोणालाही सांगू नका, लगेच तुमचा OTP सांगा."],
+    "bank_bengali": ["আমি bank থেকে বলছি, আপনার account block হয়ে যাবে।", "এখনই আপনার OTP বলুন।", "কাউকে বলবেন না।"],
+    "police_gujarati": ["પોલીસ અધિકારી બોલું છું.", "તમારા પર case દાખલ થયો છે, તમારી ધરપકડ થશે.", "આ વાત કોઈને કહેશો નહીં, તરત તમારો OTP કહો."],
+    "bank_malayalam": ["ഞാൻ ബാങ്കിൽ നിന്നാണ് വിളിക്കുന്നത്.", "നിങ്ങളുടെ account block ആകും, ഉടനെ നിങ്ങളുടെ OTP പറയൂ.", "ആരോടും പറയരുത്."],
 }
 PRISMA_SAFE = {
+    "marathi_family": ["आई, मी आज लवकर घरी येईन.", "रात्री आपण एकत्र जेवू."],
+    "bengali_family": ["মা, আমি আজ সন্ধ্যায় বাড়ি ফিরবো।", "রাতে একসঙ্গে খাবো।"],
     "tamil_family": ["ஆமாம், நான் இன்று சீக்கிரம் வீட்டுக்கு வருவேன்.", "இரவு சாப்பாடு சேர்ந்து சாப்பிடலாம்."],
     "card_bill_english": ["Hello, this is your bank. Your credit card bill is due on the fifth.",
                           "Please remember, never share your OTP with anyone."],

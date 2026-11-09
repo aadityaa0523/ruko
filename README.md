@@ -63,3 +63,7 @@ Auth settings to set in the Supabase dashboard: Site URL = the deployed URL; add
 ## Licence
 
 © 2026 Ruko. All rights reserved. See `LICENSE` and `/licenses/`.
+
+## Family push alerts
+
+The family screen can buzz a family member's phone even when the page is closed (Web Push, one notification per scam call). Generate a VAPID key pair once (see `pywebpush`/`py_vapid`), then set `VAPID_PUBLIC_KEY` and `VAPID_PRIVATE_KEY` in `.env` locally and in Render. Without them the alert button stays hidden.

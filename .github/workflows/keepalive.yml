@@ -1,0 +1,12 @@
+# Render's free plan sleeps after 15 idle minutes and takes ~50 s to wake: too slow during a live scam call.
+# Ping the health endpoint every 10 minutes so the server stays warm.
+name: keep-alive
+on:
+  schedule:
+    - cron: "*/10 * * * *"
+  workflow_dispatch:
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - run: curl -fsS --max-time 90 https://ruko-ohn2.onrender.com/api/health
