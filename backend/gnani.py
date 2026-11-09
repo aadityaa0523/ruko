@@ -157,8 +157,17 @@ async def tts(text: str, lang: str, whisper: bool = False, telephony: bool = Fal
     else:
         body["audio_config"] = {"sample_rate": 24000, "num_channels": 1, "sample_width": 2,
                                 "encoding": "linear_pcm", "container": "wav"}
+    key = (text, lang, whisper, telephony)
+    if key in _TTS_CACHE:  # warnings repeat: save credits and ~1 s of delay
+        return _TTS_CACHE[key]
     async with httpx.AsyncClient(timeout=30) as client:
         r = await client.post(TTS_URL, json=body, headers={"X-API-Key-ID": api_key()})
     if r.status_code != 200:
         raise RuntimeError(f"Timbre {r.status_code}: {r.text[:300]}")
+    if len(_TTS_CACHE) >= 64:
+        _TTS_CACHE.pop(next(iter(_TTS_CACHE)))
+    _TTS_CACHE[key] = r.content
     return r.content
+
+
+_TTS_CACHE: dict[tuple, bytes] = {}

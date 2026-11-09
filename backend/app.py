@@ -26,6 +26,9 @@ ROOT = Path(__file__).resolve().parent.parent
 gnani.load_env(ROOT / ".env")
 
 app = FastAPI(title="Ruko")
+# Public demo runs on one Gnani key: cap parallel live sessions and their length.
+LIVE = asyncio.Semaphore(3)
+MAX_SESSION_S = 600
 app.include_router(telephony_router)
 
 
@@ -132,6 +135,15 @@ async def listen(ws: WebSocket, lang: str = "hi-en", model: str = "prisma-v3.0",
         await ws.send_json({"type": "error", "message": "GNANI_API_KEY missing in ruko/.env"})
         await ws.close()
         return
+    if LIVE.locked():
+        await ws.send_json({"type": "error", "message": "Ruko is busy with other calls right now. Please try again in a minute."})
+        await ws.close()
+        return
+    async with LIVE:
+        await _listen(ws, lang, model, whisper)
+
+
+async def _listen(ws: WebSocket, lang: str, model: str, whisper: int):
     risk = CallRisk()
     started, t0 = datetime.now(), time.monotonic()
     audio = bytearray()  # in memory only, for diarization after hang-up
@@ -174,7 +186,9 @@ async def listen(ws: WebSocket, lang: str = "hi-en", model: str = "prisma-v3.0",
                         await ws.send_json(m)
 
             tasks = [asyncio.create_task(browser_to_gnani()), asyncio.create_task(gnani_to_browser())]
-            done, pending = await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
+            done, pending = await asyncio.wait(tasks, timeout=MAX_SESSION_S, return_when=asyncio.FIRST_COMPLETED)
+            if not done:
+                await _safe_send(ws, {"type": "error", "message": "Session limit of 10 minutes reached."})
             for t in pending:
                 t.cancel()
             for t in done:

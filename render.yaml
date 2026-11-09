@@ -1,0 +1,19 @@
+# Render blueprint: free web service with HTTPS + WebSockets (mic needs HTTPS on phones).
+# Secrets are entered in the Render dashboard, never committed.
+services:
+  - type: web
+    name: ruko
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn backend.app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.7
+      - key: GNANI_API_KEY
+        sync: false
+      - key: TWILIO_AUTH_TOKEN
+        sync: false
+      - key: RUKO_PUBLIC_URL
+        sync: false
