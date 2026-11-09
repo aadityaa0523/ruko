@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#26282b">
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="/ruko.css?v=35">
+<link rel="stylesheet" href="/ruko.css?v=37">
 <style>
   .bar { background: var(--asphalt); color: var(--sign); }
   .bar-row { max-width: 640px; margin: 0 auto; padding: 10px 16px; display: flex; align-items: center; gap: 10px; }
@@ -40,7 +40,7 @@
   body[data-state="danger"] .foot { color: #fff; }
 </style>
 </head>
-<body data-state="idle">
+<body class="app-shell" data-tab="family" data-state="idle">
 <header class="bar">
   <div class="bar-row">
     <a class="logo" href="/" aria-label="Ruko home"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M30 2h40l28 28v40L70 98H30L2 70V30z" fill="#c8102e"/><path d="M31.7 9h36.6L91 31.7v36.6L68.3 91H31.7L9 68.3V31.7z" fill="none" stroke="#fff" stroke-width="5"/></svg>Ruko</a>
@@ -91,7 +91,8 @@
 
   <p class="muted small foot">Only people with this exact link can see these calls. Ruko keeps no call audio. Nothing is shown unless a call is being protected.</p>
 </main>
-<script src="/ruko.js?v=35"></script>
-<script src="family.js?v=35"></script>
+<script src="/ruko.js?v=37"></script>
+<script src="/tabs.js?v=36"></script>
+<script src="family.js?v=36"></script>
 </body>
 </html>

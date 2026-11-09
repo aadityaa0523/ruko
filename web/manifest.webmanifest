@@ -1,7 +1,7 @@
 {
-  "name": "Ruko: scam-call guard",
+  "name": "Ruko: scam-call guard for families",
   "short_name": "Ruko",
-  "description": "Warns your family out loud before a scam call's next move, and alerts you live.",
+  "description": "Ruko listens to a call on speaker, spots the scam as it happens, warns out loud in 10 Indian languages before the scammer's next move, alerts your family, and checks any SMS, WhatsApp message, link or number.",
   "start_url": "/app/",
   "scope": "/",
   "display": "standalone",
@@ -67,6 +67,48 @@
           "sizes": "192x192"
         }
       ]
+    }
+  ],
+  "id": "/app/",
+  "display_override": [
+    "standalone",
+    "minimal-ui"
+  ],
+  "orientation": "portrait",
+  "lang": "en-IN",
+  "categories": [
+    "utilities",
+    "lifestyle",
+    "productivity"
+  ],
+  "screenshots": [
+    {
+      "src": "/store/guard.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Protect a call on speaker"
+    },
+    {
+      "src": "/store/check.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Check any message, link or number"
+    },
+    {
+      "src": "/store/takeover.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Loud warning before the scammer asks for money"
+    },
+    {
+      "src": "/store/home.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Ruko: caller ID tells you who; Ruko tells you it's a scam"
     }
   ]
 }

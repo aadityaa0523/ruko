@@ -13,7 +13,11 @@ function applyLang(lang) {
   store.set("ruko.ui", LANG);
   document.documentElement.lang = LANG;
   for (const el of document.querySelectorAll("[data-i18n]")) el.textContent = t(el.dataset.i18n);
-  for (const el of document.querySelectorAll("[data-i18n-ph]")) el.placeholder = t(el.dataset.i18nPh);
+  for (const el of document.querySelectorAll("[data-i18n-ph]")) {
+    const k = el.dataset.i18nPh;
+    if (window.STRINGS?.en && !(k in window.STRINGS.en)) window.STRINGS.en[k] = el.placeholder;  // English comes from the HTML
+    el.placeholder = t(k);
+  }
   for (const b of document.querySelectorAll(".lang-toggle button")) b.setAttribute("aria-pressed", String(b.dataset.lang === LANG));
   document.dispatchEvent(new Event("langchange"));
 }

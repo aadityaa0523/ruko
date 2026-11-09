@@ -1,7 +1,7 @@
 // Ruko service worker: makes the app installable and keeps the shell available on a weak network.
 // Live listening always needs the network; only static files are cached.
-const CACHE = "ruko-v35";
-const SHELL = ["/app/", "/check/", "/check/check.js", "/check/check.css", "/app/app.css", "/app/app.js", "/ruko.css", "/ruko.js", "/fonts/fonts.css", "/icon.svg"];
+const CACHE = "ruko-v37";
+const SHELL = ["/app/", "/check/", "/check/check.js", "/check/check.css", "/app/app.css", "/app/app.js", "/ruko.css", "/ruko.js", "/tabs.js", "/fonts/fonts.css", "/icon.svg"];
 
 self.addEventListener("install", (e) => e.waitUntil(caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting())));
 self.addEventListener("activate", (e) => e.waitUntil(
