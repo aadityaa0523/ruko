@@ -13,12 +13,22 @@ copy .env.example .env      # then put your key from app.gnani.ai/voice in .env
 
 Open http://localhost:8870. The browser only lets a page use the microphone on localhost or over HTTPS.
 
+## Pages
+
+- `/`: landing page (problem, how it works, Family Shield, business, pricing, pilot waitlist, live demo of the scoring).
+- `/app/`: the guard. One tap to protect a call, live captions, the scam-step tracker, red alert, golden-hour pack, sample calls, voice-note check.
+- `/family/?c=<code>&n=<name>`: Family Shield. Turns red live when the protected person's call becomes a scam. The link is made in the app (Family Shield button).
+- `POST /v1/score` (header `X-Ruko-Key`): partner API returning `level`, `score`, `flags` and `playbook` for transcript lines. Keys come from `RUKO_PARTNER_KEYS`; the key `demo` works for up to 20 lines.
+- `POST /api/waitlist`: pilot sign-ups, appended to `data/waitlist.jsonl` (git-ignored; local disk only).
+
 ## How it works
 
 1. The browser captures mic audio (16 kHz PCM16, 1,024-byte frames) and sends it to the backend's `/ws/listen`.
 2. The backend proxies the audio to **Prisma Realtime**. It holds the API key, because browsers can't set WebSocket headers. On v3.0 it uses code-mix output, Indian-language + English hints and scam keyterms.
 3. Each transcript goes through `backend/risk.py`, which scores the **pattern** across the whole call: claims to be an official + threat + secrecy + payment/OTP + remote app + refund trick. An alert needs at least two categories including a dangerous one, and genuine bank safety advice is ignored.
-4. On an alert, **Timbre v2.5** speaks the warning in the chosen language, or **Timbre v3.0** `<whispers>` it if that option is ticked. The mic pauses while Ruko speaks, so it doesn't transcribe itself.
+3b. With the language set to **Auto**, Prisma runs with `indic-auto` and Ruko speaks the warning in the detected language (Hindi is answered in Hinglish; languages without a warning yet fall back to Hinglish).
+4. `risk.py` also maps the flags to the scam's four-step playbook (pose → fear → isolate → ask) and picks a warning about the next step.
+5. On an alert, **Timbre v2.5** speaks the warning in the chosen language, or **Timbre v3.0** `<whispers>` it if that option is ticked. The mic pauses while Ruko speaks, so it doesn't transcribe itself.
 
 ## Test
 
@@ -35,7 +45,7 @@ Ruko can join a real phone call. The user merges a suspicious call with the Ruko
 Setup:
 1. Make the server reachable over HTTPS (deploy it, or run `ngrok http 8870`) and set `RUKO_PUBLIC_URL` to that URL.
 2. In Twilio, buy a number. Indian numbers need Twilio's regulatory documents; for a quick test, a non-Indian number works.
-3. Set the number's "A call comes in" webhook to `POST https://<public-url>/twilio/voice?lang=kn-IN` (any language from the list).
+3. Set the number's "A call comes in" webhook to `POST https://<public-url>/twilio/voice?lang=auto` (or a fixed language such as `kn-IN`). Add `&family=<code>` (the code from a Family Shield link) to make the family screen turn red during phone-line calls too.
 4. Put the account's auth token in `TWILIO_AUTH_TOKEN`, so only Twilio-signed requests can start a session. Each stream also needs a one-time token that the webhook issues.
 
 Without a Twilio account, you can exercise the same code with a simulator that speaks Twilio's message format. That is how this mode has been tested so far. No real phone call has been made yet.

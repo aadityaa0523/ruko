@@ -36,15 +36,17 @@ Only use a personal story if it's true. Misleading demos and claims are banned.
 >
 > Meet Ruko. Put the call on speaker, and Ruko:
 > → transcribes it live with Gnani Prisma, even when Hindi and English are mixed
-> → spots the scam *pattern* (official + threat + secrecy + OTP), not just keywords
-> → warns you out loud in your language with Gnani Timbre: Kannada, Telugu, Tamil, Hindi, Hinglish
-> → when you hang up, hands you a ready-to-file 1930 complaint and alerts your family
+> → tracks the scam's 4-step playbook and warns you about the *next* step before it comes ("next they'll ask for your OTP")
+> → turns the screen red and warns you out loud in your language with Gnani Timbre: Kannada, Telugu, Tamil, Hindi, Hinglish
+> → turns your son's or daughter's phone red at the same moment (Family Shield), so they can call and break the scam
+> → when you hang up, hands you a ready-to-file 1930 complaint
 >
 > For keypad phones: merge the call with Ruko's number and it speaks the warning into the call itself.
 >
 > 60-second demo below. Everything in it is real and running. All scam calls are scripted, with fake numbers.
 >
 > Built with: Gnani Prisma v3.0 (Realtime, Batch diarization, REST) + Timbre v2.5/v3.0
+> Free for the person on the call; Family Shield ₹49/month; an API for banks and telcos. Pilot waitlist open.
 > Demo: [link] · Code: [link]
 >
 > Earlier, our cyber-fraud complaint tool Samarthan was shortlisted at OpenAI × Varun Mayya's Build What Moves India. Ruko is the half that acts *during* the call.

@@ -1,0 +1,79 @@
+:root {
+  --bg: #f6f2e9; --card: #fffdf8; --ink: #1c1b18; --muted: #6a655a; --line: #e3dccb;
+  --brand: #22306b; --brand-ink: #fffdf8; --gold: #e39b10; --gold-soft: #fbecc8;
+  --safe: #2b7a4b; --watch: #b7741a; --high: #c4470f; --danger: #c3261c; --danger-bg: #c3261c; --danger-soft: #fbe3e0;
+  --radius: 18px; --shadow: 0 1px 2px rgb(30 25 10 / .06), 0 8px 24px rgb(30 25 10 / .06);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12110e; --card: #1c1a15; --ink: #f2eee4; --muted: #a49d8e; --line: #2e2a22;
+    --brand: #a9b8ff; --brand-ink: #12110e; --gold: #f2b63c; --gold-soft: #3a2e14;
+    --safe: #5ccf8a; --watch: #f0b54a; --high: #fb8c4a; --danger: #ff5a4e; --danger-bg: #b8281f; --danger-soft: #3d1714;
+    --shadow: none; color-scheme: dark;
+  }
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.55 "Noto Sans", system-ui, sans-serif; }
+h1, h2, h3, .display { font-family: "Bricolage Grotesque", "Noto Sans", system-ui, sans-serif; letter-spacing: -0.02em; line-height: 1.1; }
+a { color: inherit; }
+button, select, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+.muted { color: var(--muted); }
+.small { font-size: .88rem; }
+
+/* brand mark: a hand raised to say "stop" is the product; the mark is a simple word + dot */
+.logo { display: inline-flex; align-items: center; gap: 8px; font: 800 1.35rem "Bricolage Grotesque", system-ui; text-decoration: none; letter-spacing: -0.03em; }
+.logo i { width: 12px; height: 12px; border-radius: 50%; background: var(--danger); box-shadow: 0 0 0 4px var(--danger-soft); }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 1px solid var(--line); background: var(--card);
+  border-radius: 999px; padding: 12px 20px; font-weight: 650; text-decoration: none; min-height: 48px; }
+.btn.primary { background: var(--brand); color: var(--brand-ink); border-color: transparent; }
+.btn.danger { background: var(--danger-bg); color: #fff; border-color: transparent; }
+.btn.gold { background: var(--gold); color: #1c1b18; border-color: transparent; }
+.btn.block { width: 100%; }
+.btn.quiet { background: transparent; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); }
+.pill { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px; font-size: .85rem; background: var(--card); }
+.dot { width: 9px; height: 9px; border-radius: 50%; background: var(--safe); }
+.dot.live { background: var(--danger); animation: pulse 1.4s infinite; }
+@keyframes pulse { 50% { opacity: .35; } }
+
+/* scam playbook tracker (shared by app, family screen and landing) */
+.stages { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; counter-reset: s; }
+.stages li { counter-increment: s; border-top: 5px solid var(--line); padding-top: 8px; font-size: .8rem; line-height: 1.3; color: var(--muted); transition: border-color .3s, color .3s; }
+.stages li::before { content: counter(s); display: block; font: 800 1.1rem "Bricolage Grotesque", system-ui; }
+.stages li.done { border-color: var(--danger); color: var(--ink); }
+.stages li.done::before { color: var(--danger); }
+.next { margin-top: 12px; padding: 12px 14px; border-radius: 12px; background: var(--gold-soft); font-weight: 600; }
+.next:empty { display: none; }
+
+/* live captions */
+.captions { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; max-height: 300px; overflow-y: auto; }
+.captions li { padding: 8px 12px; border-radius: 12px; background: var(--bg); }
+.captions li.flagged { background: var(--danger-soft); }
+.captions mark { background: none; color: var(--danger); font-weight: 750; text-decoration: underline 2px; }
+.captions:empty::before { content: attr(data-empty); color: var(--muted); font-size: .9rem; }
+
+/* red takeover */
+.takeover { position: fixed; inset: 0; z-index: 50; background: var(--danger-bg); color: #fff; display: grid; place-items: center; padding: 24px; text-align: center; }
+.takeover[hidden] { display: none; }
+.takeover .inner { max-width: 520px; display: grid; gap: 16px; }
+.takeover h2 { font-size: clamp(2.6rem, 11vw, 4.4rem); margin: 0; }
+.takeover p { font-size: 1.2rem; margin: 0; }
+.takeover .btn { background: #fff; color: var(--danger-bg); border: none; font-size: 1.15rem; min-height: 60px; }
+.takeover .btn.quiet { background: transparent; color: #fff; border: 2px solid rgb(255 255 255 / .6); }
+.takeover.flash { animation: flash .5s 3; }
+@keyframes flash { 50% { filter: brightness(1.35); } }
+@media (prefers-reduced-motion: reduce) { .takeover.flash, .dot.live { animation: none; } }
+
+dialog { border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); color: var(--ink); width: min(520px, calc(100% - 32px)); padding: 20px; }
+dialog::backdrop { background: rgb(0 0 0 / .45); }
+label.field { display: grid; gap: 4px; font-size: .92rem; margin-bottom: 12px; }
+.field select, .field input { border: 1px solid var(--line); border-radius: 12px; padding: 11px 12px; background: var(--bg); min-width: 0; width: 100%; }
+.check { display: flex; gap: 10px; align-items: center; font-size: .95rem; margin-bottom: 12px; }
+.check input { width: 22px; height: 22px; }

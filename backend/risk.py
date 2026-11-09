@@ -99,6 +99,41 @@ def find_flags(text: str) -> list[tuple[str, str]]:
     return hits
 
 
+# Every phone scam runs the same playbook; Ruko shows where the call is and what comes next.
+STAGES = [
+    ("pose", "Pretends to be someone you trust", {"authority", "refund_trick"}),
+    ("fear", "Scares you or rushes you", {"threat", "urgency"}),
+    ("isolate", "Cuts you off from family", {"secrecy"}),
+    ("ask", "Asks for OTP, money or your phone", {"payment", "remote"}),
+]
+NEXT = {
+    "refund": "Next they will ask you to send the money back. Open your bank app yourself: the money is usually not there.",
+    "police": "Real police, CBI or courts never arrest anyone on a phone or video call, and never ask for money.",
+    "isolate": "Next they will tell you not to tell your family. Tell them right now.",
+    "ask": "Next they will ask for an OTP, PIN, money or to install an app. Never do it on a call.",
+    "final": "This is the last step of the scam. Cut the call now and call 1930.",
+}
+POLICE = {"cbi", "police", "cyber cell", "crime branch", "customs", "narcotics", "court", "judge",
+          "पुलिस", "सीबीआई", "थाने", "थाना", "कस्टम", "ಪೊಲೀಸ್", "ಸಿಬಿಐ", "పోలీస్", "సీబీఐ"}
+
+
+def playbook(flags: dict) -> dict:
+    done = {k for k, _, cats in STAGES if cats & flags.keys()}
+    if not done:
+        nxt = None
+    elif "ask" in done:
+        nxt = NEXT["final"]
+    elif "refund_trick" in flags:
+        nxt = NEXT["refund"]
+    elif flags.get("authority") in POLICE and "fear" in done:
+        nxt = NEXT["police"]
+    elif "fear" in done and "isolate" not in done:
+        nxt = NEXT["isolate"]
+    else:
+        nxt = NEXT["ask"]
+    return {"stages": [{"key": k, "label": l, "done": k in done} for k, l, _ in STAGES], "next": nxt}
+
+
 @dataclass
 class CallRisk:
     flags: dict = field(default_factory=dict)  # category -> first phrase that triggered it
@@ -122,4 +157,5 @@ class CallRisk:
             "alert": alert,
             "new": new,
             "flags": [{"category": c, "label": LABELS[c], "phrase": p} for c, p in self.flags.items()],
+            "playbook": playbook(self.flags),
         }

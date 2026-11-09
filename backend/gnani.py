@@ -1,5 +1,6 @@
 """Thin client for Gnani Vachana: Prisma STT (realtime WS) and Timbre TTS (REST)."""
 import os
+import re
 from pathlib import Path
 
 import httpx
@@ -38,6 +39,24 @@ LANGS = {
 }
 
 
+# "auto": Prisma identifies the language (indic-auto) and Ruko warns in the language it heard.
+AUTO = "auto"
+DETECTED = {"hi-IN": "hi-en", "kn-IN": "kn-IN", "te-IN": "te-IN", "ta-IN": "ta-IN", "en-IN": "en-IN"}
+
+
+def valid_lang(lang: str) -> bool:
+    return lang == AUTO or lang in LANGS
+
+
+def speak_lang(lang: str, detected: str | None = None) -> str:
+    """Concrete warning language. Auto falls back to Hinglish for languages Ruko has no warning in yet."""
+    return lang if lang != AUTO else DETECTED.get(detected or "", "hi-en")
+
+
+def stt_code(lang: str) -> str:
+    return "indic-auto" if lang == AUTO else LANGS[lang]["stt"]
+
+
 def load_env(path: Path) -> None:
     """Minimal .env loader so the key never has to be typed into code or chat."""
     if path.exists():
@@ -52,16 +71,15 @@ def api_key() -> str:
 
 
 def stt_headers(lang: str, model: str, rate: int = 16000) -> dict:
-    cfg = LANGS[lang]
     h = {"x-api-key-id": api_key(), "model": model, "x-sample-rate": str(rate)}
     if model == "prisma-v3.0":
-        # Realtime takes exactly one locale; codemix keeps the English words that callers mix in.
-        h["language_code"] = cfg["stt"]
+        # One locale or indic-auto; codemix keeps the English words that callers mix in.
+        h["language_code"] = stt_code(lang)
         h["format"] = "codemix"
         h["keyterms"] = ",".join(KEYTERMS)
         h["topic"] = "Phone call that may be a bank, police or government impersonation scam"
     else:
-        h["language_code"] = cfg["stt"]
+        h["language_code"] = stt_code(lang)
         h["format"] = "verbatim"
     return h
 
@@ -85,7 +103,7 @@ def pcm_to_wav(pcm: bytes, rate: int = 16000) -> bytes:
 
 async def transcribe_clip(data: bytes, filename: str, lang: str) -> dict:
     """Prisma REST (<=30 s clip), e.g. a forwarded WhatsApp voice note."""
-    form = {"model": "prisma-v3.0", "language_code": LANGS[lang]["stt"], "format": "codemix",
+    form = {"model": "prisma-v3.0", "language_code": stt_code(lang), "format": "codemix",
             "keyterms": ",".join(KEYTERMS)}
     async with httpx.AsyncClient(timeout=60) as client:
         r = await client.post(STT_REST, data=form, files={"audio_file": (filename, data)},
@@ -142,12 +160,21 @@ async def diarize(wav: bytes, lang: str, max_wait_s: int = 240) -> list[dict]:
     return [s for s in doc.get("segments", []) if s.get("text")]
 
 
-async def tts(text: str, lang: str, whisper: bool = False, telephony: bool = False) -> bytes:
-    """Speak text with Timbre. v2.5 by default (named in the challenge); v3.0 only for <whispers>.
+def elder_text(text: str) -> str:
+    """Timbre v3.0 tags for elders: every sentence drawn out (<slow>), a short silence (<pauses>) between them.
+    A tag lasts until the next tag, so <slow> is repeated after each pause."""
+    parts = [p.strip() for p in re.split(r"(?<=[.!?।])\s+", text) if p.strip()]
+    return " <pauses> ".join(f"<slow> {p}" for p in parts)
+
+
+async def tts(text: str, lang: str, whisper: bool = False, telephony: bool = False, elder: bool = False) -> bytes:
+    """Speak text with Timbre. v2.5 by default (named in the challenge); v3.0 for <whispers> or elder mode.
     telephony=True returns raw 8 kHz G.711 mu-law, the format phone lines carry."""
     cfg = LANGS[lang]
     if whisper:
         body = {"text": f"<whispers> {text}", "voice": "Shivani", "model": "timbre-v3.0", "language": cfg["v3"]}
+    elif elder:
+        body = {"text": elder_text(text), "voice": "Shivani", "model": "timbre-v3.0", "language": cfg["v3"]}
     else:
         body = {"text": text, "voice": cfg["voice"], "model": "timbre-v2.5", "language": cfg["tts"]}
     body["speed"] = 0.85  # slowest allowed, for elders (API rejects the documented "slow" string)
@@ -157,7 +184,7 @@ async def tts(text: str, lang: str, whisper: bool = False, telephony: bool = Fal
     else:
         body["audio_config"] = {"sample_rate": 24000, "num_channels": 1, "sample_width": 2,
                                 "encoding": "linear_pcm", "container": "wav"}
-    key = (text, lang, whisper, telephony)
+    key = (text, lang, whisper, telephony, elder)
     if key in _TTS_CACHE:  # warnings repeat: save credits and ~1 s of delay
         return _TTS_CACHE[key]
     async with httpx.AsyncClient(timeout=30) as client:

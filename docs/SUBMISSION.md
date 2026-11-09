@@ -3,7 +3,7 @@
 Paste each section into the matching field of the Great Indian AI Internship Challenge form. Fill in the bracketed parts yourself.
 
 ## Project title
-Ruko: a live scam-call guard for any phone, in Indian languages
+Ruko: the phone call that answers back. A live scam-call guard for any phone, in Indian languages
 
 ## Problem
 Indians lost ₹22,845 crore to cyber fraud in 2024, ₹1,935 crore of it to "digital arrest" voice calls (government replies in Parliament). These scams happen while the call is going on, in Hinglish and regional languages, from new numbers every day.
@@ -20,29 +20,41 @@ Elders living alone, farmers, kirana shop owners and first-time digital users, w
 
 ## What Ruko does
 1. **Listens to a call on speaker** (web app, any device) and transcribes it live with Gnani Prisma.
-2. **Scores the whole call for scam patterns**, not single keywords. Signs: claims to be an official, threat, secrecy, OTP/PIN/money request, remote-access app or link, and the "sent by mistake" refund trick. An alert needs at least two signs including a dangerous one, so genuine bank reminders and delivery OTPs don't trigger it.
-3. **Speaks a warning in the user's language** with Gnani Timbre: Hinglish, Hindi, Kannada, Telugu, Tamil or English. A Timbre v3.0 whispered option exists so the caller is less likely to hear it.
-4. **Golden-hour pack on hang-up:**
+2. **Tracks the scam's playbook.** Every phone scam runs the same four steps: pretend to be someone trusted → scare or rush → cut you off from family → ask for OTP, money or your phone. Ruko shows which step the call has reached and **warns about the next step before it comes** ("Next they will ask for an OTP. Never do it on a call"; "Real police never arrest anyone on a video call"). Scammers change numbers daily, but not this script.
+3. **Scores the whole call for scam patterns**, not single keywords. Signs: claims to be an official, threat, secrecy, OTP/PIN/money request, remote-access app or link, and the "sent by mistake" refund trick. An alert needs at least two signs including a dangerous one, so genuine bank reminders and delivery OTPs don't trigger it.
+4. **Full-screen red alert + spoken warning in the user's language** with Gnani Timbre: Hinglish, Hindi, Kannada, Telugu, Tamil or English. A Timbre v3.0 whispered option exists so the caller is less likely to hear it.
+5. **Family Shield.** The protected person shares one link. When a call turns into a scam, the family member's phone turns red with live captions, the scam steps and what to do ("call her now: a second call breaks the scammer's hold"). Scams depend on isolation; this brings the family in.
+6. **Golden-hour pack on hang-up:**
    - a 1930 / cybercrime.gov.in complaint built only from what was said, with timestamps;
    - a "Call 1930 now" button;
    - a family alert as text and voice;
    - a Caller/You timeline from Prisma Batch diarization.
    Call audio is deleted after the voices are separated.
-5. **Voice-note check:** upload a suspicious WhatsApp voice note or recording (up to 30 s).
-6. **Phone-line mode for keypad phones:** merge the call with Ruko's number. Ruko hears the 8 kHz phone audio and speaks the warning *into the call*, plus a one-time notice to the caller.
+7. **Voice-note check:** upload a suspicious WhatsApp voice note or recording (up to 30 s).
+8. **Partner API** (`POST /v1/score`): banks, UPI apps and telcos send transcript lines and get the level, flags and playbook back, e.g. to hold a large transfer while the customer is mid-scam.
+9. **Phone-line mode for keypad phones:** merge the call with Ruko's number. Ruko hears the 8 kHz phone audio and speaks the warning *into the call*, plus a one-time notice to the caller.
 
 ## Gnani AI models and APIs used
 - **Prisma v3.0, Realtime WebSocket:** live transcription, `codemix` format, scam `keyterms`, `topic`, at 16 kHz (speakerphone) and 8 kHz (phone line).
+- **Prisma v3.0 `indic-auto`:** the default "Auto" mode detects the caller's language (`detected_language_code`), and Ruko answers in that language. Tested live with Kannada, Hindi and Telugu calls.
 - **Prisma v2.5, Realtime:** selectable fallback.
 - **Prisma v3.0, REST:** voice-note check.
 - **Prisma v3.0, Batch with diarization:** who said what after the call.
 - **Timbre v2.5:** warnings in 6 languages (voices Poorvi, Nalini, Saanvi, Suhana, Asmita, Kaveri), the family alert, and 8 kHz `pcm_mulaw` audio spoken into phone calls.
-- **Timbre v3.0:** `<whispers>` audio tag for a quiet warning.
+- **Timbre v3.0:** `<whispers>` audio tag for a quiet warning, and an elder mode that uses `<slow>` on every sentence with `<pauses>` between them.
 
 ## How it was tested
-- **41 automated tests** run 11 synthetic scam scripts and 4 safe scripts, in Hinglish, Devanagari, Kannada and Telugu. They also include **real Prisma transcripts**, mistakes included, from synthetic calls spoken by Timbre. Every scam alerts and no safe call does.
+- **47 automated tests** run 11 synthetic scam scripts and 4 safe scripts, in Hinglish, Devanagari, Kannada and Telugu. They also include **real Prisma transcripts**, mistakes included, from synthetic calls spoken by Timbre. Every scam alerts and no safe call does.
 - **End to end against the live Gnani APIs:** speech → Prisma → risk → spoken warning, plus diarization of a two-voice call.
 - **Phone-line mode** was tested with a simulator that speaks Twilio's media-stream format with real 8 kHz audio. A real carrier call has not been made yet.
+
+## Business model
+B2B2C, like a credit-card fraud shield:
+- **Free** for the person on the call: speakerphone guard, spoken warning, 1930 pack.
+- **Family Shield, ₹49/month per family:** live family alert screen and keypad-phone line mode. Children of elderly parents are the buyers.
+- **Business, priced per protected call:** scoring API and in-call warnings for banks/UPI apps (fewer frauds and disputes), telcos (a value-added service for keypad-phone users) and insurers. Cyber cells get structured complaints.
+
+The landing page (`/`) has a live pilot waitlist for families and partners.
 
 ## Honest limitations
 - In speakerphone mode the user must start Ruko. The design answer is a simple habit ("unknown caller talking about money or police: open Ruko") plus family-triggered use.

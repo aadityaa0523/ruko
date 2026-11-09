@@ -88,3 +88,17 @@ def test_real_prisma_safe_transcripts_do_not_alert(name):
 def test_word_boundary_for_latin_phrases():
     # "fir" must not match inside "phir"
     assert find_flags("phir milte hain") == []
+
+
+def test_playbook_tracks_stages_and_warns_ahead():
+    s = run(PRISMA_SCAM["digital_arrest"])
+    first = [st["key"] for st in s[0]["playbook"]["stages"] if st["done"]]
+    assert first == ["pose"] and "OTP" in s[0]["playbook"]["next"]
+    assert "police" in s[1]["playbook"]["next"].lower()  # CBI + warrant -> police myth-buster
+    assert all(st["done"] for st in s[-1]["playbook"]["stages"])
+    assert "Cut the call" in s[-1]["playbook"]["next"]
+
+
+def test_playbook_refund_trick_and_safe_call():
+    assert "send the money back" in run(["Maine galti se aapko paanch hazaar bhej diye"])[0]["playbook"]["next"]
+    assert run(["kal subah dus baje appointment hai"])[0]["playbook"]["next"] is None

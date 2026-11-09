@@ -6,16 +6,20 @@ Run from the ruko/ folder:  .venv/Scripts/python -m uvicorn backend.app:app --po
 import asyncio
 import base64
 import json
+import os
 import time
 from datetime import datetime
 from pathlib import Path
 
 import websockets
-from fastapi import FastAPI, File, Form, UploadFile, WebSocket
+from typing import Literal
+
+from fastapi import FastAPI, File, Form, Header, UploadFile, WebSocket
 from fastapi.responses import JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
+from backend import family as fam
 from backend import gnani
 from backend.pack import build_pack, pick_caller
 from backend.risk import CallRisk
@@ -23,6 +27,7 @@ from backend.scripts import SAFE, SCAM
 from backend.telephony import router as telephony_router
 
 ROOT = Path(__file__).resolve().parent.parent
+WAITLIST = ROOT / "data" / "waitlist.jsonl"
 gnani.load_env(ROOT / ".env")
 
 app = FastAPI(title="Ruko")
@@ -30,6 +35,7 @@ app = FastAPI(title="Ruko")
 LIVE = asyncio.Semaphore(3)
 MAX_SESSION_S = 600
 app.include_router(telephony_router)
+app.include_router(fam.router)
 
 
 @app.get("/api/health")
@@ -53,16 +59,49 @@ def analyze(body: Lines):
     risk = CallRisk()
     states = [risk.feed(line) for line in body.lines]
     lines = [{"t": i * 4.0, "text": t, "risk": s} for i, (t, s) in enumerate(zip(body.lines, states))]
-    return {"states": states, "pack": build_pack(lines, datetime.now(), body.lang)}
+    return {"states": states, "pack": build_pack(lines, datetime.now(), gnani.speak_lang(body.lang))}
+
+
+class Lead(BaseModel):
+    name: str = Field(min_length=1, max_length=60)
+    contact: str = Field(min_length=3, max_length=100)
+    role: Literal["family", "self", "bank", "telco", "police", "other"]
+    consent: Literal[True]
+
+
+@app.post("/api/waitlist")
+def waitlist(lead: Lead):
+    """Pilot sign-ups. shortcut: a JSONL file on local disk, move to a database before relying on it in production."""
+    WAITLIST.parent.mkdir(exist_ok=True)
+    with WAITLIST.open("a", encoding="utf-8") as f:
+        f.write(json.dumps({**lead.model_dump(), "at": datetime.now().isoformat(timespec="seconds")}, ensure_ascii=False) + "\n")
+    return {"ok": True}
+
+
+class ScoreRequest(BaseModel):
+    lines: list[str] = Field(min_length=1, max_length=200)
+
+
+@app.post("/v1/score")
+def score(body: ScoreRequest, x_ruko_key: str = Header("")):
+    """Partner API: score a call's transcript lines for scam steps. Key "demo" is public and capped at 20 lines."""
+    keys = {k.strip() for k in os.environ.get("RUKO_PARTNER_KEYS", "").split(",") if k.strip()}
+    if x_ruko_key not in keys and not (x_ruko_key == "demo" and len(body.lines) <= 20):
+        return JSONResponse({"error": "missing or invalid X-Ruko-Key"}, status_code=401)
+    risk = CallRisk()
+    for line in body.lines:
+        state = risk.feed(line[:2000])
+    return {k: state[k] for k in ("level", "score", "flags", "playbook")}
 
 
 @app.get("/api/warning")
-async def warning(lang: str = "hi-en", whisper: int = 0):
+async def warning(lang: str = "hi-en", whisper: int = 0, elder: int = 0):
     """Speak the warning once, to check the voice."""
-    if lang not in gnani.LANGS:
+    if not gnani.valid_lang(lang):
         return Response(status_code=400, content="unknown lang")
+    lang = gnani.speak_lang(lang)
     try:
-        audio = await gnani.tts(gnani.LANGS[lang]["warning"], lang, bool(whisper))
+        audio = await gnani.tts(gnani.LANGS[lang]["warning"], lang, bool(whisper), elder=bool(elder))
     except Exception as e:  # surface Gnani errors to the UI
         return Response(status_code=502, content=str(e))
     return Response(content=audio, media_type="audio/wav")
@@ -84,7 +123,7 @@ async def family_voice(body: Speak):
 @app.post("/api/clip")
 async def clip(file: UploadFile = File(...), lang: str = Form("hi-en")):
     """Check a recorded call or forwarded voice note (max 30 s) with Prisma REST."""
-    if lang not in gnani.LANGS:
+    if not gnani.valid_lang(lang):
         return JSONResponse({"error": "unknown lang"}, status_code=400)
     data = await file.read()
     if not data or len(data) > gnani.BATCH_MAX_BYTES:
@@ -99,36 +138,41 @@ async def clip(file: UploadFile = File(...), lang: str = Form("hi-en")):
             "truncated": bool(body.get("truncated"))}
 
 
-async def send_warning(ws: WebSocket, lang: str, whisper: bool, state: dict):
+async def send_warning(ws: WebSocket, lang: str, whisper: bool, state: dict, code: str | None = None,
+                       elder: bool = False):
     text = gnani.LANGS[lang]["warning"]
     msg = {"type": "warning", "text": text, "level": state["level"], "audio": None}
     try:
-        msg["audio"] = base64.b64encode(await gnani.tts(text, lang, whisper)).decode()
+        msg["audio"] = base64.b64encode(await gnani.tts(text, lang, whisper, elder=elder)).decode()
     except Exception as e:
         msg["error"] = str(e)
     await _safe_send(ws, msg)
+    await fam.publish(code, msg)
 
 
-async def send_diarized(ws: WebSocket, audio: bytearray, lang: str, flagged: list[str]):
+async def send_diarized(ws: WebSocket, audio: bytearray, lang: str, flagged: list[str], code: str | None = None):
     """Prisma Batch: who said what. The audio is dropped as soon as the job is sent (or fails)."""
     try:
         wav = gnani.pcm_to_wav(bytes(audio))
         audio.clear()
         segments = await gnani.diarize(wav, lang)
         caller = pick_caller(segments, flagged)
-        await _safe_send(ws, {"type": "diarized", "caller": caller, "segments": [
+        msg = {"type": "diarized", "caller": caller, "segments": [
             {"speaker": s["speaker_id"], "start": s["start_time"], "end": s["end_time"], "text": s["text"]}
-            for s in segments]})
+            for s in segments]}
     except Exception as e:
-        await _safe_send(ws, {"type": "diarized", "error": str(e)})
+        msg = {"type": "diarized", "error": str(e)}
     finally:
         audio.clear()
+    await _safe_send(ws, msg)
+    await fam.publish(code, msg)
 
 
 @app.websocket("/ws/listen")
-async def listen(ws: WebSocket, lang: str = "hi-en", model: str = "prisma-v3.0", whisper: int = 0):
+async def listen(ws: WebSocket, lang: str = "hi-en", model: str = "prisma-v3.0", whisper: int = 0,
+                 family: str = "", elder: int = 0):
     await ws.accept()
-    if lang not in gnani.LANGS or model not in ("prisma-v3.0", "prisma-v2.5"):
+    if not gnani.valid_lang(lang) or model not in ("prisma-v3.0", "prisma-v2.5"):
         await ws.close(code=1008, reason="bad lang or model")
         return
     if not gnani.api_key():
@@ -140,15 +184,17 @@ async def listen(ws: WebSocket, lang: str = "hi-en", model: str = "prisma-v3.0",
         await ws.close()
         return
     async with LIVE:
-        await _listen(ws, lang, model, whisper)
+        await _listen(ws, lang, model, whisper, family or None, bool(elder))
 
 
-async def _listen(ws: WebSocket, lang: str, model: str, whisper: int):
+async def _listen(ws: WebSocket, lang: str, model: str, whisper: int, code: str | None, elder: bool = False):
     risk = CallRisk()
+    await fam.publish(code, {"type": "call_start", "at": datetime.now().isoformat(timespec="seconds")})
     started, t0 = datetime.now(), time.monotonic()
     audio = bytearray()  # in memory only, for diarization after hang-up
     lines: list[dict] = []
     hung_up = asyncio.Event()
+    heard = {"lang": None}  # language Prisma detected most recently (for lang=auto)
     try:
         # Browsers cannot set WS headers, so the backend holds the key and proxies audio.
         async with websockets.connect(gnani.STT_WS, additional_headers=gnani.stt_headers(lang, model),
@@ -176,12 +222,15 @@ async def _listen(ws: WebSocket, lang: str, model: str, whisper: int):
                     m = json.loads(raw)
                     kind = m.get("type")
                     if kind == "transcript" and m.get("text"):
+                        heard["lang"] = m.get("detected_language_code") or heard["lang"]
                         state = risk.feed(m["text"])
                         lines.append({"t": round(time.monotonic() - t0, 1), "text": m["text"], "risk": state})
-                        await ws.send_json({"type": "transcript", "text": m["text"],
-                                            "lang": m.get("detected_language_code"), "risk": state})
+                        msg = {"type": "transcript", "text": m["text"],
+                               "lang": m.get("detected_language_code"), "risk": state}
+                        await ws.send_json(msg)
+                        await fam.publish(code, msg)
                         if state["alert"]:
-                            asyncio.create_task(send_warning(ws, lang, bool(whisper), state))
+                            asyncio.create_task(send_warning(ws, gnani.speak_lang(lang, heard["lang"]), bool(whisper), state, code, elder))
                     elif kind in ("connected", "speech_start", "processing", "error"):
                         await ws.send_json(m)
 
@@ -195,10 +244,12 @@ async def _listen(ws: WebSocket, lang: str, model: str, whisper: int):
                 if t.exception():
                     raise t.exception()
         if hung_up.is_set():
-            pack = build_pack(lines, started, lang)
+            spoken = gnani.speak_lang(lang, heard["lang"])
+            pack = build_pack(lines, started, spoken)
             await ws.send_json({"type": "pack", **pack})
+            await fam.publish(code, {"type": "pack", **pack})
             if pack["level"] in ("high", "critical") and len(audio) > 32000:
-                await send_diarized(ws, audio, lang, [m["text"] for m in pack["moments"]])
+                await send_diarized(ws, audio, spoken, [m["text"] for m in pack["moments"]], code)
             await _safe_send(ws, {"type": "done", "audio_deleted": True})
             await ws.close()
     except websockets.InvalidStatus as e:
@@ -210,6 +261,7 @@ async def _listen(ws: WebSocket, lang: str, model: str, whisper: int):
         await _safe_send(ws, {"type": "error", "message": str(e)})
     finally:
         audio.clear()
+        await fam.publish(code, {"type": "call_end"})
 
 
 async def _safe_send(ws: WebSocket, msg: dict):

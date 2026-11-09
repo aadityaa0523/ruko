@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ruko · Protect this call</title>
+<meta name="theme-color" content="#22306b">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Noto+Sans:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="/ruko.css?v=9">
+<link rel="stylesheet" href="app.css?v=9">
+</head>
+<body>
+<header class="bar wrap">
+  <a class="logo" href="/"><i></i>ruko</a>
+  <div class="bar-right">
+    <button class="pill" id="familyBtn" type="button"><span class="dot" id="familyDot"></span>Family Shield</button>
+    <button class="pill" id="settingsBtn" type="button" aria-label="Settings">⚙︎ <span id="langName">Auto</span></button>
+  </div>
+</header>
+
+<main class="wrap app">
+  <!-- Idle / listening -->
+  <section class="guard" id="guard" data-state="idle">
+    <button class="shield" id="listen" type="button">
+      <span class="shield-ring"></span>
+      <span class="shield-label" id="listenLabel">Protect<br>this call</span>
+    </button>
+    <p class="guard-hint" id="status">Put the call on speaker, then tap. Ruko listens and warns you out loud if it's a scam.</p>
+    <button class="btn quiet" id="hangup" type="button" hidden>Call over · make my report</button>
+  </section>
+
+  <section class="card live" aria-live="polite">
+    <div class="live-head">
+      <h2>How far the scam has gone</h2>
+      <span class="level" id="level" data-level="safe">Safe</span>
+    </div>
+    <ol class="stages" id="stages"></ol>
+    <p class="next" id="next"></p>
+  </section>
+
+  <section class="card">
+    <h2>What the caller said</h2>
+    <ol class="captions" id="captions" data-empty="Words show here as the call goes on. Scam phrases light up red."></ol>
+  </section>
+
+  <section class="card pack" id="pack" hidden aria-live="polite">
+    <p class="eyebrow">Golden hour · act in the next 60 minutes</p>
+    <h2 id="packTitle">Your report is ready</h2>
+    <div class="pack-actions">
+      <a class="btn danger" href="tel:1930">Call 1930 now</a>
+      <a class="btn" href="https://cybercrime.gov.in" target="_blank" rel="noopener">cybercrime.gov.in ↗</a>
+    </div>
+    <details open>
+      <summary>Complaint, ready to paste</summary>
+      <dl class="fields" id="fields"></dl>
+      <pre class="complaint" id="complaint"></pre>
+      <button class="btn quiet" id="copy" type="button">Copy complaint</button>
+    </details>
+    <details id="familyBox" hidden>
+      <summary>Message for your family</summary>
+      <p id="family"></p>
+      <button class="btn quiet" id="playFamily" type="button">▶ Play it</button>
+    </details>
+    <details>
+      <summary>Who said what</summary>
+      <ol class="timeline" id="timeline"></ol>
+    </details>
+    <p class="muted small" id="audioNote"></p>
+  </section>
+
+  <section class="tools">
+    <details class="card">
+      <summary>Try a sample scam call <span class="muted small">(no mic needed)</span></summary>
+      <p class="muted small">Plays a written, made-up call through Ruko so you can see what happens. Your Family Shield screen sees it too.</p>
+      <div class="row"><select id="script" aria-label="Sample call"></select><button class="btn primary" id="runScript" type="button">Play</button></div>
+    </details>
+    <details class="card">
+      <summary>Check a voice note</summary>
+      <p class="muted small">Got a strange WhatsApp voice note or a call recording? Ruko checks the first 30 seconds.</p>
+      <div class="row"><input type="file" id="clipFile" accept="audio/*,.opus,.m4a,.amr" aria-label="Audio file"><button class="btn" id="clipCheck" type="button">Check</button></div>
+      <p id="clipResult"></p>
+    </details>
+    <details class="card">
+      <summary>Calls on a keypad phone</summary>
+      <p class="muted small">On a basic phone, merge the call with Ruko's number. Ruko warns inside the call, and the report appears here.</p>
+      <ul class="calls" id="calls"></ul>
+      <button class="btn quiet" id="refreshCalls" type="button">Refresh</button>
+    </details>
+  </section>
+
+  <p class="muted small foot">Ruko only warns. It never blocks calls and keeps no audio. Lost money? Call <a href="tel:1930">1930</a>. Speech: Gnani Prisma · Voice: Gnani Timbre</p>
+</main>
+
+<div class="takeover" id="takeover" hidden role="alertdialog" aria-labelledby="toTitle">
+  <div class="inner">
+    <h2 id="toTitle">RUKO.<br>It's a scam.</h2>
+    <p id="toReason"></p>
+    <p class="small" id="toFlags"></p>
+    <button class="btn" id="toCut" type="button">I've cut the call</button>
+    <button class="btn quiet" id="toDismiss" type="button">Keep listening</button>
+  </div>
+</div>
+
+<dialog id="settings">
+  <h2>Settings</h2>
+  <label class="field">Ruko speaks in
+    <select id="lang">
+      <option value="auto">Auto: the caller's language</option>
+      <option value="hi-en">Hinglish</option>
+      <option value="hi-IN">हिन्दी</option>
+      <option value="kn-IN">ಕನ್ನಡ</option>
+      <option value="te-IN">తెలుగు</option>
+      <option value="ta-IN">தமிழ்</option>
+      <option value="en-IN">English</option>
+    </select>
+  </label>
+  <label class="check"><input type="checkbox" id="elder"> Speak slowly, with pauses (for elders)</label>
+  <label class="check"><input type="checkbox" id="whisper"> Whisper the warning, so the caller hears less</label>
+  <label class="field">Speech engine
+    <select id="model">
+      <option value="prisma-v3.0">Gnani Prisma v3.0 (mixed languages)</option>
+      <option value="prisma-v2.5">Gnani Prisma v2.5</option>
+    </select>
+  </label>
+  <div class="row"><button class="btn" id="testVoice" type="button">▶ Hear the warning</button><button class="btn primary" id="settingsDone" type="button">Done</button></div>
+</dialog>
+
+<dialog id="familyDlg">
+  <h2>Family Shield</h2>
+  <p>Send this link to your son, daughter or a neighbour you trust. When a call turns into a scam, their phone shows it live, so they can call you and break it.</p>
+  <label class="field">Your name (they'll see it)<input id="familyName" maxlength="30" placeholder="e.g. Dadi"></label>
+  <label class="field">Family link<input id="familyLink" readonly></label>
+  <label class="check"><input type="checkbox" id="familyOn" checked> Share my calls with this link</label>
+  <div class="row"><a class="btn gold" id="familyWa" target="_blank" rel="noopener">Send on WhatsApp</a><button class="btn" id="familyCopy" type="button">Copy</button></div>
+  <div class="row" style="margin-top:8px"><button class="btn quiet" id="familyNew" type="button">Make a new link</button><button class="btn primary" id="familyDone" type="button">Done</button></div>
+</dialog>
+
+<script src="/ruko.js?v=9"></script>
+<script src="app.js?v=9"></script>
+</body>
+</html>

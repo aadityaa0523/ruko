@@ -22,6 +22,7 @@ import websockets
 from fastapi import APIRouter, Request, WebSocket
 from fastapi.responses import Response
 
+from backend import family as fam
 from backend import gnani
 from backend.pack import build_pack
 from backend.risk import CallRisk
@@ -71,7 +72,7 @@ def public_base(request: Request) -> str:
 
 
 @router.post("/twilio/voice")
-async def voice(request: Request, lang: str = "hi-en"):
+async def voice(request: Request, lang: str = "hi-en", family: str = ""):
     form = {k: v for k, v in (await request.form()).items()}
     base = public_base(request)
     auth = os.environ.get("TWILIO_AUTH_TOKEN")
@@ -79,8 +80,9 @@ async def voice(request: Request, lang: str = "hi-en"):
         url = f"{base}{request.url.path}" + (f"?{request.url.query}" if request.url.query else "")
         if not hmac.compare_digest(twilio_signature(url, form, auth), request.headers.get("x-twilio-signature", "")):
             return Response(status_code=403)
-    if lang not in gnani.LANGS:
+    if not gnani.valid_lang(lang):
         lang = "hi-en"
+    family = family if fam.CODE.match(family) else ""
     now = time.time()
     for t, exp in list(TOKENS.items()):
         if exp < now:
@@ -90,7 +92,8 @@ async def voice(request: Request, lang: str = "hi-en"):
     ws_url = base.replace("https://", "wss://").replace("http://", "ws://") + "/twilio/stream"
     xml = ('<?xml version="1.0" encoding="UTF-8"?><Response><Connect>'
            f'<Stream url={quoteattr(ws_url)}><Parameter name="token" value={quoteattr(token)}/>'
-           f'<Parameter name="lang" value={quoteattr(lang)}/></Stream></Connect></Response>')
+           f'<Parameter name="lang" value={quoteattr(lang)}/>'
+           f'<Parameter name="family" value={quoteattr(family)}/></Stream></Connect></Response>')
     return Response(content=xml, media_type="application/xml")
 
 
@@ -115,7 +118,10 @@ async def stream(ws: WebSocket):
         await ws.close(code=1008)
         return
     sid = start["streamSid"]
-    lang = params.get("lang") if params.get("lang") in gnani.LANGS else "hi-en"
+    lang = params.get("lang") if gnani.valid_lang(params.get("lang", "")) else "hi-en"
+    code = params.get("family") or None  # Family Shield link of the subscriber this number belongs to
+    heard = {"lang": None}
+    await fam.publish(code, {"type": "call_start", "source": "phone", "at": datetime.now().isoformat(timespec="seconds")})
     risk, lines, buf = CallRisk(), [], bytearray()
     started, t0 = datetime.now(), time.monotonic()
     say_lock = asyncio.Lock()
@@ -156,10 +162,14 @@ async def stream(ws: WebSocket):
                 async for raw in up:
                     m = json.loads(raw)
                     if m.get("type") == "transcript" and m.get("text"):
+                        heard["lang"] = m.get("detected_language_code") or heard["lang"]
                         state = risk.feed(m["text"])
                         lines.append({"t": round(time.monotonic() - t0, 1), "text": m["text"], "risk": state})
+                        await fam.publish(code, {"type": "transcript", "text": m["text"], "risk": state})
                         if state["alert"]:
-                            asyncio.create_task(say(gnani.LANGS[lang]["warning"], lang))
+                            spoken = gnani.speak_lang(lang, heard["lang"])
+                            asyncio.create_task(say(gnani.LANGS[spoken]["warning"], spoken))
+                            await fam.publish(code, {"type": "warning", "level": state["level"]})
                             if sum(l["risk"]["alert"] for l in lines) == 1:  # caller notice only once
                                 asyncio.create_task(say(CALLER_NOTICE, "hi-en"))
                     elif m.get("type") == "error":
@@ -172,7 +182,9 @@ async def stream(ws: WebSocket):
     except Exception as e:
         print("Phone-line session ended with error:", e)
     finally:
-        pack = build_pack(lines, started, lang)
+        pack = build_pack(lines, started, gnani.speak_lang(lang, heard["lang"]))
         pack.update(source="phone", call_sid=start["start"].get("callSid"))
         CALLS.insert(0, pack)
         del CALLS[20:]
+        await fam.publish(code, {"type": "pack", **pack})
+        await fam.publish(code, {"type": "call_end"})
