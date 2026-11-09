@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#22306b">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Noto+Sans:wght@400;600;700&display=swap">
-<link rel="stylesheet" href="/ruko.css?v=9">
+<link rel="stylesheet" href="/ruko.css?v=10">
 <style>
   body[data-state="danger"] { background: var(--danger-bg); }
   .fam { max-width: 620px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; padding-top: 14px; padding-bottom: 40px; }
@@ -21,6 +21,9 @@
   .todo { margin: 14px 0 0; padding-left: 20px; font-weight: 600; display: grid; gap: 4px; }
   body[data-state="danger"] .todo { color: #fff; }
   h2 { font-size: 1.1rem; margin: 0 0 10px; }
+  .voice-script { background: var(--bg); border-radius: 12px; padding: 12px; font-weight: 600; }
+  .row-btns { display: flex; gap: 8px; flex-wrap: wrap; } .row-btns .btn { flex: 1; min-width: 140px; }
+  summary { cursor: pointer; font-weight: 650; min-height: 32px; }
   .top { display: flex; justify-content: space-between; align-items: center; }
   body[data-state="danger"] .top .logo { color: #fff; }
 </style>
@@ -57,9 +60,19 @@
     <a class="btn danger block" href="tel:1930">Call 1930 (cyber fraud helpline)</a>
   </section>
 
+  <details class="card" id="voiceCard">
+    <summary>Warn in <b>your</b> voice</summary>
+    <p class="small">A stranger's warning is easy to ignore. Your voice isn't. Record yourself reading the lines below (about 15 seconds). When a scam call is caught, Ruko speaks the warning in your voice, made with Gnani voice cloning.</p>
+    <p class="voice-script" lang="hi">“Mummy, main bol raha hoon. Agar koi police, bank ya sarkari officer bankar phone kare aur OTP ya paise maange, to phone turant kaat dena. Pehle mujhe call karna. Main hamesha aapke saath hoon.”</p>
+    <label class="field">Your name (as they call you)<input id="voiceName" maxlength="30" placeholder="e.g. Rahul"></label>
+    <label class="check"><input type="checkbox" id="voiceConsent"> This is my own voice. I agree Ruko may use it only to speak warnings to my family member. I can delete it any time.</label>
+    <div class="row-btns"><button class="btn primary" id="voiceRec" type="button">● Record</button><button class="btn quiet" id="voiceDel" type="button" hidden>Delete my voice</button></div>
+    <p class="small" id="voiceMsg" role="status"></p>
+  </details>
+
   <p class="muted small">Only people with this exact link can see these calls. Ruko keeps no audio. Nothing is shown when no call is being protected.</p>
 </main>
-<script src="/ruko.js?v=9"></script>
-<script src="family.js?v=9"></script>
+<script src="/ruko.js?v=10"></script>
+<script src="family.js?v=10"></script>
 </body>
 </html>

@@ -53,6 +53,15 @@ SCAM = {
         "నేను బ్యాంక్ నుంచి మాట్లాడుతున్నాను. మీ ఖాతా బ్లాక్ అవుతుంది.",
         "వెంటనే మీ ఓటీపీ చెప్పండి. ఎవరికీ చెప్పకండి.",
     ],
+    "police_tamil": [
+        "நான் போலீஸ் அதிகாரி பேசுகிறேன். உங்கள் மீது வழக்கு பதிவாகியுள்ளது, உங்களை கைது செய்வோம்.",
+        "இதை யாரிடமும் சொல்லாதீர்கள். உடனே உங்கள் ஓடிபி சொல்லுங்கள்.",
+    ],
+    "cyber_branch_english": [
+        "This is Inspector Sharma from the Mumbai cyber crime branch. A parcel in your name has drugs.",
+        "There is an arrest warrant against you. Do not tell anyone about this call.",
+        "Transfer your savings to the RBI safe account immediately for verification.",
+    ],
     "cbi_devanagari": [
         "मैं सीबीआई से बोल रहा हूँ, आपके खिलाफ वारंट है।",
         "किसी को मत बताना, तुरंत पैसे भेजिए।",
@@ -60,6 +69,14 @@ SCAM = {
 }
 
 SAFE = {
+    "card_bill_english": [
+        "Hello, this is your bank. Your credit card bill is due on the fifth.",
+        "Please remember, never share your OTP with anyone.",
+    ],
+    "tamil_family": [
+        "அம்மா, நான் இன்று சீக்கிரம் வீட்டுக்கு வருவேன்.",
+        "இரவு சாப்பாடு சேர்ந்து சாப்பிடலாம்.",
+    ],
     "real_bank_reminder": [
         "Namaste, main SBI branch se bol rahi hoon.",
         "Aapka home loan EMI paanch tarikh ko due hai.",

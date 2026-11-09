@@ -95,13 +95,14 @@ def score(body: ScoreRequest, x_ruko_key: str = Header("")):
 
 
 @app.get("/api/warning")
-async def warning(lang: str = "hi-en", whisper: int = 0, elder: int = 0):
+async def warning(lang: str = "hi-en", whisper: int = 0, elder: int = 0, family: str = ""):
     """Speak the warning once, to check the voice."""
     if not gnani.valid_lang(lang):
         return Response(status_code=400, content="unknown lang")
     lang = gnani.speak_lang(lang)
     try:
-        audio = await gnani.tts(gnani.LANGS[lang]["warning"], lang, bool(whisper), elder=bool(elder))
+        audio = await gnani.tts(gnani.LANGS[lang]["warning"], lang, bool(whisper), elder=bool(elder),
+                                voice=fam.voice_for(family))
     except Exception as e:  # surface Gnani errors to the UI
         return Response(status_code=502, content=str(e))
     return Response(content=audio, media_type="audio/wav")
@@ -143,7 +144,8 @@ async def send_warning(ws: WebSocket, lang: str, whisper: bool, state: dict, cod
     text = gnani.LANGS[lang]["warning"]
     msg = {"type": "warning", "text": text, "level": state["level"], "audio": None}
     try:
-        msg["audio"] = base64.b64encode(await gnani.tts(text, lang, whisper, elder=elder)).decode()
+        msg["audio"] = base64.b64encode(await gnani.tts(text, lang, whisper, elder=elder,
+                                                        voice=fam.voice_for(code))).decode()
     except Exception as e:
         msg["error"] = str(e)
     await _safe_send(ws, msg)
@@ -197,6 +199,15 @@ async def _listen(ws: WebSocket, lang: str, model: str, whisper: int, code: str 
     heard = {"lang": None}  # language Prisma detected most recently (for lang=auto)
     try:
         # Browsers cannot set WS headers, so the backend holds the key and proxies audio.
+        async def warm(spoken: str):
+            """Make the warning audio while the call is still safe, so an alert plays instantly."""
+            try:
+                await gnani.tts(gnani.LANGS[spoken]["warning"], spoken, bool(whisper), elder=elder,
+                                voice=fam.voice_for(code))
+            except Exception:
+                pass  # the alert path retries and reports the error
+
+        asyncio.create_task(warm(gnani.speak_lang(lang)))
         async with websockets.connect(gnani.STT_WS, additional_headers=gnani.stt_headers(lang, model),
                                       max_size=None) as up:
 
@@ -222,7 +233,10 @@ async def _listen(ws: WebSocket, lang: str, model: str, whisper: int, code: str 
                     m = json.loads(raw)
                     kind = m.get("type")
                     if kind == "transcript" and m.get("text"):
-                        heard["lang"] = m.get("detected_language_code") or heard["lang"]
+                        new_lang = m.get("detected_language_code")
+                        if new_lang and new_lang != heard["lang"]:
+                            heard["lang"] = new_lang
+                            asyncio.create_task(warm(gnani.speak_lang(lang, new_lang)))
                         state = risk.feed(m["text"])
                         lines.append({"t": round(time.monotonic() - t0, 1), "text": m["text"], "risk": state})
                         msg = {"type": "transcript", "text": m["text"],

@@ -65,8 +65,16 @@ PRISMA_SCAM = {
                        "आपके नाम पर एक parcel मिला है, जिसमें drugs हैं। आपके खिलाफ warrant निकला है।",
                        "आप digital arrest में हैं?", "ये बात किसी को मत बताना, call मत काटना।",
                        "verification के लिए अपना पैसा safe account में transfer करिए।"],
+    "police_tamil": ["நான் police அதிகாரி பேசுகிறேன். உங்கள் மீது வழக்கு பதிவாகியுள்ளது, உங்களை கைது செய்வோம்.",
+                     "இதை யாரிடமும் சொல்லாதீர்கள். உடனே உங்கள் OTP சொல்லுங்கள்."],
+    "cyber_branch_english": ["This is Inspector Sharma from the Mumbai Cyber Crime Branch. A parcel in your name has drugs.",
+                             "There is an arrest warrant against you. Do not tell anyone about this call.",
+                             "Transfer your savings to the RBI safe account immediately for verification."],
 }
 PRISMA_SAFE = {
+    "tamil_family": ["ஆமாம், நான் இன்று சீக்கிரம் வீட்டுக்கு வருவேன்.", "இரவு சாப்பாடு சேர்ந்து சாப்பிடலாம்."],
+    "card_bill_english": ["Hello, this is your bank. Your credit card bill is due on the fifth.",
+                          "Please remember, never share your OTP with anyone."],
     "real_bank_reminder": ["नमस्ते, मैं SBI branch से बोल रही हूँ।", "आपका home loan EMI पाँच तारीख को due है।",
                            "याद रखिए, बैंक कभी भी OTP नहीं मांगता। OTP किसी को न बताएं।"],
     "delivery_otp": ["Amazon delivery है, मैं आपके घर के बाहर हूँ।", "delivery OTP बता दीजिए, please।"],

@@ -7,6 +7,8 @@ import httpx
 
 STT_WS = "wss://api.vachana.ai/stt/v3/stream"
 TTS_URL = "https://api.vachana.ai/api/v1/tts/inference"
+TTS_SSE = "https://api.vachana.ai/api/v1/tts/sse"
+VC_EMBED = "https://api.vachana.ai/api/v1/tts/voice-clone/embeddings"
 
 # Scam vocabulary Prisma v3.0 should recognise reliably (keyterms, max 200).
 KEYTERMS = [
@@ -167,10 +169,16 @@ def elder_text(text: str) -> str:
     return " <pauses> ".join(f"<slow> {p}" for p in parts)
 
 
-async def tts(text: str, lang: str, whisper: bool = False, telephony: bool = False, elder: bool = False) -> bytes:
-    """Speak text with Timbre. v2.5 by default (named in the challenge); v3.0 for <whispers> or elder mode.
-    telephony=True returns raw 8 kHz G.711 mu-law, the format phone lines carry."""
+def _tts_body(text: str, lang: str, whisper: bool, telephony: bool, elder: bool, voice: dict | None) -> dict:
     cfg = LANGS[lang]
+    if voice:  # a family member's cloned voice (vachana-vc-v1), only with their recorded consent
+        body = {"text": text, "model": "vachana-vc-v1", "speaker_embedding": voice}
+        # vachana-vc-v1 returns 500 for mu-law (tested), so phone audio is fetched as PCM and encoded here.
+        body["audio_config"] = ({"sample_rate": 8000, "num_channels": 1, "sample_width": 2,
+                                 "encoding": "linear_pcm", "container": "raw"}
+                                if telephony else {"sample_rate": 24000, "num_channels": 1, "sample_width": 2,
+                                                   "encoding": "linear_pcm", "container": "wav"})
+        return body
     if whisper:
         body = {"text": f"<whispers> {text}", "voice": "Shivani", "model": "timbre-v3.0", "language": cfg["v3"]}
     elif elder:
@@ -184,17 +192,94 @@ async def tts(text: str, lang: str, whisper: bool = False, telephony: bool = Fal
     else:
         body["audio_config"] = {"sample_rate": 24000, "num_channels": 1, "sample_width": 2,
                                 "encoding": "linear_pcm", "container": "wav"}
-    key = (text, lang, whisper, telephony, elder)
+    return body
+
+
+def pcm16_to_ulaw(pcm: bytes) -> bytes:
+    """G.711 mu-law encoder (16-bit little-endian PCM in)."""
+    import array
+    a = array.array("h")
+    a.frombytes(pcm[: len(pcm) // 2 * 2])
+    out = bytearray(len(a))
+    for i, s in enumerate(a):
+        sign = 0x80 if s < 0 else 0
+        s = min(-s if s < 0 else s, 32635) + 132
+        exp = max(0, (s >> 7).bit_length() - 1)
+        out[i] = ~(sign | exp << 4 | (s >> (exp + 3)) & 0x0F) & 0xFF
+    return bytes(out)
+
+
+def _cache_key(text, lang, whisper, telephony, elder, voice):
+    return (text, lang, whisper, telephony, elder, voice["embedding"][:64] if voice else None)
+
+
+def _remember(key, audio: bytes):
+    if len(_TTS_CACHE) >= 64:
+        _TTS_CACHE.pop(next(iter(_TTS_CACHE)))
+    _TTS_CACHE[key] = audio
+
+
+async def tts(text: str, lang: str, whisper: bool = False, telephony: bool = False, elder: bool = False,
+              voice: dict | None = None) -> bytes:
+    """Speak text with Timbre. v2.5 by default (named in the challenge); v3.0 for <whispers> or elder mode;
+    vachana-vc-v1 when a cloned family voice is given. telephony=True returns raw 8 kHz G.711 mu-law."""
+    key = _cache_key(text, lang, whisper, telephony, elder, voice)
     if key in _TTS_CACHE:  # warnings repeat: save credits and ~1 s of delay
         return _TTS_CACHE[key]
+    body = _tts_body(text, lang, whisper, telephony, elder, voice)
     async with httpx.AsyncClient(timeout=30) as client:
         r = await client.post(TTS_URL, json=body, headers={"X-API-Key-ID": api_key()})
     if r.status_code != 200:
         raise RuntimeError(f"Timbre {r.status_code}: {r.text[:300]}")
-    if len(_TTS_CACHE) >= 64:
-        _TTS_CACHE.pop(next(iter(_TTS_CACHE)))
-    _TTS_CACHE[key] = r.content
-    return r.content
+    audio = pcm16_to_ulaw(r.content) if voice and telephony else r.content
+    _remember(key, audio)
+    return audio
+
+
+async def tts_stream(text: str, lang: str, telephony: bool = True, voice: dict | None = None):
+    """Timbre over SSE: yields audio chunks as they are made, so a phone call hears the warning sooner.
+    Cached audio is yielded at once."""
+    import base64
+    import json as _json
+    key = _cache_key(text, lang, False, telephony, False, voice)
+    if key in _TTS_CACHE:
+        yield _TTS_CACHE[key]
+        return
+    body = _tts_body(text, lang, False, telephony, False, voice)
+    got, carry = bytearray(), b""
+    encode = bool(voice and telephony)
+    async with httpx.AsyncClient(timeout=30) as client:
+        async with client.stream("POST", TTS_SSE, json=body, headers={"X-API-Key-ID": api_key()}) as r:
+            if r.status_code != 200:
+                raise RuntimeError(f"Timbre SSE {r.status_code}: {(await r.aread())[:300]!r}")
+            event = ""
+            async for line in r.aiter_lines():
+                if line.startswith("event:"):
+                    event = line[6:].strip()
+                elif line.startswith("data:"):
+                    data = _json.loads(line[5:])
+                    if event == "error":
+                        raise RuntimeError(f"Timbre SSE: {data.get('message')}")
+                    if data.get("audio"):
+                        chunk = base64.b64decode(data["audio"])
+                        if encode:  # keep whole 16-bit samples across chunk borders
+                            chunk, carry = carry + chunk, b""
+                            if len(chunk) % 2:
+                                chunk, carry = chunk[:-1], chunk[-1:]
+                            chunk = pcm16_to_ulaw(chunk)
+                        got.extend(chunk)
+                        yield chunk
+    _remember(key, bytes(got))
+
+
+async def clone_voice(audio: bytes, filename: str) -> dict:
+    """Voice embedding from a 5-30 s clip (vachana-vc-v1). Returns {embedding, shape, dtype}."""
+    async with httpx.AsyncClient(timeout=60) as client:
+        r = await client.post(VC_EMBED, files={"audio_file": (filename, audio)}, headers={"X-API-Key-ID": api_key()})
+    body = r.json() if r.headers.get("content-type", "").startswith("application/json") else {}
+    if r.status_code != 200 or not body.get("success"):
+        raise RuntimeError(f"Voice clone {r.status_code}: {body.get('message') or r.text[:300]}")
+    return body["data"]["voice_clone_embedding"]
 
 
 _TTS_CACHE: dict[tuple, bytes] = {}

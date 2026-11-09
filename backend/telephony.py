@@ -126,18 +126,20 @@ async def stream(ws: WebSocket):
     started, t0 = datetime.now(), time.monotonic()
     say_lock = asyncio.Lock()
 
-    async def say(text: str, in_lang: str):
-        """Timbre mu-law 8 kHz straight into the call; one message at a time."""
+    async def say(text: str, in_lang: str, voice: dict | None = None):
+        """Timbre mu-law 8 kHz into the call, streamed (SSE) so the first words play ~3x sooner. One at a time."""
         async with say_lock:
+            sent = 0
             try:
-                audio = await gnani.tts(text, in_lang, telephony=True)
+                async for chunk in gnani.tts_stream(text, in_lang, telephony=True, voice=voice):
+                    for i in range(0, len(chunk), 8000):  # <= 1 s per message; Twilio plays them in order
+                        await ws.send_json({"event": "media", "streamSid": sid,
+                                            "media": {"payload": base64.b64encode(chunk[i:i + 8000]).decode()}})
+                    sent += len(chunk)
             except Exception as e:
                 print("Timbre failed:", e)
-                return
-            for i in range(0, len(audio), 8000):  # 1 s per message; Twilio queues and plays in order
-                await ws.send_json({"event": "media", "streamSid": sid,
-                                    "media": {"payload": base64.b64encode(audio[i:i + 8000]).decode()}})
-            await ws.send_json({"event": "mark", "streamSid": sid, "mark": {"name": f"said-{len(audio)}"}})
+            if sent:
+                await ws.send_json({"event": "mark", "streamSid": sid, "mark": {"name": f"said-{sent}"}})
 
     try:
         async with websockets.connect(gnani.STT_WS, max_size=None,
@@ -168,7 +170,7 @@ async def stream(ws: WebSocket):
                         await fam.publish(code, {"type": "transcript", "text": m["text"], "risk": state})
                         if state["alert"]:
                             spoken = gnani.speak_lang(lang, heard["lang"])
-                            asyncio.create_task(say(gnani.LANGS[spoken]["warning"], spoken))
+                            asyncio.create_task(say(gnani.LANGS[spoken]["warning"], spoken, fam.voice_for(code)))
                             await fam.publish(code, {"type": "warning", "level": state["level"]})
                             if sum(l["risk"]["alert"] for l in lines) == 1:  # caller notice only once
                                 asyncio.create_task(say(CALLER_NOTICE, "hi-en"))

@@ -51,7 +51,14 @@ $("familyCopy").onclick = async () => {
   catch { $("familyLink").select(); }
   setTimeout(() => ($("familyCopy").textContent = "Copy"), 2000);
 };
-$("familyBtn").onclick = () => { refreshFamily(); $("familyDlg").showModal(); };
+$("familyBtn").onclick = async () => {
+  refreshFamily();
+  $("familyDlg").showModal();
+  const v = await (await fetch(`/api/family/voice?c=${familyCode}`)).json().catch(() => ({}));
+  $("familyVoice").textContent = v.has_voice
+    ? `Warnings are spoken in ${v.name ? v.name + "'s" : "your family member's"} own voice.`
+    : "Your family member can also record their voice on their screen, so the warning comes in a voice you trust.";
+};
 $("familyDone").onclick = () => $("familyDlg").close();
 refreshFamily();
 
@@ -174,7 +181,8 @@ $("hangup").onclick = () => {
 };
 
 $("testVoice").onclick = async () => {
-  const r = await fetch(`/api/warning?lang=${$("lang").value}&whisper=${$("whisper").checked ? 1 : 0}&elder=${$("elder").checked ? 1 : 0}`);
+  const fam = familyOn() ? `&family=${familyCode}` : "";
+  const r = await fetch(`/api/warning?lang=${$("lang").value}&whisper=${$("whisper").checked ? 1 : 0}&elder=${$("elder").checked ? 1 : 0}${fam}`);
   if (r.ok) playWav(await r.blob());
   else $("status").textContent = "Voice problem: " + (await r.text());
 };
@@ -184,7 +192,9 @@ const SCRIPT_NAMES = {
   digital_arrest: "“CBI officer”: digital arrest", pm_kisan_kyc: "PM-Kisan installment stopped", army_kirana_order: "Army officer's big kirana order",
   fake_upi_refund: "“Sent by mistake” UPI refund", electricity_cut: "Electricity cut tonight", ayushman_card: "Ayushman card renewal",
   relative_in_custody: "Your son is at the police station", bank_kyc_screenshare: "Bank KYC + screen share", police_kannada: "Police call (Kannada)",
-  bank_telugu: "Bank call (Telugu)", cbi_devanagari: "CBI call (Hindi)", real_bank_reminder: "Real bank EMI reminder",
+  bank_telugu: "Bank call (Telugu)", police_tamil: "Police call (Tamil)",
+  cyber_branch_english: "Cyber crime branch (English)", card_bill_english: "Real card bill reminder (English)",
+  tamil_family: "Family call (Tamil)", cbi_devanagari: "CBI call (Hindi)", real_bank_reminder: "Real bank EMI reminder",
   delivery_otp: "Real delivery OTP", doctor_appointment: "Doctor's appointment", family_surprise: "Family surprise party",
 };
 (async () => {

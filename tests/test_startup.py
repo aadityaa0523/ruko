@@ -58,3 +58,32 @@ def test_phone_line_feeds_family_screen():
     assert 'name="family" value="abcd2345ef"' in r.text and 'value="auto"' in r.text
     r = client.post("/twilio/voice?family=BAD!")
     assert 'name="family" value=""' in r.text
+
+
+def test_ulaw_encoder_round_trips():
+    import array
+    from backend.gnani import pcm16_to_ulaw
+    from backend.telephony import ulaw_to_pcm16
+    src = array.array("h", [0, 100, -100, 1000, -1000, 12000, -12000, 32767, -32768])
+    back = array.array("h"); back.frombytes(ulaw_to_pcm16(pcm16_to_ulaw(src.tobytes())))
+    for a, b in zip(src, back):
+        assert abs(a - b) <= max(16, abs(a) * 0.07), (a, b)
+
+
+def test_family_voice_needs_consent_and_can_be_deleted(monkeypatch):
+    from backend import family, gnani
+
+    async def fake_clone(data, name):
+        return {"embedding": "e" * 80, "shape": [1, 768], "dtype": "torch.bfloat16"}
+    monkeypatch.setattr(gnani, "clone_voice", fake_clone)
+    wav = {"file": ("v.wav", b"\0" * 20000, "audio/wav")}
+    c = "voicefam23"
+    assert client.post("/api/family/voice", data={"c": c, "consent": "false"}, files=wav).status_code == 400
+    short = {"file": ("v.wav", b"\0" * 100, "audio/wav")}
+    assert client.post("/api/family/voice", data={"c": c, "consent": "true"}, files=short).status_code == 400
+    ok = client.post("/api/family/voice", data={"c": c, "consent": "true", "name": "Rahul"}, files=wav)
+    assert ok.json() == {"ok": True}
+    assert client.get(f"/api/family/voice?c={c}").json() == {"has_voice": True, "name": "Rahul"}
+    assert family.voice_for(c)["shape"] == [1, 768]
+    assert client.delete(f"/api/family/voice?c={c}").json() == {"deleted": True}
+    assert family.voice_for(c) is None

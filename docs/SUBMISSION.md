@@ -41,10 +41,12 @@ Elders living alone, farmers, kirana shop owners and first-time digital users, w
 - **Prisma v3.0, REST:** voice-note check.
 - **Prisma v3.0, Batch with diarization:** who said what after the call.
 - **Timbre v2.5:** warnings in 6 languages (voices Poorvi, Nalini, Saanvi, Suhana, Asmita, Kaveri), the family alert, and 8 kHz `pcm_mulaw` audio spoken into phone calls.
+- **Timbre SSE streaming:** phone-line warnings start playing as the first chunk arrives (measured 0.7 s to first audio vs about 2.0 s for the full clip over REST). Warnings are also made in advance at call start, so the speakerphone alert plays instantly.
+- **Voice cloning (`vachana-vc-v1`):** on the Family Shield screen, a family member records 5–30 s of their own voice, with an explicit consent checkbox, and can delete it any time. Warnings, including the ones spoken into a phone call, then come in that trusted voice. The voice embedding is kept in memory only.
 - **Timbre v3.0:** `<whispers>` audio tag for a quiet warning, and an elder mode that uses `<slow>` on every sentence with `<pauses>` between them.
 
 ## How it was tested
-- **47 automated tests** run 11 synthetic scam scripts and 4 safe scripts, in Hinglish, Devanagari, Kannada and Telugu. They also include **real Prisma transcripts**, mistakes included, from synthetic calls spoken by Timbre. Every scam alerts and no safe call does.
+- **55 automated tests** run 11 synthetic scam scripts and 4 safe scripts, in Hinglish, Devanagari, Kannada, Telugu, Tamil and English. They also include **real Prisma transcripts**, mistakes included, from synthetic calls spoken by Timbre. Every scam alerts and no safe call does.
 - **End to end against the live Gnani APIs:** speech → Prisma → risk → spoken warning, plus diarization of a two-voice call.
 - **Phone-line mode** was tested with a simulator that speaks Twilio's media-stream format with real 8 kHz audio. A real carrier call has not been made yet.
 

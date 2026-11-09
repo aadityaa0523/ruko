@@ -34,6 +34,7 @@ PHRASES = {
         "पुलिस", "सीबीआई", "बैंक", "आर्मी", "फौज", "किसान", "आयुष्मान", "विभाग", "दफ़्तर", "दफ्तर",
         "थाने", "थाना", "सरकारी", "कस्टम", "पी एम किसान",
         "ಪೊಲೀಸ್", "ಬ್ಯಾಂಕ್", "ಸಿಬಿಐ", "పోలీస్", "బ్యాంక్", "సీబీఐ",
+        "inspector", "போலீஸ்", "காவல்", "வங்கி", "சிபிஐ",
     ],
     "threat": [
         "arrest", "digital arrest", "warrant", "case darj", "fir", "jail", "giraftar", "giraftaar",
@@ -41,17 +42,18 @@ PHRASES = {
         "kat jayegi", "kat jayega", "cut ho jayegi", "kist ruk", "kist band", "drugs", "money laundering",
         "illegal", "गिरफ्तार", "वारंट", "बंद हो जाएग", "band हो", "bond हो", "block हो", "ब्लॉक हो", "freeze हो",
         "कट जाएग", "किस्त रुक", "किस्त बंद", "जेल", "केस दर्ज", "ड्रग्स", "डिजिटल अरेस्ट", "ಬಂಧನ", "ಕೇಸ್", "case ಆಗಿದೆ", "block ಆಗ", "block అవ", "అరెస్ట్", "బ్లాక్",
+        "கைது", "வழக்கு", "முடக்க", "block ஆக",
     ],
     "secrecy": [
         "kisi ko mat batana", "kisi ko mat bataiye", "kisi ko na batayein", "kisi ko na bataye",
         "ghar walon ko mat", "family ko mat", "call mat kaatna", "phone mat kaatna", "call disconnect mat",
         "confidential", "don t tell anyone", "do not tell anyone",
         "किसी को मत बता", "किसी को न बता", "किसी को नहीं बता", "घर वालों को मत", "घरवालों को मत",
-        "परिवार को मत", "मत काटना", "ಯಾರಿಗೂ ಹೇಳಬೇಡಿ", "ఎవరికీ చెప్పకండి",
+        "परिवार को मत", "मत काटना", "ಯಾರಿಗೂ ಹೇಳಬೇಡಿ", "ఎవరికీ చెప్పకండి", "யாரிடமும் சொல்லா",
     ],
     "urgency": [
         "turant", "abhi ke abhi", "jaldi", "immediately", "right now", "aaj raat", "last date",
-        "last chance", "warna", "तुरंत", "अभी के अभी", "जल्दी", "वरना", "आज रात", "आज ही", "ತಕ್ಷಣ", "వెంటనే",
+        "last chance", "warna", "तुरंत", "अभी के अभी", "जल्दी", "वरना", "आज रात", "आज ही", "ತಕ್ಷಣ", "వెంటనే", "உடனே",
     ],
     "payment": [
         "otp", "o t p", "upi pin", "cvv", "card number", "pin batao", "pin bataiye", "safe account",
@@ -60,6 +62,7 @@ PHRASES = {
         "qr code scan", "collect request", "security deposit", "jurmana",
         "ओटीपी", "ओ टी पी", "पैसे भेज", "हज़ार भेज", "हजार भेज", "रुपये भेज", "वापस भेज", "transfer कर", "payment कर",
         "पिन बता", "सेफ अकाउंट", "स्कैन कर", "ಒಟಿಪಿ", "ಹಣ ಕಳುಹಿಸಿ", "ఓటీపీ", "డబ్బు పంపండి",
+        "ஓடிபி", "ஓ டி பி", "பணம் அனுப்",
     ],
     "remote": [
         "anydesk", "any desk", "teamviewer", "team viewer", "quicksupport", "screen share",

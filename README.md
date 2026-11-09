@@ -19,6 +19,7 @@ Open http://localhost:8870. The browser only lets a page use the microphone on l
 - `/app/`: the guard. One tap to protect a call, live captions, the scam-step tracker, red alert, golden-hour pack, sample calls, voice-note check.
 - `/family/?c=<code>&n=<name>`: Family Shield. Turns red live when the protected person's call becomes a scam. The link is made in the app (Family Shield button).
 - `POST /v1/score` (header `X-Ruko-Key`): partner API returning `level`, `score`, `flags` and `playbook` for transcript lines. Keys come from `RUKO_PARTNER_KEYS`; the key `demo` works for up to 20 lines.
+- `POST/GET/DELETE /api/family/voice`: a family member's consented voice clip (5–30 s) becomes a Gnani voice embedding; warnings are then spoken in that voice. Memory only; deletable.
 - `POST /api/waitlist`: pilot sign-ups, appended to `data/waitlist.jsonl` (git-ignored; local disk only).
 
 ## How it works

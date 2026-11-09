@@ -1,0 +1,763 @@
+[
+ {
+  "alerted": true,
+  "flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat"
+  ],
+  "latency_s": 0.11,
+  "script": "digital_arrest",
+  "lang": "hi-en",
+  "condition": "speaker",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat"
+  ],
+  "latency_s": 0.12,
+  "script": "digital_arrest",
+  "lang": "hi-en",
+  "condition": "phone",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat"
+  ],
+  "latency_s": 4.09,
+  "script": "digital_arrest",
+  "lang": "hi-en",
+  "condition": "speaker+noise",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat"
+  ],
+  "latency_s": 4.25,
+  "script": "digital_arrest",
+  "lang": "hi-en",
+  "condition": "phone+noise",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "authority",
+   "payment",
+   "threat",
+   "urgency"
+  ],
+  "latency_s": 0.19,
+  "script": "pm_kisan_kyc",
+  "lang": "hi-en",
+  "condition": "speaker",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority",
+   "payment",
+   "threat",
+   "urgency"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "authority",
+   "payment",
+   "threat",
+   "urgency"
+  ],
+  "latency_s": 0.14,
+  "script": "pm_kisan_kyc",
+  "lang": "hi-en",
+  "condition": "phone",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority",
+   "payment",
+   "threat",
+   "urgency"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "authority",
+   "payment",
+   "threat",
+   "urgency"
+  ],
+  "latency_s": 0.36,
+  "script": "pm_kisan_kyc",
+  "lang": "hi-en",
+  "condition": "speaker+noise",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority",
+   "payment",
+   "threat",
+   "urgency"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "authority",
+   "payment",
+   "threat",
+   "urgency"
+  ],
+  "latency_s": 0.35,
+  "script": "pm_kisan_kyc",
+  "lang": "hi-en",
+  "condition": "phone+noise",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority",
+   "payment",
+   "threat",
+   "urgency"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "payment",
+   "refund_trick"
+  ],
+  "latency_s": -5.38,
+  "script": "fake_upi_refund",
+  "lang": "hi-en",
+  "condition": "speaker",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "payment",
+   "refund_trick"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "payment",
+   "refund_trick"
+  ],
+  "latency_s": -5.3,
+  "script": "fake_upi_refund",
+  "lang": "hi-en",
+  "condition": "phone",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "payment",
+   "refund_trick"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "payment",
+   "refund_trick"
+  ],
+  "latency_s": 0.33,
+  "script": "fake_upi_refund",
+  "lang": "hi-en",
+  "condition": "speaker+noise",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "payment",
+   "refund_trick"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "payment",
+   "refund_trick"
+  ],
+  "latency_s": 0.31,
+  "script": "fake_upi_refund",
+  "lang": "hi-en",
+  "condition": "phone+noise",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "payment",
+   "refund_trick"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "latency_s": 0.04,
+  "script": "police_kannada",
+  "lang": "kn-IN",
+  "condition": "speaker",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "latency_s": 0.04,
+  "script": "police_kannada",
+  "lang": "kn-IN",
+  "condition": "phone",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "latency_s": 0.36,
+  "script": "police_kannada",
+  "lang": "kn-IN",
+  "condition": "speaker+noise",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "latency_s": 0.34,
+  "script": "police_kannada",
+  "lang": "kn-IN",
+  "condition": "phone+noise",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "latency_s": -1.73,
+  "script": "bank_telugu",
+  "lang": "te-IN",
+  "condition": "speaker",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "latency_s": -1.64,
+  "script": "bank_telugu",
+  "lang": "te-IN",
+  "condition": "phone",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "authority",
+   "payment",
+   "threat",
+   "urgency"
+  ],
+  "latency_s": 0.36,
+  "script": "bank_telugu",
+  "lang": "te-IN",
+  "condition": "speaker+noise",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "flag_recall": 0.8
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "authority",
+   "payment",
+   "threat",
+   "urgency"
+  ],
+  "latency_s": 0.37,
+  "script": "bank_telugu",
+  "lang": "te-IN",
+  "condition": "phone+noise",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "flag_recall": 0.8
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "latency_s": 0.09,
+  "script": "police_tamil",
+  "lang": "ta-IN",
+  "condition": "speaker",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "latency_s": 0.11,
+  "script": "police_tamil",
+  "lang": "ta-IN",
+  "condition": "phone",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "latency_s": 0.37,
+  "script": "police_tamil",
+  "lang": "ta-IN",
+  "condition": "speaker+noise",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "latency_s": 0.32,
+  "script": "police_tamil",
+  "lang": "ta-IN",
+  "condition": "phone+noise",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "latency_s": 0.12,
+  "script": "cyber_branch_english",
+  "lang": "en-IN",
+  "condition": "speaker",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "latency_s": 0.07,
+  "script": "cyber_branch_english",
+  "lang": "en-IN",
+  "condition": "phone",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "latency_s": 4.6,
+  "script": "cyber_branch_english",
+  "lang": "en-IN",
+  "condition": "speaker+noise",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": true,
+  "flags": [
+   "authority",
+   "payment",
+   "threat",
+   "urgency"
+  ],
+  "latency_s": 4.52,
+  "script": "cyber_branch_english",
+  "lang": "en-IN",
+  "condition": "phone+noise",
+  "scam": true,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority",
+   "payment",
+   "secrecy",
+   "threat",
+   "urgency"
+  ],
+  "flag_recall": 0.8
+ },
+ {
+  "alerted": false,
+  "flags": [
+   "authority",
+   "payment"
+  ],
+  "latency_s": null,
+  "script": "real_bank_reminder",
+  "lang": "hi-en",
+  "condition": "speaker",
+  "scam": false,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": false,
+  "flags": [
+   "authority",
+   "payment"
+  ],
+  "latency_s": null,
+  "script": "real_bank_reminder",
+  "lang": "hi-en",
+  "condition": "phone",
+  "scam": false,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": false,
+  "flags": [
+   "authority",
+   "payment"
+  ],
+  "latency_s": null,
+  "script": "real_bank_reminder",
+  "lang": "hi-en",
+  "condition": "speaker+noise",
+  "scam": false,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": false,
+  "flags": [
+   "authority",
+   "payment"
+  ],
+  "latency_s": null,
+  "script": "real_bank_reminder",
+  "lang": "hi-en",
+  "condition": "phone+noise",
+  "scam": false,
+  "alert_ok": true,
+  "truth_flags": [
+   "authority"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": false,
+  "flags": [
+   "payment"
+  ],
+  "latency_s": null,
+  "script": "delivery_otp",
+  "lang": "hi-en",
+  "condition": "speaker",
+  "scam": false,
+  "alert_ok": true,
+  "truth_flags": [
+   "payment"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": false,
+  "flags": [
+   "payment"
+  ],
+  "latency_s": null,
+  "script": "delivery_otp",
+  "lang": "hi-en",
+  "condition": "phone",
+  "scam": false,
+  "alert_ok": true,
+  "truth_flags": [
+   "payment"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": false,
+  "flags": [
+   "payment"
+  ],
+  "latency_s": null,
+  "script": "delivery_otp",
+  "lang": "hi-en",
+  "condition": "speaker+noise",
+  "scam": false,
+  "alert_ok": true,
+  "truth_flags": [
+   "payment"
+  ],
+  "flag_recall": 1.0
+ },
+ {
+  "alerted": false,
+  "flags": [
+   "payment"
+  ],
+  "latency_s": null,
+  "script": "delivery_otp",
+  "lang": "hi-en",
+  "condition": "phone+noise",
+  "scam": false,
+  "alert_ok": true,
+  "truth_flags": [
+   "payment"
+  ],
+  "flag_recall": 1.0
+ }
+]
