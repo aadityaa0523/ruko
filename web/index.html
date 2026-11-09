@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ruko</title>
+<meta name="theme-color" content="#0f1720">
+<link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+<main>
+  <header>
+    <h1>Ruko</h1>
+    <p class="sub">Puts your phone call on speaker, warns you out loud if it sounds like a scam, and prepares the 1930 complaint.</p>
+  </header>
+
+  <section class="card controls" aria-label="Settings">
+    <label>Warning language
+      <select id="lang">
+        <option value="hi-en">Hinglish</option>
+        <option value="hi-IN">हिन्दी</option>
+        <option value="kn-IN">ಕನ್ನಡ</option>
+        <option value="te-IN">తెలుగు</option>
+        <option value="ta-IN">தமிழ்</option>
+        <option value="en-IN">English</option>
+      </select>
+    </label>
+    <label>Speech model
+      <select id="model">
+        <option value="prisma-v3.0">Prisma v3.0 (code-mix)</option>
+        <option value="prisma-v2.5">Prisma v2.5</option>
+      </select>
+    </label>
+    <label class="check"><input type="checkbox" id="whisper"> Whisper the warning (Timbre v3.0)</label>
+    <button id="testVoice" class="ghost" type="button">Play the warning</button>
+  </section>
+
+  <section class="card meter-card" aria-live="polite">
+    <div class="meter" id="meter" data-level="safe">
+      <div class="meter-fill" id="meterFill"></div>
+    </div>
+    <div class="meter-row">
+      <strong id="levelText">Safe</strong>
+      <span id="scoreText">0 / 100</span>
+    </div>
+    <ul class="flags" id="flags"></ul>
+    <div class="warning" id="warning" hidden></div>
+  </section>
+
+  <button id="listen" class="primary" type="button">Start listening</button>
+  <button id="hangup" class="ghost" type="button" hidden>Call ended: make my report</button>
+  <p class="status" id="status">Put the call on speaker next to this device, then tap Start.</p>
+
+  <section class="card">
+    <h2>What was said</h2>
+    <ol class="transcript" id="transcript"></ol>
+  </section>
+
+  <section class="card pack" id="pack" hidden aria-live="polite">
+    <h2>Golden-hour pack</h2>
+    <p class="hint">Report within the first hour. The sooner you report, the better the chance your money can be frozen.</p>
+    <div class="row actions">
+      <a class="btn danger" href="tel:1930">Call 1930 now</a>
+      <a class="btn" href="https://cybercrime.gov.in" target="_blank" rel="noopener">Open cybercrime.gov.in</a>
+    </div>
+    <h3>Complaint (ready to paste)</h3>
+    <dl class="fields" id="fields"></dl>
+    <pre class="complaint" id="complaint"></pre>
+    <button id="copy" class="ghost" type="button">Copy complaint</button>
+    <div id="familyBox" hidden>
+      <h3>Message for family</h3>
+      <p id="family"></p>
+      <button id="playFamily" class="ghost" type="button">Play family message</button>
+    </div>
+    <h3>Who said what</h3>
+    <ol class="timeline" id="timeline"><li class="hint">Separating the caller's voice from yours (Gnani Prisma Batch)…</li></ol>
+    <p class="hint" id="audioNote"></p>
+  </section>
+
+  <section class="card">
+    <h2>Check a recording or voice note</h2>
+    <p class="hint">Got a suspicious WhatsApp voice note or call recording (up to 30 seconds)? Check it here.</p>
+    <div class="row">
+      <input type="file" id="clipFile" accept="audio/*,.opus,.m4a,.amr">
+      <button id="clipCheck" class="ghost" type="button">Check</button>
+    </div>
+    <p id="clipResult"></p>
+  </section>
+
+  <section class="card">
+    <h2>Text test mode</h2>
+    <p class="hint">Runs a scripted (synthetic) call through the scoring as text, with no microphone. Use this to check the scoring.</p>
+    <div class="row">
+      <select id="script"></select>
+      <button id="runScript" class="ghost" type="button">Run</button>
+    </div>
+  </section>
+
+  <footer>Ruko only warns. It never blocks calls and keeps no audio. Lost money? Call <a href="tel:1930">1930</a> or report at <a href="https://cybercrime.gov.in" target="_blank" rel="noopener">cybercrime.gov.in</a>.<br>Speech by Gnani AI Prisma · Voice by Gnani AI Timbre</footer>
+</main>
+<script src="app.js?v=2"></script>
+</body>
+</html>
