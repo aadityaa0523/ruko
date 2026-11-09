@@ -8,8 +8,8 @@
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="/icon-192.png">
-<link rel="stylesheet" href="/ruko.css?v=37">
-<link rel="stylesheet" href="app.css?v=36">
+<link rel="stylesheet" href="/ruko.css?v=41">
+<link rel="stylesheet" href="app.css?v=41">
 </head>
 <body class="app-shell" data-tab="guard">
 <header class="bar">
@@ -54,6 +54,11 @@
       <a class="btn btn-danger" href="tel:1930" data-i18n="call1930">Call 1930 now</a>
       <a class="btn btn-plain" href="https://cybercrime.gov.in" target="_blank" rel="noopener">cybercrime.gov.in</a>
     </div>
+    <form class="rep" id="repCaller" hidden>
+      <label class="field"><span data-i18n="rep_caller">Warn others: report the caller's number</span><input id="repNum" inputmode="tel" maxlength="16" placeholder="98765 43210"></label>
+      <button class="btn btn-danger" type="submit" data-i18n="rep_btn">Report number</button>
+      <p class="small muted" id="repMsg" role="status"></p>
+    </form>
     <details open>
       <summary data-i18n="complaint">Complaint, ready to paste</summary>
       <dl class="fields" id="fields"></dl>
@@ -145,9 +150,9 @@
   <div class="row"><button class="btn btn-plain" id="familyNew" type="button" data-i18n="new_link">Make a new link</button><button class="btn btn-plain" id="familyDone" type="button" data-i18n="done">Done</button></div>
 </dialog>
 
-<script src="/config.js?v=36"></script>
-<script src="/ruko.js?v=37"></script>
-<script src="/tabs.js?v=36"></script>
-<script src="app.js?v=36"></script>
+<script src="/config.js?v=41"></script>
+<script src="/ruko.js?v=41"></script>
+<script src="/tabs.js?v=41"></script>
+<script src="app.js?v=41"></script>
 </body>
 </html>

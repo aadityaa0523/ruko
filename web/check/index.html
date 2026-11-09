@@ -8,8 +8,8 @@
 <meta name="theme-color" content="#26282b">
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
-<link rel="stylesheet" href="/ruko.css?v=37">
-<link rel="stylesheet" href="check.css?v=36">
+<link rel="stylesheet" href="/ruko.css?v=41">
+<link rel="stylesheet" href="check.css?v=41">
 </head>
 <body class="app-shell" data-tab="check">
 <header class="bar">
@@ -43,6 +43,7 @@
     <h2 data-i18n="why">Why</h2>
     <ul class="reasons" id="reasons"></ul>
     <div id="linksBox" hidden><h2 data-i18n="links">Links in it</h2><ul class="links" id="links"></ul></div>
+    <div class="report-cta" id="reportCta" hidden><p><b id="rcTitle"></b><span id="rcSub">Reports are anonymous. Two reports and everyone who checks this number is warned.</span></p><button class="btn btn-danger" id="rcBtn" type="button">Report it</button></div>
     <div id="numsBox" hidden><h2 data-i18n="numbers">Phone numbers in it</h2><ul class="nums" id="nums"></ul></div>
     <div class="row">
       <a class="btn btn-primary" id="share" target="_blank" rel="noopener" data-i18n="share">Warn your family on WhatsApp</a>
@@ -82,16 +83,16 @@
   </section>
 
   <section class="panel radar" id="radar">
-    <div class="radar-head"><h2 data-i18n="radar_h">Scam Radar · this week</h2><span class="small muted" data-i18n="radar_src">From Ruko users' reports and live-call alerts</span></div>
+    <div class="radar-head"><h2 data-i18n="radar_h">Scam Radar · this week</h2><a class="btn btn-plain radar-share" id="radarShare" target="_blank" rel="noopener" hidden>Share on WhatsApp</a><span class="small muted" data-i18n="radar_src">From Ruko users' reports and live-call alerts</span></div>
     <ol class="radar-list" id="radarList"></ol>
   </section>
 </main>
 
 <footer id="siteFooter"></footer>
-<script src="/config.js?v=36"></script>
-<script src="/ruko.js?v=37"></script>
-<script src="/tabs.js?v=36"></script>
-<script src="/footer.js?v=36"></script>
-<script src="check.js?v=36"></script>
+<script src="/config.js?v=41"></script>
+<script src="/ruko.js?v=41"></script>
+<script src="/tabs.js?v=41"></script>
+<script src="/footer.js?v=41"></script>
+<script src="check.js?v=41"></script>
 </body>
 </html>

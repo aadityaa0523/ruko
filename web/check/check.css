@@ -52,6 +52,12 @@
 .form-msg.err { color: var(--red); }
 .radar-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 14px; margin-bottom: 4px; }
 .radar-head h2 { margin: 0; }
+.radar-share { min-height: 38px; padding: 0 14px; font-size: .88rem; }
+.report-cta { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 14px; border-radius: 14px; background: #fdecec; color: #0f172a; }
+.report-cta p { margin: 0; display: grid; gap: 2px; line-height: 1.4; }
+.report-cta span { font-size: .85rem; color: #4b5567; }
+.report-cta .btn { min-height: 44px; }
+@media (max-width: 420px) { .report-cta { grid-template-columns: minmax(0, 1fr); } }
 .radar-list { list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 8px; }
 .radar-list li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: center; }
 .radar-list .bar-fill { grid-column: 1 / -1; height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }

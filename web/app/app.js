@@ -27,7 +27,7 @@ window.STRINGS = {
     audio_deleted: "कॉल की आवाज़ मिटा दी गई है। सिर्फ़ यह लिखित रिपोर्ट इसी फ़ोन पर है।",
     separating: "कॉलर की आवाज़ आपकी आवाज़ से अलग की जा रही है…",
     over_bad: "कॉल ख़त्म। एक घंटे के अंदर रिपोर्ट करें।", over: "कॉल ख़त्म।",
-    pack_bad: "यह धोखा था। आपकी रिपोर्ट तैयार है।", pack_ok: "कॉल ख़त्म। धोखे के पक्के संकेत नहीं मिले।",
+    pack_bad: "यह धोखा था। आपकी रिपोर्ट तैयार है।", rep_caller: "दूसरों को सावधान करें: कॉलर का नंबर रिपोर्ट करें", rep_btn: "नंबर रिपोर्ट करें", pack_ok: "कॉल ख़त्म। धोखे के पक्के संकेत नहीं मिले।",
     copied: "कॉपी हो गया", copy: "शिकायत कॉपी करें", copy_link: "कॉपी", select_copy: "ऊपर का टेक्स्ट चुनकर कॉपी करें",
     choose_file: "पहले एक ऑडियो फ़ाइल चुनें।", checking: "Gnani Prisma से सुन रहा है…", no_calls: "अभी कोई कीपैड-फ़ोन कॉल नहीं।",
     cut_now: "अभी कॉल काटिए। कोई OTP न बताएँ, पैसे न भेजें।", heard: "Ruko ने सुना: ",
@@ -298,6 +298,17 @@ $("runScript").onclick = async () => {
 // ---------- golden-hour pack
 function showPack(p) {
   lastPack = p;
+  const scam = p.level === "high" || p.level === "critical";
+  $("repCaller").hidden = !scam;
+  $("repMsg").textContent = "";
+  $("repCaller").onsubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const n = await reportNumber($("repNum").value, guessCategory(p.flags), "call");
+      $("repMsg").textContent = `Thank you. ${n} is reported; once someone else reports it too, everyone who checks it is warned.`;
+      $("repNum").value = "";
+    } catch { $("repMsg").textContent = "Type the full 10-digit number."; }
+  };
   $("pack").hidden = false;
   const bad = p.level === "high" || p.level === "critical";
   $("packTitle").textContent = bad ? t("pack_bad") : t("pack_ok");

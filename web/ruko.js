@@ -95,3 +95,25 @@ function setLevel(el, risk) {
 }
 
 const AHEAD_ICON = '<svg viewBox="0 0 26 26" aria-hidden="true"><path d="M13 2 25 23H1z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><rect x="11.8" y="9" width="2.4" height="8" fill="currentColor"/><circle cx="13" cy="19.6" r="1.4" fill="currentColor"/></svg>';
+
+// ---------- one-tap number reports (Supabase number_reports)
+function guessCategory(flags) {
+  const c = new Set((flags || []).map((f) => f.category || f));
+  if (c.has("bill")) return "electricity";
+  if (c.has("parcel")) return "parcel";
+  if (c.has("refund_trick") || c.has("upi_collect")) return "refund";
+  if (c.has("job")) return "job";
+  if (c.has("prize")) return "prize";
+  if (c.has("threat") && c.has("authority") && !c.has("risky_link")) return "digital_arrest";
+  if (c.has("link_bait") || c.has("risky_link") || c.has("apk") || (c.has("payment") && c.has("authority"))) return "bank_kyc";
+  return "other";
+}
+const CATEGORY_LABEL = { digital_arrest: "fake police / CBI", bank_kyc: "bank or KYC scam", electricity: "electricity cut-off scam",
+  parcel: "parcel or customs scam", refund: "\u201csent by mistake\u201d refund scam", relative: "relative-in-trouble scam", job: "job or task scam",
+  prize: "prize or lottery scam", loan: "loan scam", other: "scam" };
+async function reportNumber(number, category, channel) {
+  const n = String(number).replace(/\D/g, "").slice(-10);
+  if (n.length < 6 || typeof sbInsert !== "function") throw new Error("bad number");
+  await sbInsert("number_reports", { number: n, category, channel, language: LANG });
+  return n;
+}

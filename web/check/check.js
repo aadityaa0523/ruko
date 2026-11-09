@@ -83,6 +83,20 @@ function show(r, text) {
     const s = document.createElement("small"); s.textContent = l.why.length ? "This link " + l.why.join("; ") + "." : "No warning signs in this address.";
     li.append(s); $("links").append(li);
   }
+  // Growth loop: a scam with a phone number in it gets a one-tap report
+  const target = r.verdict === "scam" ? r.phones[0] : null;
+  $("reportCta").hidden = !target;
+  if (target) {
+    const cat = guessCategory(r.flags);
+    $("rcTitle").textContent = `Warn others about ${pretty(target)}?`;
+    $("rcSub").textContent = `It will be reported as: ${CATEGORY_LABEL[cat]}. Reports are anonymous; after two reports, everyone who checks this number is warned.`;
+    $("rcBtn").disabled = false; $("rcBtn").textContent = "Report it";
+    $("rcBtn").onclick = async () => {
+      $("rcBtn").disabled = true;
+      try { await reportNumber(target, cat, /whatsapp/i.test(text) ? "whatsapp" : "sms"); $("rcBtn").textContent = "Reported, thank you"; loadRadar(); }
+      catch { $("rcBtn").disabled = false; $("rcBtn").textContent = "Try again"; }
+    };
+  }
   $("numsBox").hidden = !r.phones.length;
   $("nums").innerHTML = "";
   for (const n of r.phones) {
@@ -165,6 +179,9 @@ async function loadRadar() {
       li.querySelector("i").style.width = r.kind === "alert" ? "100%" : `${(r.total / max) * 100}%`;
       ol.append(li);
     }
+    const top = rep.slice(0, 4).map((r) => `${CAT[r.label] || r.label}: ${r.total}`).join("\n");
+    $("radarShare").hidden = !rep.length;
+    $("radarShare").href = "https://wa.me/?text=" + encodeURIComponent(`Scam Radar this week (from Ruko users):\n${top}\nCheck any message or number free: ${location.origin}/check/`);
     if (!rows.length) ol.innerHTML = '<li class="empty">No reports yet this week. If a scammer contacted you, report the number above so others are warned.</li>';
   } catch { ol.innerHTML = '<li class="empty">Scam Radar is unavailable right now.</li>'; }
 }
