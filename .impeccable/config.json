@@ -44,6 +44,15 @@
         ],
         "createdAt": "2026-11-09T15:19:08.417Z",
         "reason": "agent verified in render: auth plate and dashboard panels have 22-44px padding"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "web/landing.css"
+        ],
+        "createdAt": "2026-11-09T16:18:03.345Z",
+        "reason": "agent verified: flagged rules are rotated L-shaped checkmark glyphs (.cmp td.yes::before, .ticks li::before), not card side borders"
       }
     ]
   }

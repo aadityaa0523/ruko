@@ -81,7 +81,7 @@
 .cmp tbody th { font-weight: 700; }
 .cmp .us { background: #fff6d6; font-weight: 800; }
 .cmp thead .us { background: var(--yellow); color: var(--ink); }
-.cmp td.no { color: #8a8c90; }
+.cmp td.no { color: #5f6166; }
 .cmp td.yes::before { content: ""; display: inline-block; width: 11px; height: 6px; border-left: 3px solid var(--safe); border-bottom: 3px solid var(--safe); transform: rotate(-45deg) translateY(-3px); margin-right: 8px; }
 /* Daily use: a message shared into Ruko */
 .daily { background: var(--asphalt); color: var(--sign); }
