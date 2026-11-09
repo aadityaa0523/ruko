@@ -1,3 +1,5 @@
+> **Superseded on 9 Nov 2026.** The road-sign world below was replaced by a mainstream consumer-app style (see PRODUCT.md, Brand Commitments, and the tokens in `web/ruko.css`, which are the source of truth). Regenerate this file before relying on it.
+
 ---
 name: Ruko
 description: A live scam-call guard that warns before the scammer's next move, drawn as Indian road warning signs.

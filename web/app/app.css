@@ -14,8 +14,8 @@
 .guard { display: grid; justify-items: center; gap: 14px; padding: 26px 0 8px; text-align: center; }
 .shield { position: relative; width: min(250px, 66vw); aspect-ratio: 1; border: 0; padding: 0; background: none; color: #fff; display: grid; place-items: center; -webkit-tap-highlight-color: transparent; }
 .shield-oct { position: absolute; inset: 0; width: 100%; height: 100%; transition: transform .2s cubic-bezier(.2,.8,.2,1); }
-.shield-oct path:first-child { fill: var(--asphalt); transition: fill .3s; }
-.shield-rule { stroke: var(--yellow); }
+.shield-oct path:first-child { fill: var(--brand); transition: fill .3s; }
+.shield-rule { stroke: rgb(255 255 255 / .55); }
 .shield:hover .shield-oct { transform: scale(1.02); }
 .shield:active .shield-oct { transform: scale(.97); }
 .shield-label { position: relative; max-width: 62%; font-weight: 900; font-size: clamp(1.45rem, 6.4vw, 1.9rem); line-height: 1.05; letter-spacing: -0.02em; }

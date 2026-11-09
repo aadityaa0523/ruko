@@ -52,6 +52,16 @@ Elders living alone, farmers, kirana shop owners and first-time digital users, w
 - **End to end against the live Gnani APIs:** speech → Prisma → risk → spoken warning, plus diarization of a two-voice call.
 - **Phone-line mode** was tested with a simulator that speaks Twilio's media-stream format with real 8 kHz audio. A real carrier call has not been made yet.
 
+## Award fit (evidence for each category)
+A team can win only one award; these are the categories Ruko competes in, with proof.
+- **Solo Ninja:** built end to end by one person: speech pipeline, risk engine, telephony, accounts, design, evaluation, video.
+- **Noise Canceller:** measured on 8 kHz G.711 phone audio with background chatter at +5 dB SNR: 7/7 scams caught, 0/2 false alarms, median alert 0.35 s after the trigger line (36 live runs, `docs/EVALUATION.md`). Phone-line mode runs Prisma at 8 kHz and speaks Timbre μ-law back into the call.
+- **Mixed Vibes:** Prisma v3.0 code-mix output (Devanagari and Latin in one sentence) is matched with mixed-script phrases ("block हो", "link पे click"); warnings are spoken in Hinglish; Auto mode detects the caller's language mid-call.
+- **Main Character:** full detection and spoken warnings in Kannada, Telugu and Tamil, tested live, with a slow, paused elder voice.
+- **Real Deal:** protects the groups scammers target most: farmers (PM-Kisan "installment stopped"), kirana owners (fake army orders, "sent by mistake" UPI refunds) and elders on keypad phones; ends with a ready 1930 complaint inside the golden hour.
+- **Jugaad Genius:** merge a keypad-phone call with Ruko's number so the AI speaks *inside* the call; the warning comes in a family member's cloned voice (with consent); Ruko sits in Android's Share menu; it predicts the scammer's next step from a four-step playbook.
+- **Demo Day Drop:** 44-second vertical video recorded from the real product (`docs/ruko-demo.mp4`).
+
 ## Business model
 B2B2C, like a credit-card fraud shield:
 - **Free** for the person on the call: speakerphone guard, spoken warning, 1930 pack.

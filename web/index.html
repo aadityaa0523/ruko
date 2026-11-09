@@ -8,8 +8,8 @@
 <meta name="theme-color" content="#26282b">
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
-<link rel="stylesheet" href="/ruko.css?v=28">
-<link rel="stylesheet" href="/landing.css?v=28">
+<link rel="stylesheet" href="/ruko.css?v=30">
+<link rel="stylesheet" href="/landing.css?v=32">
 </head>
 <body>
 <header class="nav">
@@ -25,12 +25,12 @@
 <main>
   <section class="hero">
     <div class="wrap hero-grid">
-      <div class="hero-plate">
-        <h1><span data-i18n="h1a">Scam ahead.</span> <span class="h1b" data-i18n="h1b">Ruko warns before it arrives.</span></h1>
-        <p class="lede" data-i18n="lede">Ruko listens to your parents' phone call, recognises the scam as it unfolds, and warns them out loud in their language before the scammer's next move. Your phone turns red at the same moment.</p>
+      <div class="hero-copy">
+        <h1><span data-i18n="h1a">Caller ID tells you who's calling.</span> <span class="h1b" data-i18n="h1b">Ruko tells you it's a scam.</span></h1>
+        <p class="lede" data-i18n="lede">Ruko listens to the call, spots the scam while it's happening, and warns your parents out loud in their language before the scammer asks for money. Your phone gets the alert at the same moment.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="/account/?new=1" data-i18n="cta">Protect my parents</a>
-          <button class="btn btn-ghost" id="dPlay" type="button"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3.5v13l11-6.5z" fill="currentColor"/></svg><span id="dPlayLabel" data-i18n="play">Hear a scam get caught</span></button>
+          <a class="btn btn-primary btn-lg" href="/account/?new=1" data-i18n="cta">Protect my parents</a>
+          <a class="btn btn-lg" href="/check/" data-i18n="cta2">Check a message</a>
         </div>
         <ul class="facts">
           <li data-i18n="f1">Any phone; keypad-phone line in testing</li>
@@ -39,19 +39,24 @@
         </ul>
       </div>
 
-      <div class="road" aria-live="polite">
-        <svg class="road-bg" viewBox="0 0 400 520" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M150 0h100l150 520H0z" fill="#303337"/>
-          <path d="M150 0 0 520M250 0l150 520" stroke="#fafaf7" stroke-width="3" opacity=".5"/>
-          <path d="M200 0v520" stroke="#ffc20e" stroke-width="5" stroke-dasharray="26 22"/>
-        </svg>
-        <div class="stop" id="dStop" aria-hidden="true"></div>
-        <ol class="signs road-signs" id="dStages" aria-label="The four steps of a scam call"></ol>
-        <div class="call">
-          <div class="call-head"><span class="dot" id="dDot"></span><span data-i18n="call_label">Sample call, synthetic voices</span><span class="level" id="dLevel" data-level="safe">Safe · 0/100</span></div>
-          <ol class="captions" id="dCaptions" data-empty=""></ol>
-          <p class="ahead"><svg viewBox="0 0 26 26" aria-hidden="true"><path d="M13 2 25 23H1z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><rect x="11.8" y="9" width="2.4" height="8" fill="currentColor"/><circle cx="13" cy="19.6" r="1.4" fill="currentColor"/></svg><span id="dNext"></span></p>
+      <div class="hero-phone">
+        <div class="road phone" aria-live="polite">
+          <div class="ph-top" aria-hidden="true"><span>10:42</span><span class="ph-notch"></span><span>5G</span></div>
+          <div class="ph-caller">
+            <div class="ph-avatar" aria-hidden="true">?</div>
+            <p class="ph-num">+91 98765 43210</p>
+            <p class="ph-sub" data-i18n="ph_sub">Incoming call · Not in contacts</p>
+          </div>
+          <div class="rk-card">
+            <div class="rk-head"><span class="dot" id="dDot"></span><b>Ruko</b><span class="rk-label" data-i18n="call_label">Sample call, synthetic voices</span><span class="level" id="dLevel" data-level="safe">Safe · 0/100</span></div>
+            <div class="stop" id="dStop" aria-hidden="true"></div>
+            <ol class="signs road-signs" id="dStages" aria-label="The four steps of a scam call"></ol>
+            <ol class="captions" id="dCaptions" data-empty=""></ol>
+            <p class="ahead"><svg viewBox="0 0 26 26" aria-hidden="true"><path d="M13 2 25 23H1z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><rect x="11.8" y="9" width="2.4" height="8" fill="currentColor"/><circle cx="13" cy="19.6" r="1.4" fill="currentColor"/></svg><span id="dNext"></span></p>
+          </div>
+          <div class="ph-actions" aria-hidden="true"><span class="ph-decline"></span><span class="ph-accept"></span></div>
         </div>
+        <button class="btn play-btn" id="dPlay" type="button"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 3.5v13l11-6.5z" fill="currentColor"/></svg><span id="dPlayLabel" data-i18n="play">Play a sample scam call</span></button>
       </div>
     </div>
   </section>
@@ -211,9 +216,9 @@
 
 <footer id="siteFooter"></footer>
 
-<script src="/config.js?v=28"></script>
-<script src="/ruko.js?v=28"></script>
-<script src="/footer.js?v=28"></script>
-<script src="/landing.js?v=28"></script>
+<script src="/config.js?v=30"></script>
+<script src="/ruko.js?v=30"></script>
+<script src="/footer.js?v=30"></script>
+<script src="/landing.js?v=30"></script>
 </body>
 </html>

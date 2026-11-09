@@ -39,8 +39,8 @@ const GLYPHS = {
   // keypad (OTP / PIN)
   ask: '<g class="glyph"><circle cx="40" cy="50" r="4"/><circle cx="50" cy="50" r="4"/><circle cx="60" cy="50" r="4"/><circle cx="40" cy="61" r="4"/><circle cx="50" cy="61" r="4"/><circle cx="60" cy="61" r="4"/><circle cx="40" cy="72" r="4"/><circle cx="50" cy="72" r="4"/><circle cx="60" cy="72" r="4"/></g>',
 };
-const TRI = '<path class="tri-fill" d="M50 8 94 84H6z"/><path class="tri-edge" d="M50 8 94 84H6z" stroke-linejoin="round"/>';
-function signSVG(key) { return `<svg viewBox="0 0 100 90" aria-hidden="true">${TRI}${GLYPHS[key]}</svg>`; }
+const TRI = '<circle class="tri-fill" cx="50" cy="58" r="42"/><circle class="tri-edge" cx="50" cy="58" r="42"/>';
+function signSVG(key) { return `<svg viewBox="0 12 100 92" aria-hidden="true">${TRI}${GLYPHS[key]}</svg>`; }
 function octagonSVG(word = "RUKO") {
   return `<svg class="octagon" viewBox="0 0 100 100" role="img" aria-label="${word}"><path d="M30 2h40l28 28v40L70 98H30L2 70V30z" fill="#c8102e"/><path d="M31.7 6h36.6L94 31.7v36.6L68.3 94H31.7L6 68.3V31.7z" fill="none" stroke="#fff" stroke-width="3"/><text x="50" y="59" text-anchor="middle" font-family="Overpass, sans-serif" font-weight="900" font-size="25" fill="#fff" letter-spacing="1">${word}</text></svg>`;
 }
