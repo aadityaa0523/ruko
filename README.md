@@ -1,5 +1,7 @@
 # Ruko
 
+**One-page pitch: [docs/PITCH.md](docs/PITCH.md)** · Live: https://ruko-ohn2.onrender.com · Results: [docs/EVALUATION.md](docs/EVALUATION.md)
+
 Ruko listens to a phone call on speaker, warns you out loud in your own language if the call sounds like a scam, and prepares the 1930 complaint. It's built on Gnani AI's Prisma (speech to text) and Timbre (text to speech) for the Great Indian AI Internship Challenge.
 
 ## Run
