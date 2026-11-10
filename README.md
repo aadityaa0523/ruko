@@ -10,13 +10,14 @@
 
 [![Live app](https://img.shields.io/badge/Live_app-ruko--ohn2.onrender.com-c8f560?style=for-the-badge&labelColor=0b0b0f)](https://ruko-ohn2.onrender.com)
 [![Built on Gnani](https://img.shields.io/badge/Built_on-Gnani_Prisma_%2B_Timbre-e5484d?style=for-the-badge&labelColor=0b0b0f)](https://gnani.ai)
+[![Android APK](https://img.shields.io/badge/Android-Download_APK_(preview)-3ddc84?style=for-the-badge&logo=android&logoColor=white&labelColor=0b0b0f)](https://github.com/aadityaa0523/ruko/releases/tag/v0.1.0-android-preview)
 
 ![Languages](https://img.shields.io/badge/languages-10_Indian-informational?style=flat-square)
 ![Tests](https://img.shields.io/badge/tests-90_passing-success?style=flat-square)
 ![Live calls](https://img.shields.io/badge/live_test_calls-36%2F36_correct-success?style=flat-square)
 ![Data](https://img.shields.io/badge/data-synthetic_only-lightgrey?style=flat-square)
 
-**[▶ Try the live app](https://ruko-ohn2.onrender.com)** · **[🎬 60-second demo](docs/media/ruko-60s-demo.mp4)** · **[📄 One-page pitch](docs/PITCH.md)** · **[📊 Results](docs/EVALUATION.md)**
+**[▶ Try the live app](https://ruko-ohn2.onrender.com)** · **[🤖 Android APK](https://github.com/aadityaa0523/ruko/releases/tag/v0.1.0-android-preview)** · **[🎬 60-second demo](docs/media/ruko-60s-demo.mp4)** · **[📄 One-page pitch](docs/PITCH.md)** · **[📊 Results](docs/EVALUATION.md)**
 
 <img src="docs/media/ruko-warning.gif" width="380" alt="Real run: Ruko warns 0.65 s after the scammer says 'kisi ko mat batana', in the daughter's cloned voice, while the daughter's phone turns red">
 
@@ -142,7 +143,7 @@ The user merges a suspicious call with Ruko's number. Twilio streams the 8 kHz �
 <details>
 <summary><b>Android app</b></summary>
 
-[`android/`](android) is a native call-screening app: incoming calls from unknown numbers are looked up in Ruko's community reports and warned about while they ring. It never blocks calls and reads no contacts or SMS. Build with `cd android && ./gradlew assembleDebug`. See [docs/ANDROID_PLAN.md](docs/ANDROID_PLAN.md).
+[`android/`](android) is a native call-screening app: incoming calls from unknown numbers are looked up in Ruko's community reports and warned about while they ring. It never blocks calls and reads no contacts or SMS. **[Download the preview APK](https://github.com/aadityaa0523/ruko/releases/tag/v0.1.0-android-preview)** (Android 10+, debug-signed, not yet tested on real devices). Build it yourself with `cd android && ./gradlew assembleDebug`. See [docs/ANDROID_PLAN.md](docs/ANDROID_PLAN.md).
 </details>
 
 <details>
