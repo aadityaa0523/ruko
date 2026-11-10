@@ -60,7 +60,7 @@ Only use a personal story if it's true. Misleading demos and claims are banned.
 > ₹1,935 Cr lost to digital-arrest calls in 2024.
 > Ruko listens to the call, spots the scam and warns you out loud in Kannada / Telugu / Hindi, then writes your 1930 complaint.
 > Works on speaker with any phone. Built on @GnaniAI Prisma + Timbre.
-> [attach docs/ruko-demo.mp4] https://github.com/aadityaa0523/ruko
+> [attach docs/media/ruko-60s-demo.mp4] https://github.com/aadityaa0523/ruko
 > #GnaniAI #GreatIndianAIInternshipChallenge
 
 ---

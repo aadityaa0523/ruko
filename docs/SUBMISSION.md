@@ -60,7 +60,7 @@ A team can win only one award; these are the categories Ruko competes in, with p
 - **Main Character:** full detection and spoken warnings in Kannada, Telugu, Tamil, Marathi, Bengali, Gujarati and Malayalam, each tested live with Prisma's automatic language detection, with a slow, paused elder voice.
 - **Real Deal:** protects the groups scammers target most: farmers (PM-Kisan "installment stopped"), kirana owners (fake army orders, "sent by mistake" UPI refunds) and elders on keypad phones; ends with a ready 1930 complaint inside the golden hour.
 - **Jugaad Genius:** merge a keypad-phone call with Ruko's number so the AI speaks *inside* the call; the warning comes in a family member's cloned voice (with consent); Ruko sits in Android's Share menu; it predicts the scammer's next step from a four-step playbook.
-- **Demo Day Drop:** 44-second vertical video recorded from the real product (`docs/ruko-demo.mp4`).
+- **Demo Day Drop:** 60-second vertical video built from a real run of the product (`docs/media/ruko-60s-demo.mp4`), plus a 3-minute walkthrough.
 
 ## Business model
 B2B2C, like a credit-card fraud shield:
@@ -87,5 +87,5 @@ Solo build: product, backend, Gnani integration, risk engine, telephony, design,
 ## Links
 - Live product: https://ruko-ohn2.onrender.com (check a message: /check/, call guard: /app/, family account: /account/)
 - Code: https://github.com/aadityaa0523/ruko
-- Video: docs/ruko-demo.mp4 in the repo (also attached to the posts)
+- Video: docs/media/ruko-60s-demo.mp4 in the repo (also attached to the posts)
 - Nominated posts: [LinkedIn URL] · [X URL]
