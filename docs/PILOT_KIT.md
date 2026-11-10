@@ -29,7 +29,7 @@ For a 4-week pilot with 20–50 families **after** the Gnani challenge (the chal
 >
 > मैं भाग लेने को सहमत हूँ: ______  नाम: ______  तारीख़: ______  परिवार का सदस्य (वैकल्पिक): ______
 
-*(Hindi drafted, not yet reviewed by a native editor.)*
+*(Hindi reviewed by AI for grammar and to match the app's button text; still needs a native speaker's tick, see `TRANSLATION_REVIEW.md`.)*
 
 ## 3. Two-minute setup with each family
 1. On the family member's phone: open `/account/`, create an account, **Add** the parent ("Mummy").

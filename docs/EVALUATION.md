@@ -39,10 +39,10 @@ Hinglish, Hindi, Kannada, Telugu, Tamil and English. Each language had a scam ca
 
 ## Not tested yet
 
-- A real phone on speaker in a real room. The browser pane used for testing blocks the microphone.
+- A real phone on speaker in a real room. Tried on 10 Nov with one laptop playing and recording the calls (`eval/room.py`): the built-in microphone cancels the laptop's own speaker as echo, so the recording was garbled and 0/7 scams were caught. That setup cannot test Ruko; it needs the call playing on a second device (phone-quality WAVs of all 9 calls are generated for this).
 - A real carrier call through Twilio or Exotel. Only a simulator speaking Twilio's protocol was used.
 - Real scam recordings. The challenge allows synthetic data only.
-- A native speaker reviewing the Kannada, Telugu and Tamil warning text.
+- A native speaker signing off the warning text. Done so far: an AI language review and a Timbre-to-Prisma round trip in which every word of all 10 warnings came back correctly (`docs/TRANSLATION_REVIEW.md`).
 
 ## Message checker (SMS, WhatsApp, links)
 
