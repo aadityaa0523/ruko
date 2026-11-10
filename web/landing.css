@@ -120,8 +120,8 @@ section h2 { font-size: clamp(2rem, 4.2vw, 3.3rem); letter-spacing: -0.045em; li
 
 /* Ruko vs other categories */
 .cmp-wrap { overflow-x: auto; margin-top: 40px; border: 1px solid var(--line); border-radius: 20px; }
-.cmp { width: 100%; min-width: 660px; border-collapse: collapse; font-size: .95rem; background: var(--surface); }
-.cmp th, .cmp td { text-align: left; padding: 16px 16px; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--muted); }
+.cmp { width: 100%; min-width: 820px; border-collapse: collapse; font-size: .95rem; background: var(--surface); }
+.cmp th, .cmp td { text-align: left; padding: 14px 14px; line-height: 1.45; border-bottom: 1px solid var(--line); vertical-align: top; color: var(--muted); }
 .cmp tbody tr:last-child th, .cmp tbody tr:last-child td { border-bottom: 0; }
 .cmp thead th { font-size: .8rem; font-weight: 700; background: var(--surface-2); }
 .cmp tbody th { font-weight: 700; color: var(--text); }

@@ -8,8 +8,8 @@
 <meta name="theme-color" content="#0b0b0f">
 <link rel="icon" href="/icon.svg" type="image/svg+xml">
 <link rel="manifest" href="/manifest.webmanifest">
-<link rel="stylesheet" href="/ruko.css?v=42">
-<link rel="stylesheet" href="/landing.css?v=42">
+<link rel="stylesheet" href="/ruko.css?v=43">
+<link rel="stylesheet" href="/landing.css?v=43">
 </head>
 <body class="site">
 <header class="nav">
@@ -106,19 +106,22 @@
       <p class="section-lede" data-i18n="usp_p">Scammers buy a new SIM every day, so number lists are always a step behind. The script never changes. Ruko reads the script, in your language, on any phone, and brings your family in.</p>
       <div class="cmp-wrap">
       <table class="cmp">
-        <thead><tr><th scope="col"></th><th scope="col" class="us">Ruko</th><th scope="col">Caller-ID apps</th><th scope="col">Phone-maker AI</th><th scope="col">Telco spam filters</th></tr></thead>
+        <caption class="sr">Ruko compared with Truecaller, Airtel and Google Pixel</caption>
+        <thead><tr><th scope="col"></th><th scope="col" class="us">Ruko</th><th scope="col">Truecaller</th><th scope="col">Airtel spam &amp; fraud alerts</th><th scope="col">Google Pixel Scam Detection</th></tr></thead>
         <tbody>
-          <tr><th scope="row" data-i18n="u1">Understands what the caller says</th><td class="us yes">Yes</td><td class="no">No, checks the number</td><td class="yes">Yes</td><td class="no">No</td></tr>
-          <tr><th scope="row" data-i18n="u2">Warns before the scammer's next move</th><td class="us yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
-          <tr><th scope="row" data-i18n="u3">Works on keypad phones</th><td class="us yes">Yes (in testing)</td><td class="no">No</td><td class="no">No</td><td class="yes">Labels only</td></tr>
-          <tr><th scope="row" data-i18n="u4">10 Indian languages, incl. Hinglish</th><td class="us yes">Yes</td><td>Partly</td><td class="no">Hindi and English</td><td>n/a</td></tr>
-          <tr><th scope="row" data-i18n="u5">Family's phone turns red live</th><td class="us yes">Yes</td><td>Number-based alerts</td><td class="no">No</td><td class="no">No</td></tr>
-          <tr><th scope="row" data-i18n="u6">Checks SMS, WhatsApp, links, UPI requests</th><td class="us yes">Yes</td><td>Partly</td><td>Partly</td><td class="no">No</td></tr>
-          <tr><th scope="row" data-i18n="u7">1930 complaint ready after the call</th><td class="us yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
+          <tr><th scope="row">Understands what the caller is saying, live</th><td class="us yes">Yes, in the cloud with Gnani</td><td class="no">No, judges the number (its AI assistant can answer calls for you)</td><td class="no">No, judges calling patterns</td><td class="yes">Yes, on the phone</td></tr>
+          <tr><th scope="row">Language of the live warning</th><td class="us yes">10 Indian languages, incl. Hinglish</td><td>n/a</td><td>n/a</td><td class="no">English only so far</td></tr>
+          <tr><th scope="row">Warns about the scammer's next move</th><td class="us yes">Yes: "next they'll ask for an OTP"</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
+          <tr><th scope="row">Family sees the call go wrong, live</th><td class="us yes">Yes: their phone turns red, with what was said</td><td class="yes">Family Protection: block or end scam calls for parents</td><td class="no">No</td><td class="no">No</td></tr>
+          <tr><th scope="row">Warning before you pick up</th><td class="us">Android app, from community reports (new)</td><td class="yes">Yes, very large spam database</td><td class="yes">Yes, "Suspected spam" label</td><td class="yes">Yes, spam caller labels</td></tr>
+          <tr><th scope="row">Works on which phones</th><td class="us yes">Any phone on speaker; keypad phones by merging the call (in testing)</td><td>Smartphones with the app</td><td class="yes">Any phone, Airtel SIMs only</td><td class="no">Pixel phones only (under 1% of Indian phones)</td></tr>
+          <tr><th scope="row">Checks SMS, WhatsApp, links, UPI requests</th><td class="us yes">Yes: paste or share anything</td><td>SMS spam filter</td><td>Blocks malicious links, OTP-fraud alerts</td><td>Scam alerts in Google Messages</td></tr>
+          <tr><th scope="row">After the call</th><td class="us yes">1930 complaint ready, Chakshu report in one tap</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
+          <tr><th scope="row">Users today</th><td class="us">New: pilot stage</td><td class="yes">Hundreds of millions</td><td class="yes">Airtel's ~38 crore customers</td><td>Pixel owners</td></tr>
         </tbody>
       </table>
       </div>
-      <p class="small muted" data-i18n="usp_note">Comparison of product categories as publicly described in 2026; individual products vary.</p>
+      <p class="small muted">Based on each company's public announcements and news coverage up to November 2026; features vary by phone, plan and region. Truecaller, Airtel, Google and Pixel are trademarks of their owners; Ruko is not affiliated with them. They're stronger at scale and at blocking known numbers; Ruko is built for the call they can't see: a new number with an old script.</p>
     </div>
   </section>
 
@@ -232,9 +235,9 @@
 
 <footer id="siteFooter"></footer>
 
-<script src="/config.js?v=42"></script>
-<script src="/ruko.js?v=42"></script>
-<script src="/footer.js?v=42"></script>
-<script src="/landing.js?v=42"></script>
+<script src="/config.js?v=43"></script>
+<script src="/ruko.js?v=43"></script>
+<script src="/footer.js?v=43"></script>
+<script src="/landing.js?v=43"></script>
 </body>
 </html>
