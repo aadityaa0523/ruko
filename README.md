@@ -17,7 +17,7 @@
 ![Live calls](https://img.shields.io/badge/live_test_calls-36%2F36_correct-success?style=flat-square)
 ![Data](https://img.shields.io/badge/data-synthetic_only-lightgrey?style=flat-square)
 
-**[▶ Try the live app](https://ruko-ohn2.onrender.com)** · **[🤖 Android APK](https://github.com/aadityaa0523/ruko/releases/tag/v0.1.0-android-preview)** · **[🎬 60-second demo](docs/media/ruko-60s-demo.mp4)** · **[📄 One-page pitch](docs/PITCH.md)** · **[📊 Results](docs/EVALUATION.md)**
+**[▶ Try the live app](https://ruko-ohn2.onrender.com)** · **[🤖 Android APK](https://github.com/aadityaa0523/ruko/releases/tag/v0.1.0-android-preview)** · **[🎬 60-second demo](docs/media/ruko-60s-demo.mp4)** · **[📄 One-page pitch](docs/PITCH.md)** ([PDF](docs/Ruko-Pitch.pdf)) · **[📊 Results](docs/EVALUATION.md)**
 
 <img src="docs/media/ruko-warning.gif" width="380" alt="Real run: Ruko warns 0.65 s after the scammer says 'kisi ko mat batana', in the daughter's cloned voice, while the daughter's phone turns red">
 
